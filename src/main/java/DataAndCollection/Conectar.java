@@ -13,7 +13,7 @@ public class Conectar {
     //TODO
     public static void conectar() throws Exception {
         FileInputStream serviceAccount =
-                new FileInputStream("C:\\Users\\Manuel\\Desktop\\Proyectos poo\\Key\\fir-1-fac9c-firebase-adminsdk-i0vux-e361a8960c.json");
+                new FileInputStream("Credencials/fir-1-fac9c-firebase-adminsdk-i0vux-e361a8960c.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
