@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/ManejoDeDatos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/ManejoDeDatos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/ManejoDeDatos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeDatos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +98,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669741444516</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
+      <created>1669744759595</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1669744759595</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,12 +130,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java</url>
-          <line>160</line>
+          <line>159</line>
           <properties class="scrapping.AnimeExtractor" method="extraerDatosObrasRelacionadas">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

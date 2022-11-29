@@ -1,4 +1,4 @@
-package DataAndCollection.manejoDeDatos;
+package DataAndCollection;
 
 public class ManejoDeDatos {
 

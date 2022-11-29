@@ -15,7 +15,6 @@ public class AnimeExtractor extends Extractor{
     protected String topURL=baseSearchUrl+"topanime.php";
     protected String searchURL;
     protected List<HtmlElement> emissionDataFromTop;
-    protected List<HtmlElement> animeRowData;
     protected List<String> openingRows,endingRows;
     protected List<AnimePreview> previewsList;
 
