@@ -43,7 +43,7 @@
       <recent name="C:\Users\Manuel\Desktop\Proyectos poo\MyAnimeList\.idea" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="MyAnimeList" />
@@ -51,8 +51,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AnimeExtractorTest.extraerDatosObrasRelacionadas" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="scrapping.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="scrapping" />
+      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+      <option name="METHOD_NAME" value="extraerDatosObrasRelacionadas(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas" />
         <item itemvalue="Application.Principal" />
       </list>
     </recent_temporary>

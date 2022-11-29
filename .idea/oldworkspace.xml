@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+    <component name="AutoImportSettings">
+        <option name="autoReloadType" value="SELECTIVE" />
+    </component>
+    <component name="ChangeListManager">
+        <<<<<<< Updated upstream
+        <list default="true" id="1f06d574-158c-4cee-a167-a576f09c1409" name="Changes" comment="" />
+        =======
+        <<<<<<< Updated upstream
+        <list default="true" id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
+        <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+        <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+        <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/ManejoDeDatos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/ManejoDeDatos.java" afterDir="false" />
+        =======
+        <list default="true" id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="update">
+            <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeDetalles.java" afterDir="false" />
+            <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media.java" afterDir="false" />
+            <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+            >>>>>>> Stashed changes
+            <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
+        </list>
+        >>>>>>> Stashed changes
+        <option name="SHOW_DIALOG" value="false" />
+        <option name="HIGHLIGHT_CONFLICTS" value="true" />
+        <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+        <option name="LAST_RESOLUTION" value="IGNORE" />
+    </component>
+    <component name="FileTemplateManagerImpl">
+        <option name="RECENT_TEMPLATES">
+            <list>
+                <option value="Enum" />
+                <option value="Record" />
+                <option value="Class" />
+            </list>
+        </option>
+    </component>
+    <component name="Git.Settings">
+        <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    </component>
+    <component name="MarkdownSettingsMigration">
+        <option name="stateVersion" value="1" />
+    </component>
+    <component name="ProjectId" id="2I667cuHOAHKaIVHSfmr8GljJTp" />
+    <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+    <component name="ProjectViewState">
+        <option name="hideEmptyMiddlePackages" value="true" />
+        <option name="showLibraryContents" value="true" />
+    </component>
+    <component name="PropertiesComponent">{
+        &quot;keyToString&quot;: {
+        &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+        &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+        }
+        }</component>
+    <component name="RecentsManager">
+        <key name="MoveFile.RECENT_KEYS">
+            <recent name="C:\Users\Manuel\Desktop\Proyectos poo\MyAnimeList" />
+            <recent name="C:\Users\Manuel\Desktop\Proyectos poo\MyAnimeList\.idea" />
+        </key>
+    </component>
+    <component name="RunManager">
+        <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+            <option name="MAIN_CLASS_NAME" value="Principal" />
+            <module name="MyAnimeList" />
+            <method v="2">
+                <option name="Make" enabled="true" />
+            </method>
+        </configuration>
+        <recent_temporary>
+            <list>
+                <item itemvalue="Application.Principal" />
+            </list>
+        </recent_temporary>
+    </component>
+    <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+    <component name="TaskManager">
+        <task active="true" id="Default" summary="Default task">
+            <changelist id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="" />
+            <created>1669489522036</created>
+            <option name="number" value="Default" />
+            <option name="presentableId" value="Default" />
+            <updated>1669489522036</updated>
+        </task>
+        <task id="LOCAL-00001" summary="update">
+            <created>1669491891277</created>
+            <option name="number" value="00001" />
+            <option name="presentableId" value="LOCAL-00001" />
+            <option name="project" value="LOCAL" />
+            <updated>1669491891277</updated>
+        </task>
+        <task id="LOCAL-00002" summary="cambio al git">
+            <created>1669491635527</created>
+            <option name="number" value="00002" />
+            <option name="presentableId" value="LOCAL-00002" />
+            <option name="project" value="LOCAL" />
+            <updated>1669491635527</updated>
+        </task>
+        <task id="LOCAL-00003" summary="cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase">
+            <created>1669740959962</created>
+            <option name="number" value="00003" />
+            <option name="presentableId" value="LOCAL-00003" />
+            <option name="project" value="LOCAL" />
+            <updated>1669740959962</updated>
+        </task>
+        <task id="LOCAL-00004" summary="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
+            <created>1669741444516</created>
+            <option name="number" value="00004" />
+            <option name="presentableId" value="LOCAL-00004" />
+            <option name="project" value="LOCAL" />
+            <updated>1669741444516</updated>
+        </task>
+        <task id="LOCAL-00005" summary="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
+            <created>1669744759595</created>
+            <option name="number" value="00005" />
+            <option name="presentableId" value="LOCAL-00005" />
+            <option name="project" value="LOCAL" />
+            <updated>1669744759595</updated>
+        </task>
+        <option name="localTasksCounter" value="6" />
+        <servers />
+    </component>
+    <component name="Vcs.Log.Tabs.Properties">
+        <option name="TAB_STATES">
+            <map>
+                <entry key="MAIN">
+                    <value>
+                        <State />
+                    </value>
+                </entry>
+            </map>
+        </option>
+    </component>
+    <component name="VcsManagerConfiguration">
+        <MESSAGE value="update" />
+        <MESSAGE value="cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase" />
+        <MESSAGE value="cambios&#10;- adicion de mas clases para la funcionalidad del programa" />
+        <option name="LAST_COMMIT_MESSAGE" value="cambios&#10;- adicion de mas clases para la funcionalidad del programa" />
+    </component>
+    <component name="XDebuggerManager">
+        <breakpoint-manager>
+            <breakpoints>
+                <line-breakpoint enabled="true" type="java-method">
+                    <url>file://$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java</url>
+                    <line>159</line>
+                    <properties class="scrapping.AnimeExtractor" method="extraerDatosObrasRelacionadas">
+                        <option name="EMULATED" value="true" />
+                        <option name="WATCH_EXIT" value="false" />
+                    </properties>
+                    <option name="timeStamp" value="2" />
+                </line-breakpoint>
+                <line-breakpoint enabled="true" type="java-line">
+                    <url>file://$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java</url>
+                    <line>50</line>
+                    <option name="timeStamp" value="3" />
+                </line-breakpoint>
+            </breakpoints>
+        </breakpoint-manager>
+    </component>
+</project>

@@ -6,9 +6,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import javax.imageio.ImageReader;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.IntStream;
 
 public class AnimeExtractor extends Extractor{
 
@@ -20,10 +19,18 @@ public class AnimeExtractor extends Extractor{
 
     public AnimeExtractor() {
         previewsList=new ArrayList<>();
+
     }
 
     public void collectFromTop(){
         setupTopPage(topURL);
+        extractTopTags();
+        getAnchors();
+
+        //client.close();
+    }
+    public void collectFromTop(String targetURL){
+        setupTopPage(targetURL);
         extractTopTags();
         getAnchors();
 
@@ -157,11 +164,22 @@ public class AnimeExtractor extends Extractor{
         }
     }
 
-    public void extraerDatosObrasRelacionadas(HtmlElement articulo){
+    public Map<String,String> extraerDatosObrasRelacionadas(HtmlElement articulo){
         if (contieneObrasRelacionadas(articulo)){
+            Map<String,String> relMediaMap=new HashMap<>();
+            List<HtmlElement> tempRelatedMediaList= articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath);
+            tempRelatedMediaList.stream()
+                    .forEach(relatedMediaType->
+                    {
+                        String[] splitRelMedia=relatedMediaType.asNormalizedText().split(": ");
+                        relMediaMap.put(splitRelMedia[0],splitRelMedia[1]);
+                    });
+            return relMediaMap;
+
 
         }
         else{
+            return null;
 
         }
 
@@ -207,6 +225,39 @@ public class AnimeExtractor extends Extractor{
         //openingRows.addAll(tablaEndings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));
         ArrayList<HtmlElement> tempEndingRows =new ArrayList<>(tablaEndings.getByXPath(AnimeXpaths.relAnimeDetailsEndingsRows.xpath));
         tempEndingRows.stream().forEach(edRow -> endingRows.add(edRow.getVisibleText()));
+    }
+
+    public void crearAnimeDetalles(){
+
+    }
+
+    public void obtenerDetallesDeEmision(AnimeDetalles objetivo){
+        usableInformationElements.stream().forEach(infoRow->{
+            String[] infoPair=infoRow.getVisibleText().split(":",0);
+            agregarAHashMapAnime(objetivo,infoPair);
+
+        });
+
+    }
+    public void agregarAHashMapAnime(AnimeDetalles anime,String[] detallesSeparados){
+        try {
+            anime.infoEmision.put(detallesSeparados[0], detallesSeparados[1]);
+        }
+        catch (IndexOutOfBoundsException exception){
+            System.err.println("No existe un par en "+detallesSeparados[0]);
+        }
+    }
+
+
+    public void extraerVariasPaginasTop(int numPaginas){
+        IntStream.range(1,numPaginas+1).forEach(pageNumber->{
+            String urlObjetivo=baseSearchUrl+convertirPaginaTopAUrl(pageNumber);
+            collectFromTop(urlObjetivo);
+        });
+    }
+
+    public void pasarPaginaTop(){
+
     }
 
 
