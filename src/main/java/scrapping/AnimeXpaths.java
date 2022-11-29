@@ -17,7 +17,7 @@ public enum AnimeXpaths {
     relAnimeDetailsOpeningsRows("table/tbody/*"),
     relAnimeDetailsEndingsTable("//div[@class=\"theme-songs js-theme-songs ending\"]"),
     relAnimeDetailsEndingsRows("table/tbody/*"),
-    relAnimeDetailsRelatedMediaTable("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[3]/td/table[@class=\"anime_detail_related_anime\"]/*"),
+    relAnimeDetailsRelatedMediaTable("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[3]/td/table[@class=\"anime_detail_related_anime\"]/tbody/tr"),
 
     relAnimeDetailsGetAllRelatedMediaTable("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[3]/td/table[@class=\"anime_detail_related_anime\"]/*"),
     relAnimeDetailsRelatedMediaHeader("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[3]/td/div[1]/h2"),

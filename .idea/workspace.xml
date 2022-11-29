@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f06d574-158c-4cee-a167-a576f09c1409" name="Changes" comment="" />
+    <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeXpaths.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeXpaths.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -144,7 +150,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java</url>
           <line>159</line>
-          <properties class="scrapping.AnimeExtractor" method="extraerDatosObrasRelacionadas">
+          <properties class="scrapping.AnimeExtractor">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
