@@ -1,6 +1,6 @@
 package DataAndCollection.manejoDeDatos;
 
-public class ModifyData {
+public class ManejoDeDatos {
 
     public void deleteData(){
 

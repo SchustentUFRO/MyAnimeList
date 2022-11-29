@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="actulizacion al gui">
-      <change afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/ModifyData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/WriteData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/readData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/JFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/guiLogin/JFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/JLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/guiLogin/JLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/guiDesing.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/guiLogin/guiDesing.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/guiDesing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/guiLogin/guiDesing.java" afterDir="false" />
+    <list default="true" id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase">
+      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/ModifyData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/ManejoDeDatos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/WriteData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/readData.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +84,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669491635527</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase">
+      <created>1669740959962</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669740959962</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -106,6 +107,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase" />
+    <option name="LAST_COMMIT_MESSAGE" value="cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase" />
   </component>
 </project>
