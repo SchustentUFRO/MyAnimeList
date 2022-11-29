@@ -12,14 +12,12 @@ import java.util.List;
 
 public class AnimeExtractor extends Extractor{
 
-    String topURL=baseSearchUrl+"topanime.php";
-    String searchURL;
-    List<HtmlElement> emissionDataFromTop;
-    List<HtmlElement> animeRowData;
-    List<String> openingRows,endingRows;
-    List<AnimePreview> previewsList;
-
-    String animexpathTitleRowsInTop="//html/body/div[1]/div[2]/div[3]/div[2]/div[4]/table/tbody/tr[@class=\"ranking-list\"]",animexpathTitleLinkFromTop="td[2]/div/div[2]/h3/a";
+    protected String topURL=baseSearchUrl+"topanime.php";
+    protected String searchURL;
+    protected List<HtmlElement> emissionDataFromTop;
+    protected List<HtmlElement> animeRowData;
+    protected List<String> openingRows,endingRows;
+    protected List<AnimePreview> previewsList;
 
     public AnimeExtractor() {
         previewsList=new ArrayList<>();
@@ -62,7 +60,7 @@ public class AnimeExtractor extends Extractor{
     }
 
 
-    public String definirCategoria(String datosEmision){
+    public String definirCategoria(String datosEmision){ //saca el top
         List<String> categoriasList= Arrays.asList(new String[]{"TV","OVA","Movie","ONA"});
         return categoriasList.stream()
                 .filter(categoriaIndiv->datosEmision.contains(categoriaIndiv))
