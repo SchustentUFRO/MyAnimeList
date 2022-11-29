@@ -171,7 +171,8 @@ public class AnimeExtractor extends Extractor{
             tempRelatedMediaList.stream()
                     .forEach(relatedMediaType->
                     {
-                        String[] splitRelMedia=relatedMediaType.getVisibleText().split(": ",2);
+                        //System.out.println("relatedMediaType.asNormalizedText() = " + relatedMediaType.asNormalizedText());
+                        String[] splitRelMedia=relatedMediaType.asNormalizedText().split(":",2);
                         relMediaMap.put(splitRelMedia[0],splitRelMedia[1]);
                     });
             return relMediaMap;

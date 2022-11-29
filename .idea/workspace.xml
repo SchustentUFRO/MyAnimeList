@@ -7,9 +7,9 @@
     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeXpaths.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeXpaths.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,10 +49,26 @@
       <recent name="C:\Users\Manuel\Desktop\Proyectos poo\MyAnimeList\.idea" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas">
+  <component name="RunManager" selected="JUnit.AnimeExtractorTest.checkOpeningExtraction">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="MyAnimeList" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AnimeExtractorTest.checkOpeningExtraction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="scrapping.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="scrapping" />
+      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+      <option name="METHOD_NAME" value="checkOpeningExtraction(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -73,9 +89,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AnimeExtractorTest.extraerDatosSinObrasRelacionadas" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="scrapping.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="scrapping" />
+      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+      <option name="METHOD_NAME" value="extraerDatosSinObrasRelacionadas" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AnimeExtractorTest.checkOpeningExtraction" />
         <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas" />
+        <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosSinObrasRelacionadas" />
         <item itemvalue="Application.Principal" />
       </list>
     </recent_temporary>
@@ -83,7 +117,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="" />
+      <changelist id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="cambios&#10;- adicion de mas clases para la funcionalidad del programa" />
       <created>1669489522036</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
