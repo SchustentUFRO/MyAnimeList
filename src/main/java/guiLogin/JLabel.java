@@ -1,4 +1,4 @@
-package gui;
+package guiLogin;
 
 public class JLabel {
 

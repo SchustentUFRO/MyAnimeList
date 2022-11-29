@@ -4,15 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimePreview.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" afterDir="false" />
+    <list default="true" id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="actulizacion al gui">
+      <change afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/ModifyData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/WriteData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/manejoDeDatos/readData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/JFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/guiLogin/JFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/JLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/guiLogin/JLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/guiDesing.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/guiLogin/guiDesing.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/guiDesing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/guiLogin/guiDesing.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,9 +23,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
