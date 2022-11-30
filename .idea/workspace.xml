@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
+      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeXpaths.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeXpaths.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Extractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/Extractor.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +52,7 @@
       <recent name="C:\Users\Manuel\Desktop\Proyectos poo\MyAnimeList\.idea" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AnimeExtractorTest.checkOpeningExtraction">
+  <component name="RunManager" selected="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="MyAnimeList" />
@@ -107,8 +110,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AnimeExtractorTest.checkOpeningExtraction" />
         <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas" />
+        <item itemvalue="JUnit.AnimeExtractorTest.checkOpeningExtraction" />
         <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosSinObrasRelacionadas" />
         <item itemvalue="Application.Principal" />
       </list>
@@ -177,25 +180,5 @@
     <MESSAGE value="cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase" />
     <MESSAGE value="cambios&#10;- adicion de mas clases para la funcionalidad del programa" />
     <option name="LAST_COMMIT_MESSAGE" value="cambios&#10;- adicion de mas clases para la funcionalidad del programa" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java</url>
-          <line>159</line>
-          <properties class="scrapping.AnimeExtractor">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

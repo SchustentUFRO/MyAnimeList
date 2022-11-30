@@ -1,7 +1,7 @@
 package scrapping;
 
 public enum AnimeXpaths {
-    animeRowInTop("/html/body/div[1]/div[2]/div[3]/div[2]/div[4]/table/tbody/tr[@class=\"ranking-list\"]"),
+    mediaRowInTop("/html/body/div[1]/div[2]/div[3]/div[2]/div[4]/table/tbody/tr[@class=\"ranking-list\"]"),
     relTitleAnimeInTop("td[2]/div/div[2]"),
     relHrefToAnimeInTop("td[2]/div/div[2]/h3/a"),
     relRankingNumberAnimeInTop("td[1]/span"),

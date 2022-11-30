@@ -71,7 +71,7 @@ public abstract class Extractor {
 
     public void extractTopTags(){
         //igual para top manga y anime
-        topRowsOfMedia =new ArrayList<>(topPage.getByXPath("//html/body/div[1]/div[2]/div[3]/div[2]/div[4]/table/tbody/tr[@class=\"ranking-list\"]"));
+        topRowsOfMedia =new ArrayList<>(topPage.getByXPath(AnimeXpaths.mediaRowInTop.xpath));
     }
 
     public void getTags(){

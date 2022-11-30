@@ -40,8 +40,6 @@ public class AnimeExtractor extends Extractor{
 
     public void formarPreviewsPagTop(){
         topRowsOfMedia.stream().forEach(animeRow->previewsList.add(formarRecordPreview(animeRow)));
-
-
     }
 
     public AnimePreview formarRecordPreview(HtmlElement animeRow){
@@ -67,7 +65,7 @@ public class AnimeExtractor extends Extractor{
 
 
     public String definirCategoria(String datosEmision){ //saca el top
-        List<String> categoriasList= Arrays.asList(new String[]{"TV","OVA","Movie","ONA"});
+        List<String> categoriasList= Arrays.asList("TV","OVA","Movie","ONA");
         return categoriasList.stream()
                 .filter(categoriaIndiv->datosEmision.contains(categoriaIndiv))
                 .findFirst()
@@ -196,7 +194,6 @@ public class AnimeExtractor extends Extractor{
         endingRows=new ArrayList<>();
         extractOpenings(article);
         extractEndings(article);
-
     }
     public void extractOpenings(HtmlElement article){
         extraerTableOpenings(article);
