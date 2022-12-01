@@ -1,6 +1,6 @@
-package scrapping.DetailedMedia;
+package scrapping.Media.DetailedMedia;
 
-import scrapping.PreviewRecords.MangaPreviewTop;
+import scrapping.Media.Preview.MangaPreviewTop;
 
 public class MangaMedia extends Media{
     public MangaMedia(int id, String nombre, int posRanking, double puntuacion, String link){

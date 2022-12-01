@@ -1,4 +1,4 @@
-package scrapping.PreviewRecords;
+package scrapping.Media.Preview;
 
 public record AnimePreviewTop(int id, String nombre, String tipo, int posicionRanking, double puntuacion, String link) {
     public AnimePreviewTop(int id, String nombre, String tipo, int posicionRanking, double puntuacion, String link) {

@@ -1,6 +1,6 @@
-package scrapping.DetailedMedia;
+package scrapping.Media.DetailedMedia;
 
-import scrapping.PreviewRecords.AnimePreviewTop;
+import scrapping.Media.Preview.AnimePreviewTop;
 
 import java.util.HashMap;
 import java.util.Map;

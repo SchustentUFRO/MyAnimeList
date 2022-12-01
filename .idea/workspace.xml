@@ -7,12 +7,7 @@
     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeMedia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/DetailedMedia/AnimeMedia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimePreview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/PreviewRecords/AnimePreviewTop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/MangaMedia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/DetailedMedia/MangaMedia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/MangaPreview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/PreviewRecords/MangaPreviewTop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/DetailedMedia/Media.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +52,7 @@
       <module name="MyAnimeList" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="scrapping.PreviewRecords.*" />
+          <option name="PATTERN" value="scrapping.Media.PreviewRecords.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -89,7 +84,7 @@
       <module name="MyAnimeList" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="scrapping.PreviewRecords.*" />
+          <option name="PATTERN" value="scrapping.Media.PreviewRecords.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -105,7 +100,7 @@
       <module name="MyAnimeList" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="scrapping.PreviewRecords.*" />
+          <option name="PATTERN" value="scrapping.Media.PreviewRecords.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -121,7 +116,7 @@
       <module name="MyAnimeList" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="scrapping.PreviewRecords.*" />
+          <option name="PATTERN" value="scrapping.Media.PreviewRecords.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

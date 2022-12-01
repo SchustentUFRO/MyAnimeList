@@ -1,4 +1,4 @@
-package scrapping.DetailedMedia;
+package scrapping.Media.DetailedMedia;
 
 public abstract class Media implements Comparable<Media> {
     int id;

@@ -1,8 +1,8 @@
 package scrapping;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import scrapping.DetailedMedia.AnimeMedia;
-import scrapping.PreviewRecords.AnimePreviewTop;
+import scrapping.Media.DetailedMedia.AnimeMedia;
+import scrapping.Media.Preview.AnimePreviewTop;
 
 import javax.imageio.ImageReader;
 import java.awt.image.BufferedImage;
@@ -13,6 +13,7 @@ import java.util.stream.IntStream;
 public class AnimeExtractor extends Extractor{
 
     protected String topURL=baseSearchUrl+"topanime.php";
+    int numeroPaginaEnTop;
     protected String searchURL;
     protected List<HtmlElement> emissionDataFromTop;
     protected List<String> openingRows,endingRows;
@@ -20,6 +21,7 @@ public class AnimeExtractor extends Extractor{
 
     public AnimeExtractor() {
         previewsList=new ArrayList<>();
+        numeroPaginaEnTop=1;
 
     }
 
@@ -167,24 +169,26 @@ public class AnimeExtractor extends Extractor{
 
     public Map<String,String> extraerDatosObrasRelacionadas(HtmlElement articulo){
         if (contieneObrasRelacionadas(articulo)){
-            Map<String,String> relMediaMap=new HashMap<>();
-            List<HtmlElement> tempRelatedMediaList= articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath);
-            tempRelatedMediaList.stream()
-                    .forEach(relatedMediaType->
-                    {
-                        //System.out.println("relatedMediaType.asNormalizedText() = " + relatedMediaType.asNormalizedText());
-                        String[] splitRelMedia=relatedMediaType.asNormalizedText().split(":",2);
-                        relMediaMap.put(splitRelMedia[0],splitRelMedia[1]);
-                    });
+            Map<String,String> relMediaMap=obtenerObrasRelacionadasEnMap(articulo);
             return relMediaMap;
-
-
         }
         else{
             return null;
-
         }
-//tengo que cambiar esto por una funcion para meter al hashmap
+    }
+
+
+    private Map<String,String> obtenerObrasRelacionadasEnMap(HtmlElement articulo){
+        Map<String,String> tempRelMediaMap=new HashMap<>();
+        List<HtmlElement> tempRelatedMediaList= articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath);
+        tempRelatedMediaList.stream()
+                .forEach(relatedMediaType->
+                {
+                    //System.out.println("relatedMediaType.asNormalizedText() = " + relatedMediaType.asNormalizedText());
+                    String[] splitRelMedia=relatedMediaType.asNormalizedText().split(":",2);
+                    tempRelMediaMap.put(splitRelMedia[0],splitRelMedia[1]);
+                });
+        return tempRelMediaMap;
     }
 
 
@@ -290,6 +294,22 @@ public class AnimeExtractor extends Extractor{
             String urlObjetivo=baseSearchUrl+convertirPaginaTopAUrl(pageNumber);
             collectFromTop(urlObjetivo);
         });
+    }
+
+    public void regresararPaginaTop(){
+        if (numeroPaginaEnTop>1) {
+            numeroPaginaEnTop--;
+            String nuevaURLTop = topURL + convertirPaginaTopAUrl(numeroPaginaEnTop);
+        }
+        else {
+            System.err.println("Intentando acceder a página menor a 1");
+        }
+    }
+
+    public void avanzarPaginaTop(){
+        numeroPaginaEnTop++;
+        String nuevaURLTop=topURL+convertirPaginaTopAUrl(numeroPaginaEnTop);
+
     }
 
 
