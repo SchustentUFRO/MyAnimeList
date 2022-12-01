@@ -16,6 +16,11 @@ public class MangaExtractor extends Extractor{
     public MangaExtractor() {
         typeOfMediaUrl+="manga/";
         anchorXpathRef=MangaXpaths.relHrefToMangaInTop.xpath;
+        searchCat="&cat=manga";
+        numeroPaginaEnTop=1;
+        topURL+="topmanga.php";
+        searchType="manga.php?q=";
+        categoriasList=Arrays.asList("Manga","Light Novel","Novel","Manhwa","Manhua","Doujinshi","One-shot");
     }
 
     public void collectFromTop(){
@@ -64,13 +69,6 @@ public class MangaExtractor extends Extractor{
     }
 
 
-    public String definirCategoria(String datosEmision){ //saca el top
-        List<String> categoriasList= Arrays.asList("Manga","Light Novel","Novel","Manhwa","Manhua","Doujinshi","One-shot");
-        return categoriasList.stream()
-                .filter(categoriaIndiv->datosEmision.contains(categoriaIndiv))
-                .findFirst()
-                .get();
-    }
 
 
     public int obtenerNumeroRank(HtmlElement mangaPreview){
@@ -89,10 +87,6 @@ public class MangaExtractor extends Extractor{
             String urlObjetivo=baseSearchUrl+convertirPaginaTopAUrl(pageNumber);
             collectFromTop(urlObjetivo);
         });
-    }
-    public String convertirPaginaTopAUrl(int paginas){
-        //String numeroPag=paginas==1?"":"?limit="+((paginas-1)*50);
-        return paginas==1?"":"?limit="+((paginas-1)*50);
     }
 
 

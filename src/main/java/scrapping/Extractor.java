@@ -6,40 +6,40 @@ import com.gargoylesoftware.htmlunit.html.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Extractor {
-    String xpathTitleRowsInTop,xpathTitleLinkFromTop;
+    String topURL,pageTopURL,searchType;
 
 
-    String anchorXpathRef,typeOfMediaUrl;
+    String anchorXpathRef,searchCat,searchRowXpath,searchElementNameXpath,SearchElementTypeXpath,
+    searchElementScoreXpath;
     WebClient client;
-    HtmlPage topPage;
+    HtmlPage topPage,searchPage;
     HtmlPage articlePage;
 
     HtmlImage previewImage;
 
-    String baseSearchUrl="https://myanimelist.net/";
+    int numeroPaginaEnTop;
+    String baseSearchUrl="https://myanimelist.net/",searchURL,typeOfMediaUrl;
 
-    List<HtmlElement> topRowsOfMedia;
-    List<String> articlesURLs;
+    List<HtmlElement> topRowsOfMedia,searchRowsOfMedia;
+    List<String> articlesURLs,categoriasList;
     List<HtmlElement> rawInformationElements, usableInformationElements;
     List<HtmlElement> articleTags;
 
 
 
     public Extractor() {
+        topURL=baseSearchUrl;
         typeOfMediaUrl=baseSearchUrl;
         articlesURLs =new ArrayList<>();
         client=new WebClient(BrowserVersion.FIREFOX_ESR);
-        //evitar errores/advertencias raras.
-        //client.getOptions().setThrowExceptionOnScriptError(false);
-        //client.getOptions().setPrintContentOnFailingStatusCode(false);
-        //client.getOptions().setThrowExceptionOnScriptError(false);
 
 
 
-        client.getOptions().setUseInsecureSSL(true);
+        //client.getOptions().setUseInsecureSSL(true);
         client.getOptions().setCssEnabled(false);
         client.getOptions().setJavaScriptEnabled(false);
     }
@@ -109,6 +109,63 @@ public abstract class Extractor {
         String[] idYnombre=descartarURLbase[1].split("/",2);
         return Integer.parseInt(idYnombre[0]);
     }
+
+    public String definirCategoria(String datosEmision){ //saca el top
+        String preliminaryResult=categoriasList.stream()
+                .filter(categoriaIndiv->datosEmision.contains(categoriaIndiv)).reduce("", String::concat);
+        return preliminaryResult.equals("")?"Other":preliminaryResult;
+    }
+
+    public void regresararPaginaTop(){
+        if (numeroPaginaEnTop>1) {
+            numeroPaginaEnTop--;
+            pageTopURL = topURL + convertirPaginaTopAUrl(numeroPaginaEnTop);
+        }
+        else {
+            System.err.println("Intentando acceder a página menor a 1");
+        }
+    }
+
+    public void avanzarPaginaTop(){
+        numeroPaginaEnTop++;
+        pageTopURL=topURL+convertirPaginaTopAUrl(numeroPaginaEnTop);
+
+    }
+
+    public String convertirPaginaTopAUrl(int paginas){
+        //String numeroPag=paginas==1?"":"?limit="+((paginas-1)*50);
+        return paginas==1?"":"?limit="+((paginas-1)*50);
+    }
+
+    //busquedas
+    public void createSearchURL(String searchTerm){
+        searchURL=baseSearchUrl+searchType+searchTerm+searchCat;
+        System.out.println(searchURL);
+    }
+
+    public void realizarBusqueda(){
+        prepararPaginaBusqueda();
+        obtenerFilasBusqueda();
+    }
+
+
+    private void prepararPaginaBusqueda(){
+        searchPage=setupPage(searchURL);
+
+    }
+    private void prepararPaginaBusqueda(String urlBusqueda){
+        searchPage=setupPage(urlBusqueda);
+
+    }
+
+    public void obtenerFilasBusqueda(){
+        List<HtmlElement> tempSearchRowsOfMedia=new ArrayList<>(searchPage.getByXPath(searchRowXpath));
+        searchRowsOfMedia=tempSearchRowsOfMedia.subList(1,tempSearchRowsOfMedia.size());
+    }
+
+
+
+
 
 
 

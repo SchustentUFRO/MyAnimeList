@@ -12,13 +12,14 @@ public record AnimePreviewTop(int id, String nombre, String tipo, int posicionRa
 
     @Override
     public String toString() {
-        return "Anime Preview: " +
-                "id='"+id+"\'"+
+        return "AnimePreviewTop{" +
+                "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", tipo='" + tipo + '\'' +
                 ", posicionRanking=" + posicionRanking +
                 ", puntuacion=" + puntuacion +
-                '}';
+                ", link='" + link + '\'' +
+                "}\n";
     }
 
     @Override

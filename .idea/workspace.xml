@@ -5,23 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/AnimePreviewSearch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/MediaManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/MediaManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/AnimePreviewSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/AnimePreviewSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/AnimePreviewTop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/AnimePreviewTop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/DetailedMedia/AnimeMedia.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/DetailedMedia/MangaMedia.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/DetailedMedia/Media.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/PreviewRecords/AnimePreviewTop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/PreviewRecords/MangaPreviewTop.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/MangaExtractorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/MangaExtractorTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Media/Preview/AnimePreviewSearch.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/Media/Preview/AnimePreviewSearch.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Media/Preview/AnimePreviewTop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/Media/Preview/AnimePreviewTop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Media/Preview/MangaPreviewSearch.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/Media/Preview/MangaPreviewSearch.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,24 +70,8 @@
       <recent name="scrapping" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MangaExtractorTest.formarPreviewsTop50">
-    <configuration name="AnimeExtractorTest.checkEndingExtraction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyAnimeList" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="scrapping.Media.PreviewRecords.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="scrapping" />
-      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
-      <option name="METHOD_NAME" value="checkEndingExtraction(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AnimeExtractorTest.extraerDatosObrasRelacionadas" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.AnimeExtractorTest.extraerInfoBusquedaTerminoCompuesto">
+    <configuration name="AnimeExtractorTest.extraerInfoBusquedaJojo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyAnimeList" />
       <extension name="coverage">
         <pattern>
@@ -98,29 +81,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="scrapping" />
       <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
-      <option name="METHOD_NAME" value="extraerDatosObrasRelacionadas(java.lang.String)" />
+      <option name="METHOD_NAME" value="extraerInfoBusquedaJojo" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AnimeExtractorTest.testTieneEmisoras" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyAnimeList" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="scrapping.Media.PreviewRecords.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="scrapping" />
-      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
-      <option name="METHOD_NAME" value="testTieneEmisoras" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MangaExtractorTest.collectFromTop" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AnimeExtractorTest.extraerInfoBusquedaTerminoCompuesto" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyAnimeList" />
       <extension name="coverage">
         <pattern>
@@ -129,8 +96,40 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="scrapping" />
-      <option name="MAIN_CLASS_NAME" value="scrapping.MangaExtractorTest" />
-      <option name="METHOD_NAME" value="collectFromTop" />
+      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+      <option name="METHOD_NAME" value="extraerInfoBusquedaTerminoCompuesto" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AnimeExtractorTest.formarPreviewsTop50" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="scrapping.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="scrapping" />
+      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+      <option name="METHOD_NAME" value="formarPreviewsTop50" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AnimeExtractorTest.transformarNumPagAURL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="scrapping.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="scrapping" />
+      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+      <option name="METHOD_NAME" value="transformarNumPagAURL(java.lang.String,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -154,11 +153,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AnimeExtractorTest.extraerInfoBusquedaTerminoCompuesto" />
+        <item itemvalue="JUnit.AnimeExtractorTest.extraerInfoBusquedaJojo" />
+        <item itemvalue="JUnit.AnimeExtractorTest.formarPreviewsTop50" />
+        <item itemvalue="JUnit.AnimeExtractorTest.transformarNumPagAURL" />
         <item itemvalue="JUnit.MangaExtractorTest.formarPreviewsTop50" />
-        <item itemvalue="JUnit.MangaExtractorTest.collectFromTop" />
-        <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas" />
-        <item itemvalue="JUnit.AnimeExtractorTest.checkEndingExtraction" />
-        <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisoras" />
       </list>
     </recent_temporary>
   </component>

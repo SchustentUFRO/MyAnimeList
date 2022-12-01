@@ -25,7 +25,12 @@ public enum AnimeXpaths {
     relAnimeDetailsRelatedMediaHeader("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[3]/td/div[1]/h2"),
     relAnimeDetailsGeneralInfo("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[1]/div/*"),
     relAnimeImportantGeneralInfoDetails("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[1]/div/h2[2]"),
-    relAnimeEndofImportantGeneralInfoDetails("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[1]/div/h2[3]");
+    relAnimeEndofImportantGeneralInfoDetails("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[1]/div/h2[3]"),
+    relAnimeSearchResultRows("/html/body/div[1]/div[2]/div[3]/div[2]/div[6]/table/tbody/tr"),
+    relAnimeSearchTitle("td[2]/div[1]"),
+    relAnimeSearchHref("td[2]/div[1]/a"),
+    relAnimeSearchEmissionType("td[3]"),
+    relAnimeSearchScore("td[5]");
 
     final String xpath;
 

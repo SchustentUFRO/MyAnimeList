@@ -99,6 +99,24 @@ class AnimeExtractorTest {
         System.out.println(animuExtractor.formarRecordPreview(animuExtractor.topRowsOfMedia.get(1)));
         assertNotNull(animuExtractor.formarRecordPreview(animuExtractor.topRowsOfMedia.get(1)));
     }
+    @ParameterizedTest
+    @ValueSource(strings = {"unknown","Unknown","AAAAA"})
+    void categoriasDesconocidasDebenRetornarOther(String categoria){
+        assertEquals("Other",animuExtractor.definirCategoria(categoria));
+
+    }
+
+    @Test
+    void categoriaTVretornaTV(){
+        assertEquals("TV",animuExtractor.definirCategoria("TV"));
+    }
+
+    @Test
+    void formarPreviewsTop50(){
+        animuExtractor.collectFromTop();
+        System.out.println(animuExtractor.formarPreviewsPagTop());
+        assertFalse(animuExtractor.formarPreviewsPagTop().isEmpty());
+    }
 
     @Test
     void testTieneEmisoras(){
@@ -114,5 +132,29 @@ class AnimeExtractorTest {
         System.out.println(animuExtractor.obtenerEmisorasDelAnime());
         assertNotEquals(0,animuExtractor.obtenerEmisorasDelAnime().size());
     }
+
+    @ParameterizedTest
+    @CsvSource({"1,''","2,?limit=50","3,?limit=100","4,?limit=150","5,?limit=200"})
+    void transformarNumPagAURL(String numPaginaString,String resultado){
+        int numPagina=Integer.parseInt(numPaginaString);
+        assertEquals(resultado,animuExtractor.convertirPaginaTopAUrl(numPagina));
+    }
+
+    @Test
+    void extraerInfoBusquedaUnaPalabra(){
+        String termino="jojo";
+        animuExtractor.createSearchURL(termino);
+        animuExtractor.realizarBusqueda();
+        animuExtractor.pasarTodasFilasAPreview();
+    }
+
+    @Test
+    void extraerInfoBusquedaTerminoCompuesto(){
+        String termino="shoujo shuumatsu";
+        animuExtractor.createSearchURL(termino);
+        animuExtractor.realizarBusqueda();
+        animuExtractor.pasarTodasFilasAPreview();
+    }
+
 
 }

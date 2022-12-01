@@ -25,7 +25,6 @@ class MangaExtractorTest {
         System.out.println(mangoExtractor.topRowsOfMedia);
         System.out.println(mangoExtractor.articlesURLs);
         assertFalse(mangoExtractor.topRowsOfMedia.isEmpty());
-
     }
 
     @Test

@@ -1,8 +1,11 @@
 package scrapping;
 
+import com.gargoylesoftware.htmlunit.html.Html;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import scrapping.Media.DetailedMedia.AnimeMedia;
 import scrapping.Media.MediaManager;
+import scrapping.Media.Preview.AnimePreviewSearch;
 import scrapping.Media.Preview.AnimePreviewTop;
 
 import javax.imageio.ImageReader;
@@ -13,9 +16,7 @@ import java.util.stream.IntStream;
 
 public class AnimeExtractor extends Extractor{
 
-    protected String topURL=baseSearchUrl+"topanime.php";
-    int numeroPaginaEnTop;
-    protected String searchURL;
+
     protected List<HtmlElement> emissionDataFromTop;
     protected List<String> openingRows,endingRows;
     //protected List<AnimePreviewTop> previewsList;
@@ -24,7 +25,12 @@ public class AnimeExtractor extends Extractor{
         //previewsList=new ArrayList<>();
         anchorXpathRef=AnimeXpaths.relHrefToAnimeInTop.xpath;
         typeOfMediaUrl+="anime/";
+        searchCat="&cat=anime";
         numeroPaginaEnTop=1;
+        topURL+="topanime.php";
+        searchType="anime.php?q=";
+        searchRowXpath=AnimeXpaths.relAnimeSearchResultRows.xpath;
+        categoriasList=Arrays.asList("TV","OVA","Movie","ONA","Special");
 
     }
 
@@ -78,13 +84,6 @@ public class AnimeExtractor extends Extractor{
     }
 
 
-    public String definirCategoria(String datosEmision){ //saca el top
-        List<String> categoriasList= Arrays.asList("TV","OVA","Movie","ONA");
-        return categoriasList.stream()
-                .filter(categoriaIndiv->datosEmision.contains(categoriaIndiv))
-                .findFirst()
-                .get();
-    }
 
 
     public int obtenerNumeroRank(HtmlElement animePreview){
@@ -306,38 +305,46 @@ public class AnimeExtractor extends Extractor{
         });
     }
 
-    public void regresararPaginaTop(){
-        if (numeroPaginaEnTop>1) {
-            numeroPaginaEnTop--;
-            String nuevaURLTop = topURL + convertirPaginaTopAUrl(numeroPaginaEnTop);
-        }
-        else {
-            System.err.println("Intentando acceder a página menor a 1");
-        }
-    }
+    public void pasarTodasFilasAPreview(){
+        List<AnimePreviewSearch> searchPreviewList=new ArrayList<>();
+        searchRowsOfMedia.stream().forEach(searchRow->searchPreviewList.add(pasarFilaSearchAPreview(searchRow)));
+        System.out.println(searchPreviewList);
 
-    public void avanzarPaginaTop(){
-        numeroPaginaEnTop++;
-        String nuevaURLTop=topURL+convertirPaginaTopAUrl(numeroPaginaEnTop);
 
     }
 
+    public AnimePreviewSearch pasarFilaSearchAPreview(HtmlElement filaBusqueda){
+        String url=obtenerLinkBusqueda(filaBusqueda);
+        int id=obtenerID(url);
+        String tipoEmision=obtenerTipoEmisionBusqueda(filaBusqueda);
+        String nombre=obtenerNombreBusqueda(filaBusqueda);
+        double puntuacion=obtenerPuntajeBusqueda(filaBusqueda);
+        return new AnimePreviewSearch(id,nombre,tipoEmision,puntuacion,url);
+
+    }
+
+    public String obtenerNombreBusqueda(HtmlElement filaBusqueda){
+        String tempNombre=((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchTitle.xpath)).asNormalizedText();
+        tempNombre=tempNombre.replace(" add","");
+        return tempNombre;
+    }
+
+    public String obtenerLinkBusqueda(HtmlElement filaBusqueda){
+
+        return ((HtmlAnchor) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchHref.xpath)).getHrefAttribute();
+    }
 
 
+    public double obtenerPuntajeBusqueda(HtmlElement filaBusqueda){
+        String puntajeString=((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchScore.xpath)).asNormalizedText();
+        return puntajeString.equals("N/A")?0.0:Double.parseDouble(puntajeString);
+    }
 
-
-    public String convertirPaginaTopAUrl(int paginas){
-        //String numeroPag=paginas==1?"":"?limit="+((paginas-1)*50);
-        return paginas==1?"":"?limit="+((paginas-1)*50);
+    public String obtenerTipoEmisionBusqueda(HtmlElement filaBusqueda){
+        return ((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchEmissionType.xpath)).asNormalizedText();
     }
 
 
 
-
-
-    public void createSearchURL(String searchTerm){
-        searchURL=baseSearchUrl+"anime.php?q="+searchTerm+"&cat=anime";
-        System.out.println(searchURL);
-    }
 }
 
