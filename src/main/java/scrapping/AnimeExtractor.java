@@ -2,6 +2,7 @@ package scrapping;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import scrapping.Media.DetailedMedia.AnimeMedia;
+import scrapping.Media.MediaManager;
 import scrapping.Media.Preview.AnimePreviewTop;
 
 import javax.imageio.ImageReader;
@@ -17,10 +18,12 @@ public class AnimeExtractor extends Extractor{
     protected String searchURL;
     protected List<HtmlElement> emissionDataFromTop;
     protected List<String> openingRows,endingRows;
-    protected List<AnimePreviewTop> previewsList;
+    //protected List<AnimePreviewTop> previewsList;
 
     public AnimeExtractor() {
-        previewsList=new ArrayList<>();
+        //previewsList=new ArrayList<>();
+        anchorXpathRef=AnimeXpaths.relHrefToAnimeInTop.xpath;
+        typeOfMediaUrl+="anime/";
         numeroPaginaEnTop=1;
 
     }
@@ -40,9 +43,16 @@ public class AnimeExtractor extends Extractor{
         //client.close();
     }
 
+    public void pasarPreviewsAMediaManager(){
+        List<AnimePreviewTop> tempPreviewsList=formarPreviewsPagTop();
+        tempPreviewsList.stream().forEach(MediaManager::agregarAnimePreviewTopALista);
+    }
 
-    public void formarPreviewsPagTop(){
-        topRowsOfMedia.stream().forEach(animeRow->previewsList.add(formarRecordPreview(animeRow)));
+
+    public List<AnimePreviewTop> formarPreviewsPagTop(){
+        List<AnimePreviewTop> tempPreviewsList=new ArrayList<>();
+        topRowsOfMedia.stream().forEach(animeRow->tempPreviewsList.add(formarRecordPreview(animeRow)));
+        return tempPreviewsList;
     }
 
     public AnimePreviewTop formarRecordPreview(HtmlElement animeRow){
@@ -144,9 +154,9 @@ public class AnimeExtractor extends Extractor{
         usableInformationElements.stream().forEach(infoRow-> System.out.println(infoRow.getVisibleText()));
     }
 
-    public void getPreviewsTodos(){
+    /*public void getPreviewsTodos(){
         previewsList.stream().forEach(preview-> System.out.println("["+preview.posicionRanking()+"] "+preview));
-    }
+    }*/
 
     public void obtenerYMostrarImagenPreview(HtmlElement columna){
         obtenerImagen(columna);
@@ -321,11 +331,7 @@ public class AnimeExtractor extends Extractor{
         return paginas==1?"":"?limit="+((paginas-1)*50);
     }
 
-    public int obtenerID(String url){
-        String[] descartarURLbase=url.split(baseSearchUrl+"anime/",2);
-        String[] idYnombre=descartarURLbase[1].split("/",2);
-        return Integer.parseInt(idYnombre[0]);
-    }
+
 
 
 

@@ -12,7 +12,7 @@ public abstract class Extractor {
     String xpathTitleRowsInTop,xpathTitleLinkFromTop;
 
 
-    String mediaRankXpath="div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[1]/td/div[1]/div[1]/div[1]/div[1]/div[2]/span[1]/strong";
+    String anchorXpathRef,typeOfMediaUrl;
     WebClient client;
     HtmlPage topPage;
     HtmlPage articlePage;
@@ -29,6 +29,7 @@ public abstract class Extractor {
 
 
     public Extractor() {
+        typeOfMediaUrl=baseSearchUrl;
         articlesURLs =new ArrayList<>();
         client=new WebClient(BrowserVersion.FIREFOX_ESR);
         //evitar errores/advertencias raras.
@@ -89,7 +90,7 @@ public abstract class Extractor {
 
 
     public HtmlAnchor extractAnchorFromTitleInTop(HtmlElement element){
-        HtmlAnchor anchor=((HtmlAnchor) element.getFirstByXPath(AnimeXpaths.relHrefToAnimeInTop.xpath));
+        HtmlAnchor anchor=((HtmlAnchor) element.getFirstByXPath(anchorXpathRef));
         return anchor;
     }
 
@@ -101,6 +102,12 @@ public abstract class Extractor {
 
     public void addToArticlesArray(String targetURL){
         articlesURLs.add(targetURL);
+    }
+
+    public int obtenerID(String url){
+        String[] descartarURLbase=url.split(typeOfMediaUrl,2);
+        String[] idYnombre=descartarURLbase[1].split("/",2);
+        return Integer.parseInt(idYnombre[0]);
     }
 
 
