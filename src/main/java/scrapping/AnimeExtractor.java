@@ -1,6 +1,5 @@
 package scrapping;
 
-import com.gargoylesoftware.htmlunit.html.Html;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 import javax.imageio.ImageReader;
@@ -43,8 +42,9 @@ public class AnimeExtractor extends Extractor{
     }
 
     public AnimePreview formarRecordPreview(HtmlElement animeRow){
+        String urlAnime=getHrefFromAnchor(animeRow);
 
-        return new AnimePreview(obtenerNombreAnimePreview(animeRow),obtenerCategoriaAnime(animeRow),obtenerNumeroRank(animeRow),obtenerNumeroPuntos(animeRow),getHrefFromAnchor(animeRow));
+        return new AnimePreview(obtenerID(urlAnime),obtenerNombreAnimePreview(animeRow),obtenerCategoriaAnime(animeRow),obtenerNumeroRank(animeRow),obtenerNumeroPuntos(animeRow),urlAnime);
     }
 
     public String obtenerNombreAnimePreview(HtmlElement animePreview){
@@ -88,7 +88,7 @@ public class AnimeExtractor extends Extractor{
         obtenerInformacionImportanteAnime();
     }
 
-    private void obtenerInformacionImportanteAnime(){
+    public void obtenerInformacionImportanteAnime(){
         getAnimeImportantInformationRaw();
         formarListaInfoImportante();
     }
@@ -107,11 +107,9 @@ public class AnimeExtractor extends Extractor{
 
 
     public int buscarPosicionInicioInformacionRelevante(){
-        System.out.println(rawInformationElements.size());;
+        System.out.println(rawInformationElements.size());
         HtmlElement elementoBuscado =(HtmlElement) articleTags.get(0).getByXPath(AnimeXpaths.relAnimeImportantGeneralInfoDetails.xpath).get(0);
         System.out.println(rawInformationElements);
-        //List<HtmlElement> elementoBuscado=new ArrayList<>(elementoClave.getByXPath(Xpaths.relAnimeImportantGeneralInfoDetails.xpath));
-        //System.out.println(elementoBuscado.get(0).getVisibleText());
 
         return rawInformationElements.indexOf(elementoBuscado);
     }
@@ -126,17 +124,20 @@ public class AnimeExtractor extends Extractor{
 
 
 
-    public void ponerInfoImportanteEnMaps(){
-        //usableInformationElements.stream().map()
+    public Map<String,String> ponerInfoImportanteEnMaps(List<HtmlElement> listaInfoImportante){
+        Map<String,String> importantInfoPairs=new HashMap<>();
+        usableInformationElements.stream().forEach(importantInfoRow->
+        {
+            String[] separatedImportantInfo =importantInfoRow.asNormalizedText().split(":",2);
+            importantInfoPairs.put(separatedImportantInfo[0], separatedImportantInfo[1]);
+
+        });
+        return importantInfoPairs;
     }
 
 
     public void mostrarInformacionImportante(){
         usableInformationElements.stream().forEach(infoRow-> System.out.println(infoRow.getVisibleText()));
-    }
-
-    public String getAnimeNameFromTop(HtmlElement elemento){
-        return ((HtmlElement) elemento.getByXPath(AnimeXpaths.relTitleAnimeInTop.xpath).get(0)).getVisibleText();
     }
 
     public void getPreviewsTodos(){
@@ -181,8 +182,37 @@ public class AnimeExtractor extends Extractor{
             return null;
 
         }
-
+//tengo que cambiar esto por una funcion para meter al hashmap
     }
+
+
+    public List<String> obtenerEmisorasDelAnime(){
+        List<HtmlElement> emisoras=articleTags.get(0).getByXPath(AnimeXpaths.relAnimeDetailsRowBroadcast.xpath);
+        List<String> stringEmisoras=new ArrayList<>();
+        if (tieneEmisoras(emisoras)){
+            emisoras.stream().forEach(emisoraElement-> stringEmisoras.add(emisoraElement.asNormalizedText()));
+            return stringEmisoras;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public List<String> obtenerEmisorasDelAnime(HtmlElement anime){
+        List<HtmlElement> emisoras=anime.getByXPath(AnimeXpaths.relAnimeDetailsBroadcasters.xpath);
+        List<String> stringEmisoras=new ArrayList<>();
+        if (tieneEmisoras(emisoras)){
+            emisoras.stream().forEach(emisoraElement-> stringEmisoras.add(emisoraElement.asNormalizedText()));
+            return stringEmisoras;
+        }
+        else {
+            return null;
+        }
+    }
+    private boolean tieneEmisoras(List<HtmlElement> emisoras){
+        return !emisoras.isEmpty();
+    }
+
 
     public boolean contieneObrasRelacionadas(HtmlElement articulo){
         return !articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath).isEmpty();
@@ -229,7 +259,7 @@ public class AnimeExtractor extends Extractor{
 
     }
 
-    public void obtenerDetallesDeEmision(AnimeDetalles objetivo){
+    public void obtenerDetallesDeEmision(AnimeMedia objetivo){
         usableInformationElements.stream().forEach(infoRow->{
             String[] infoPair=infoRow.getVisibleText().split(":",0);
             agregarAHashMapAnime(objetivo,infoPair);
@@ -237,7 +267,7 @@ public class AnimeExtractor extends Extractor{
         });
 
     }
-    public void agregarAHashMapAnime(AnimeDetalles anime,String[] detallesSeparados){
+    public void agregarAHashMapAnime(AnimeMedia anime, String[] detallesSeparados){
         try {
             anime.infoEmision.put(detallesSeparados[0], detallesSeparados[1]);
         }
@@ -263,6 +293,12 @@ public class AnimeExtractor extends Extractor{
     public String convertirPaginaTopAUrl(int paginas){
         //String numeroPag=paginas==1?"":"?limit="+((paginas-1)*50);
         return paginas==1?"":"?limit="+((paginas-1)*50);
+    }
+
+    public int obtenerID(String url){
+        String[] descartarURLbase=url.split(baseSearchUrl+"anime/",2);
+        String[] idYnombre=descartarURLbase[1].split("/",2);
+        return Integer.parseInt(idYnombre[0]);
     }
 
 

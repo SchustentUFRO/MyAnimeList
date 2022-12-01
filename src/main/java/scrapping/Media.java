@@ -1,12 +1,14 @@
 package scrapping;
 
 public abstract class Media implements Comparable<Media> {
+    int id;
     String nombre;
     int posicionRanking;
     double puntuacion;
     String link;
 
-    public Media(String nombre, int posicionRanking, double puntuacion, String link) {
+    public Media(int id,String nombre, int posicionRanking, double puntuacion, String link) {
+        this.id=id;
         this.nombre = nombre;
         this.posicionRanking = posicionRanking;
         this.puntuacion = puntuacion;

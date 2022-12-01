@@ -10,6 +10,8 @@ public enum AnimeXpaths {
     relPreviewCoverImageInTop("td[2]/a/img"),
     animeDetailsBase("/html/body"),
     relAnimeDetailsTitle("div[1]/div[2]/div[3]/div[1]/div/div[1]/div/h1/strong"),
+    relAnimeDetailsBroadcasters("//div[@class=\"pb16 broadcasts\"]/*"),
+    relAnimeDetailsRowBroadcast("//div[@class=\"broadcast\"]/*"),
     relAnimeDetailsRank("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[1]/td/div[1]/div[1]/div[1]/div[1]/div[2]/span[1]/strong"),
     relAnimeDetailsScore("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[1]/td/div[1]/div[1]/div[1]/div[1]/div[1]/div"),
     relAnimeDetailsPopularity("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[1]/td/div[1]/div[1]/div[1]/div[1]/div[2]/span[2]/strong"),

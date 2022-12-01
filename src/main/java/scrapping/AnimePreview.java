@@ -1,7 +1,8 @@
 package scrapping;
 
-public record AnimePreview(String nombre,String tipo, int posicionRanking, double puntuacion,String link) {
-    public AnimePreview(String nombre, String tipo, int posicionRanking, double puntuacion,String link) {
+public record AnimePreview(int id,String nombre,String tipo, int posicionRanking, double puntuacion,String link) {
+    public AnimePreview(int id,String nombre, String tipo, int posicionRanking, double puntuacion,String link) {
+        this.id=id;
         this.nombre = nombre;
         this.tipo = tipo;
         this.posicionRanking = posicionRanking;
@@ -12,7 +13,8 @@ public record AnimePreview(String nombre,String tipo, int posicionRanking, doubl
     @Override
     public String toString() {
         return "Anime Preview: " +
-                "nombre='" + nombre + '\'' +
+                "id='"+id+"\'"+
+                ", nombre='" + nombre + '\'' +
                 ", tipo='" + tipo + '\'' +
                 ", posicionRanking=" + posicionRanking +
                 ", puntuacion=" + puntuacion +
