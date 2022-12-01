@@ -1,6 +1,8 @@
 package scrapping;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import scrapping.DetailedMedia.AnimeMedia;
+import scrapping.PreviewRecords.AnimePreviewTop;
 
 import javax.imageio.ImageReader;
 import java.awt.image.BufferedImage;
@@ -14,7 +16,7 @@ public class AnimeExtractor extends Extractor{
     protected String searchURL;
     protected List<HtmlElement> emissionDataFromTop;
     protected List<String> openingRows,endingRows;
-    protected List<AnimePreview> previewsList;
+    protected List<AnimePreviewTop> previewsList;
 
     public AnimeExtractor() {
         previewsList=new ArrayList<>();
@@ -41,10 +43,10 @@ public class AnimeExtractor extends Extractor{
         topRowsOfMedia.stream().forEach(animeRow->previewsList.add(formarRecordPreview(animeRow)));
     }
 
-    public AnimePreview formarRecordPreview(HtmlElement animeRow){
+    public AnimePreviewTop formarRecordPreview(HtmlElement animeRow){
         String urlAnime=getHrefFromAnchor(animeRow);
 
-        return new AnimePreview(obtenerID(urlAnime),obtenerNombreAnimePreview(animeRow),obtenerCategoriaAnime(animeRow),obtenerNumeroRank(animeRow),obtenerNumeroPuntos(animeRow),urlAnime);
+        return new AnimePreviewTop(obtenerID(urlAnime),obtenerNombreAnimePreview(animeRow),obtenerCategoriaAnime(animeRow),obtenerNumeroRank(animeRow),obtenerNumeroPuntos(animeRow),urlAnime);
     }
 
     public String obtenerNombreAnimePreview(HtmlElement animePreview){
@@ -255,7 +257,9 @@ public class AnimeExtractor extends Extractor{
         tempEndingRows.stream().forEach(edRow -> endingRows.add(edRow.getVisibleText()));
     }
 
-    public void crearAnimeDetalles(){
+    public AnimeMedia crearAnimeDetalles(AnimePreviewTop preview){
+
+        return new AnimeMedia(preview);
 
     }
 
@@ -269,11 +273,15 @@ public class AnimeExtractor extends Extractor{
     }
     public void agregarAHashMapAnime(AnimeMedia anime, String[] detallesSeparados){
         try {
-            anime.infoEmision.put(detallesSeparados[0], detallesSeparados[1]);
+            anime.agregarInfoEmision(detallesSeparados[0],detallesSeparados[1]);
         }
         catch (IndexOutOfBoundsException exception){
-            System.err.println("No existe un par en "+detallesSeparados[0]);
+            System.err.println("No existe un par en "+Arrays.toString(detallesSeparados));
         }
+    }
+
+    public void formarAnimeDetalle(){
+
     }
 
 
@@ -284,9 +292,7 @@ public class AnimeExtractor extends Extractor{
         });
     }
 
-    public void pasarPaginaTop(){
 
-    }
 
 
 

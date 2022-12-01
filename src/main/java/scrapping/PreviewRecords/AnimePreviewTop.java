@@ -1,7 +1,7 @@
-package scrapping;
+package scrapping.PreviewRecords;
 
-public record AnimePreview(int id,String nombre,String tipo, int posicionRanking, double puntuacion,String link) {
-    public AnimePreview(int id,String nombre, String tipo, int posicionRanking, double puntuacion,String link) {
+public record AnimePreviewTop(int id, String nombre, String tipo, int posicionRanking, double puntuacion, String link) {
+    public AnimePreviewTop(int id, String nombre, String tipo, int posicionRanking, double puntuacion, String link) {
         this.id=id;
         this.nombre = nombre;
         this.tipo = tipo;

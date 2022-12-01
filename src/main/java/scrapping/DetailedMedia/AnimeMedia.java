@@ -1,4 +1,6 @@
-package scrapping;
+package scrapping.DetailedMedia;
+
+import scrapping.PreviewRecords.AnimePreviewTop;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +19,7 @@ public class AnimeMedia extends Media{
         infoEmision=new HashMap<>();
     }
 
-    public AnimeMedia(AnimePreview preview) {
+    public AnimeMedia(AnimePreviewTop preview) {
         super(preview.id(),preview.nombre(), preview.posicionRanking(), preview.puntuacion(), preview.link());
         this.tipo=preview.tipo();
         infoEmision=new HashMap<>();

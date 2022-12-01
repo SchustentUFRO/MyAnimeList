@@ -59,7 +59,7 @@ class AnimeExtractorTest {
     @ValueSource(strings = {"https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood","https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers","https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime","https://myanimelist.net/anime/33010/FLCL_Progressive?q=flcl%20prog&cat=anime"})
     void checkEndingExtraction(String url) {
         animuExtractor.extractDataFromArticle(url);
-        System.out.println(animuExtractor.articleTags);
+        //System.out.println(animuExtractor.articleTags);
         animuExtractor.extraerMusica(animuExtractor.articleTags.get(0));
         System.out.println("animu.endingRows = " + animuExtractor.endingRows);
         assertFalse(animuExtractor.endingRows.isEmpty());
