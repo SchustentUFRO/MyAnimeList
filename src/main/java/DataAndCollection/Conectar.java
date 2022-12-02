@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 
 
 public class Conectar {
-    //TODO
+    static Firestore db;
     public static void conectar() throws Exception {
         FileInputStream serviceAccount =
                 new FileInputStream("Credencials/fir-1-fac9c-firebase-adminsdk-i0vux-e361a8960c.json");
@@ -20,9 +20,12 @@ public class Conectar {
                 .build();
         FirebaseApp.initializeApp(options);
 
-        Firestore db = FirestoreClient.getFirestore();
+        db = FirestoreClient.getFirestore();
         System.out.println("exito");
 
     }
 
+    public static Firestore getDb() {
+        return db;
+    }
 }
