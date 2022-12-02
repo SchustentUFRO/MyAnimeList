@@ -20,7 +20,7 @@ public class Conectar {
                 .build();
         FirebaseApp.initializeApp(options);
 
-        Firestore bd = FirestoreClient.getFirestore();
+        Firestore db = FirestoreClient.getFirestore();
         System.out.println("exito");
 
     }
