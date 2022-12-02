@@ -1,0 +1,176 @@
+Index: src/main/java/DataAndCollection/Conectar.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package DataAndCollection;\r\n\r\nimport com.google.auth.oauth2.GoogleCredentials;\r\nimport com.google.cloud.firestore.*;\r\nimport com.google.firebase.FirebaseApp;\r\nimport com.google.firebase.FirebaseOptions;\r\nimport com.google.firebase.cloud.FirestoreClient;\r\n\r\nimport java.io.FileInputStream;\r\n\r\n\r\npublic class Conectar {\r\n    //TODO\r\n    public static void conectar() throws Exception {\r\n        FileInputStream serviceAccount =\r\n                new FileInputStream(\"Credencials/fir-1-fac9c-firebase-adminsdk-i0vux-e361a8960c.json\");\r\n\r\n        FirebaseOptions options = new FirebaseOptions.Builder()\r\n                .setCredentials(GoogleCredentials.fromStream(serviceAccount))\r\n                .build();\r\n        FirebaseApp.initializeApp(options);\r\n\r\n        Firestore bd = FirestoreClient.getFirestore();\r\n        System.out.println(\"exito\");\r\n\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/DataAndCollection/Conectar.java b/src/main/java/DataAndCollection/Conectar.java
+--- a/src/main/java/DataAndCollection/Conectar.java	(revision dc828d6b85c93ce9fdbdd0b1a15c81daf62c290e)
++++ b/src/main/java/DataAndCollection/Conectar.java	(date 1669916864869)
+@@ -20,7 +20,7 @@
+                 .build();
+         FirebaseApp.initializeApp(options);
+ 
+-        Firestore bd = FirestoreClient.getFirestore();
++        Firestore db = FirestoreClient.getFirestore();
+         System.out.println("exito");
+ 
+     }
+Index: src/main/java/DataAndCollection/RegistrarUsuario.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package DataAndCollection;\r\n\r\npublic class RegistrarUsuario {\r\n    private String user;\r\n    private String password;\r\n\r\n    public RegistrarUsuario (String user, String password){\r\n        this.user=user;\r\n        this.password=password;\r\n    }\r\n\r\n    public void registrarUsuario(){\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/DataAndCollection/RegistrarUsuario.java b/src/main/java/DataAndCollection/RegistrarUsuario.java
+--- a/src/main/java/DataAndCollection/RegistrarUsuario.java	(revision dc828d6b85c93ce9fdbdd0b1a15c81daf62c290e)
++++ b/src/main/java/DataAndCollection/RegistrarUsuario.java	(date 1669922096146)
+@@ -1,5 +1,12 @@
+ package DataAndCollection;
+ 
++import com.google.api.core.ApiFuture;
++import com.google.cloud.firestore.CollectionReference;
++import com.google.cloud.firestore.Firestore;
++import com.google.firebase.cloud.FirestoreClient;
++import com.google.firestore.v1.Write;
++import com.google.firestore.v1.WriteResult;
++
+ public class RegistrarUsuario {
+     private String user;
+     private String password;
+@@ -9,7 +16,8 @@
+         this.password=password;
+     }
+ 
+-    public void registrarUsuario(){
+-
++    public void registrarUsuario(String user, String password){
++        Firestore db = FirestoreClient.getFirestore();
++        CollectionReference collectionReference = db.collection("users");
+     }
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2bb1cd44-2640-47b6-9bf4-2e813eedbd86\" name=\"Changes\" comment=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/AnimePreviewSearch.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewSearch.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/scrapping/Extractor.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/scrapping/Extractor.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/scrapping/MangaExtractor.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/scrapping/MangaExtractor.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/scrapping/Media/MediaManager.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/scrapping/Media/MediaManager.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/scrapping/DetailedMedia/AnimeMedia.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/scrapping/DetailedMedia/MangaMedia.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/scrapping/DetailedMedia/Media.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/scrapping/PreviewRecords/AnimePreviewTop.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/scrapping/PreviewRecords/MangaPreviewTop.class\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Record\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"JUnit5 Test Class\" />\r\n        <option value=\"Enum\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2I667cuHOAHKaIVHSfmr8GljJTp\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary\": \"JUnit5\",\r\n    \"com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5\": \"\",\r\n    \"create.test.in.the.same.root\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Manuel\\Desktop\\Proyectos poo\\MyAnimeList\" />\r\n      <recent name=\"C:\\Users\\Manuel\\Desktop\\Proyectos poo\\MyAnimeList\\.idea\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.Recents.Supers\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.RecentsKey\">\r\n      <recent name=\"scrapping\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"JUnit.MangaExtractorTest.formarPreviewsTop50\">\r\n    <configuration name=\"AnimeExtractorTest.checkEndingExtraction\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.Media.PreviewRecords.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.AnimeExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"checkEndingExtraction(java.lang.String)\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AnimeExtractorTest.extraerDatosObrasRelacionadas\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.AnimeExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"extraerDatosObrasRelacionadas(java.lang.String)\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AnimeExtractorTest.testTieneEmisoras\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.Media.PreviewRecords.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.AnimeExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"testTieneEmisoras\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MangaExtractorTest.collectFromTop\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.MangaExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"collectFromTop\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MangaExtractorTest.formarPreviewsTop50\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.MangaExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"formarPreviewsTop50\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"JUnit.MangaExtractorTest.formarPreviewsTop50\" />\r\n        <item itemvalue=\"JUnit.MangaExtractorTest.collectFromTop\" />\r\n        <item itemvalue=\"JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas\" />\r\n        <item itemvalue=\"JUnit.AnimeExtractorTest.checkEndingExtraction\" />\r\n        <item itemvalue=\"JUnit.AnimeExtractorTest.testTieneEmisoras\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2bb1cd44-2640-47b6-9bf4-2e813eedbd86\" name=\"Changes\" comment=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\" />\r\n      <created>1669489522036</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1669489522036</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"update\">\r\n      <created>1669491891277</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669491891277</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"cambio al git\">\r\n      <created>1669491635527</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669491635527</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase\">\r\n      <created>1669740959962</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669740959962</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\">\r\n      <created>1669741444516</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669741444516</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\">\r\n      <created>1669744759595</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669744759595</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"6\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"update\" />\r\n    <MESSAGE value=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase\" />\r\n    <MESSAGE value=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision dc828d6b85c93ce9fdbdd0b1a15c81daf62c290e)
++++ b/.idea/workspace.xml	(date 1669932872826)
+@@ -4,24 +4,10 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="cambios&#10;- adicion de mas clases para la funcionalidad del programa">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/AnimePreviewSearch.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewSearch.java" afterDir="false" />
++    <list default="true" id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="cambios&#10;se quita todo lo de swing">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractor.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/MediaManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/MediaManager.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/DetailedMedia/AnimeMedia.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/DetailedMedia/MangaMedia.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/DetailedMedia/Media.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/PreviewRecords/AnimePreviewTop.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/PreviewRecords/MangaPreviewTop.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/RegistrarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/RegistrarUsuario.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -39,7 +25,21 @@
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="PUSH_AUTO_UPDATE" value="true" />
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
++  </component>
++  <component name="HighlightingSettingsPerFile">
++    <setting file="file://$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/DataAndCollection/RegistrarUsuario.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/Principal.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/guiLogin/JFrame.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java" root0="FORCE_HIGHLIGHTING" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -56,7 +56,8 @@
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+-    "create.test.in.the.same.root": "true"
++    "create.test.in.the.same.root": "true",
++    "last_opened_file_path": "C:/Users/Manuel/OneDrive/Universidad/Semestre 2022(1)/Programacion orientada a objetos/POO proyectos 2022 semestre 1/ProyectoPOO-clon"
+   }
+ }]]></component>
+   <component name="RecentsManager">
+@@ -71,7 +72,7 @@
+       <recent name="scrapping" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="JUnit.MangaExtractorTest.formarPreviewsTop50">
++  <component name="RunManager" selected="JUnit.AnimeExtractorTest.testTieneEmisorasFF">
+     <configuration name="AnimeExtractorTest.checkEndingExtraction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="MyAnimeList" />
+       <extension name="coverage">
+@@ -104,17 +105,16 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="AnimeExtractorTest.testTieneEmisoras" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+-      <module name="MyAnimeList" />
++    <configuration name="AnimeExtractorTest.testTieneEmisorasFF" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="scrapping.Media.PreviewRecords.*" />
++          <option name="PATTERN" value="scrapping.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+       <option name="PACKAGE_NAME" value="scrapping" />
+       <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+-      <option name="METHOD_NAME" value="testTieneEmisoras" />
++      <option name="METHOD_NAME" value="testTieneEmisorasFF" />
+       <option name="TEST_OBJECT" value="method" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+@@ -154,11 +154,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisorasFF" />
+         <item itemvalue="JUnit.MangaExtractorTest.formarPreviewsTop50" />
+         <item itemvalue="JUnit.MangaExtractorTest.collectFromTop" />
+         <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas" />
+         <item itemvalue="JUnit.AnimeExtractorTest.checkEndingExtraction" />
+-        <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisoras" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -224,6 +224,7 @@
+     <MESSAGE value="update" />
+     <MESSAGE value="cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase" />
+     <MESSAGE value="cambios&#10;- adicion de mas clases para la funcionalidad del programa" />
+-    <option name="LAST_COMMIT_MESSAGE" value="cambios&#10;- adicion de mas clases para la funcionalidad del programa" />
++    <MESSAGE value="cambios&#10;se quita todo lo de swing" />
++    <option name="LAST_COMMIT_MESSAGE" value="cambios&#10;se quita todo lo de swing" />
+   </component>
+ </project>
+\ No newline at end of file
