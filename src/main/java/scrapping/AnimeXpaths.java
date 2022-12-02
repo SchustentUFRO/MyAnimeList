@@ -19,6 +19,8 @@ public enum AnimeXpaths {
     relAnimeDetailsOpeningsRows("table/tbody/*"),
     relAnimeDetailsEndingsTable("//div[@class=\"theme-songs js-theme-songs ending\"]"),
     relAnimeDetailsEndingsRows("table/tbody/*"),
+    relAnimeDetailsStaffTable("//div[@class=\"detail-characters-list clearfix\"]"),
+    relAnimeDetailsStaffIndividualTable("div/table"),
     relAnimeDetailsRelatedMediaTable("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[3]/td/table[@class=\"anime_detail_related_anime\"]/tbody/tr"),
 
     relAnimeDetailsGetAllRelatedMediaTable("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[2]/div[1]/table/tbody/tr[3]/td/table[@class=\"anime_detail_related_anime\"]/*"),
@@ -27,7 +29,7 @@ public enum AnimeXpaths {
     relAnimeImportantGeneralInfoDetails("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[1]/div/h2[2]"),
     relAnimeEndofImportantGeneralInfoDetails("div[1]/div[2]/div[3]/div[2]/table/tbody/tr/td[1]/div/h2[3]"),
     relAnimeSearchResultRows("/html/body/div[1]/div[2]/div[3]/div[2]/div[6]/table/tbody/tr"),
-    relAnimeSearchTitle("td[2]/div[1]"),
+    relAnimeSearchTitle("td[2]/div[1]/a[1]/strong"),
     relAnimeSearchHref("td[2]/div[1]/a"),
     relAnimeSearchEmissionType("td[3]"),
     relAnimeSearchScore("td[5]");
