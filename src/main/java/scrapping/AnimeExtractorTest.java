@@ -156,5 +156,11 @@ class AnimeExtractorTest {
         animuExtractor.pasarTodasFilasAPreview();
     }
 
+    @Test
+    void extraerInfoStaff(){
+        animuExtractor.extractDataFromArticle("https://myanimelist.net/anime/666/JoJo_no_Kimyou_na_Bouken");
+        System.out.println(animuExtractor.extraerInfoStaff(animuExtractor.articleTags.get(0)));
+    }
+
 
 }

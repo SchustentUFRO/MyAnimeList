@@ -293,6 +293,32 @@ public class AnimeExtractor extends Extractor{
         }
     }
 
+    public Map<String,String> extraerInfoStaff(HtmlElement articleBody){
+        List<HtmlElement> tablaStaff=articleBody.getByXPath(AnimeXpaths.relAnimeDetailsStaffTable.xpath);
+        List<HtmlElement> tablasSeparadas=tablaStaff.get(1).getByXPath(AnimeXpaths.relAnimeDetailsStaffIndividualTable.xpath);
+        List<String> stringStaff=pasarHtmlElementStaffAString(tablasSeparadas);
+
+
+        return pasarInformacionStaffAMap(stringStaff);
+    }
+
+    private List<String> pasarHtmlElementStaffAString(List<HtmlElement> tablasSeparadasStaff){
+        List<String> tempStringStaff=new ArrayList<>();
+        tablasSeparadasStaff.stream().forEach(tabla->tempStringStaff.add(tabla.asNormalizedText()));
+        return tempStringStaff;
+    }
+
+    private Map<String,String> pasarInformacionStaffAMap(List<String> staffAsString){
+        Map<String,String> tempStaffCargo=new HashMap<>();
+        staffAsString.stream()
+                .forEach(stringDeStaff->
+                {
+                    String[] nombreCargo=stringDeStaff.split("\n",2);
+                    tempStaffCargo.put(nombreCargo[0],nombreCargo[1]);
+                });
+        return tempStaffCargo;
+    }
+
     public void formarAnimeDetalle(){
 
     }
@@ -325,7 +351,6 @@ public class AnimeExtractor extends Extractor{
 
     public String obtenerNombreBusqueda(HtmlElement filaBusqueda){
         String tempNombre=((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchTitle.xpath)).asNormalizedText();
-        tempNombre=tempNombre.replace(" add","");
         return tempNombre;
     }
 
