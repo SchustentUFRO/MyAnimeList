@@ -93,26 +93,10 @@
       <recent name="scrapping" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Principal">
+  <component name="RunManager" selected="JUnit.AnimeExtractorTest.testTieneEmisoras">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="MyAnimeList" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AnimeExtractorTest.checkEndingExtraction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyAnimeList" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="scrapping.Media.PreviewRecords.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="scrapping" />
-      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
-      <option name="METHOD_NAME" value="checkEndingExtraction(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -128,6 +112,22 @@
       <option name="PACKAGE_NAME" value="scrapping" />
       <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
       <option name="METHOD_NAME" value="extraerDatosObrasRelacionadas(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AnimeExtractorTest.testTieneEmisoras" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="scrapping.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="scrapping" />
+      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+      <option name="METHOD_NAME" value="testTieneEmisoras" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -167,11 +167,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisoras" />
         <item itemvalue="Application.Principal" />
         <item itemvalue="JUnit.MangaExtractorTest.formarPreviewsTop50" />
         <item itemvalue="JUnit.MangaExtractorTest.collectFromTop" />
         <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas" />
-        <item itemvalue="JUnit.AnimeExtractorTest.checkEndingExtraction" />
       </list>
     </recent_temporary>
   </component>

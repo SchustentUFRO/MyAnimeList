@@ -1,8 +1,11 @@
 package scrapping;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import err.ExcepcionDeConexion;
+import err.MalFormatoURL;
 import scrapping.Media.Preview.MangaPreviewTop;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,14 +26,42 @@ public class MangaExtractor extends Extractor{
         categoriasList=Arrays.asList("Manga","Light Novel","Novel","Manhwa","Manhua","Doujinshi","One-shot");
     }
 
-    public void collectFromTop(){
+
+
+    public void startCollectFromTop(){
+        try{
+            collectFromTop();
+        }
+        catch (ExcepcionDeConexion ioEx){
+            System.out.println(ioEx);
+        }
+        catch (MalFormatoURL urlEx){
+            System.out.println(urlEx);
+        }
+    }
+
+    public void startCollectFromTop(String targetURL){
+        try{
+            collectFromTop(targetURL);
+        }
+        catch (ExcepcionDeConexion ioEx){
+            System.out.println(ioEx);
+        }
+        catch (MalFormatoURL urlEx){
+            System.out.println(urlEx);
+        }
+    }
+
+
+
+    private void collectFromTop() throws ExcepcionDeConexion,MalFormatoURL {
         setupTopPage(topURL);
         extractTopTags();
         getAnchors();
 
         //client.close();
     }
-    public void collectFromTop(String targetURL){
+    private void collectFromTop(String targetURL) throws ExcepcionDeConexion,MalFormatoURL{
         setupTopPage(targetURL);
         extractTopTags();
         getAnchors();
@@ -85,7 +116,7 @@ public class MangaExtractor extends Extractor{
     public void extraerVariasPaginasTop(int numPaginas){
         IntStream.range(1,numPaginas+1).forEach(pageNumber->{
             String urlObjetivo=baseSearchUrl+convertirPaginaTopAUrl(pageNumber);
-            collectFromTop(urlObjetivo);
+            startCollectFromTop(urlObjetivo);
         });
     }
 
