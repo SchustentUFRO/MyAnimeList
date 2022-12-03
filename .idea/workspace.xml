@@ -93,7 +93,7 @@
       <recent name="scrapping" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas">
+  <component name="RunManager" selected="Application.Principal">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="MyAnimeList" />
@@ -167,10 +167,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas" />
         <item itemvalue="Application.Principal" />
         <item itemvalue="JUnit.MangaExtractorTest.formarPreviewsTop50" />
         <item itemvalue="JUnit.MangaExtractorTest.collectFromTop" />
+        <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas" />
         <item itemvalue="JUnit.AnimeExtractorTest.checkEndingExtraction" />
       </list>
     </recent_temporary>

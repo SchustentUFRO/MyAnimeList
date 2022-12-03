@@ -3,9 +3,6 @@ package scrapping;
 import com.gargoylesoftware.htmlunit.html.Html;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import err.ExcepcionDeConexion;
-import err.MalFormatoURL;
-import org.apache.commons.lang3.ObjectUtils;
 import scrapping.Media.DetailedMedia.AnimeMedia;
 import scrapping.Media.MediaManager;
 import scrapping.Media.Preview.AnimePreviewSearch;
@@ -37,72 +34,36 @@ public class AnimeExtractor extends Extractor{
 
     }
 
-    public void startCollectFromTop(){
-        try{
-            collectFromTop();
-        }
-        catch (ExcepcionDeConexion ioEx){
-            System.out.println(ioEx);
-        }
-        catch (MalFormatoURL urlEx){
-            System.out.println(urlEx);
-        }
-    }
+    public void collectFromTop(){
+        setupTopPage(topURL);
+        extractTopTags();
+        getAnchors();
 
-    public void startCollectFromTop(String targetURL){
-        try{
-            collectFromTop(targetURL);
-        }
-        catch (ExcepcionDeConexion ioEx){
-            System.out.println(ioEx);
-        }
-        catch (MalFormatoURL urlEx){
-            System.out.println(urlEx);
-        }
-    }
-
-
-    private void collectFromTop() throws ExcepcionDeConexion, MalFormatoURL{
-            setupTopPage(topURL);
-            extractTopTags();
-            getAnchors();
         //client.close();
     }
-    private void collectFromTop(String targetURL) throws ExcepcionDeConexion, MalFormatoURL {
-            setupTopPage(targetURL);
-            extractTopTags();
-            getAnchors();
+    public void collectFromTop(String targetURL){
+        setupTopPage(targetURL);
+        extractTopTags();
+        getAnchors();
+
         //client.close();
     }
 
     public void pasarPreviewsAMediaManager(){
-        try {
-            List<AnimePreviewTop> tempPreviewsList = formarPreviewsPagTop();
-            tempPreviewsList.stream().forEach(MediaManager::agregarAnimePreviewTopALista);
-        }
-        catch (NullPointerException nullp){
-            System.out.println("Error al crear preview inicializada!");
-        }
+        List<AnimePreviewTop> tempPreviewsList=formarPreviewsPagTop();
+        tempPreviewsList.stream().forEach(MediaManager::agregarAnimePreviewTopALista);
     }
 
 
-    public List<AnimePreviewTop> formarPreviewsPagTop() {
-        try {
-            return agregarPreviewsATempList();
-        }
-        catch (NullPointerException nullp){
-            System.out.println("Página no inicializada");
-            return null;
-        }
-    }
-    public List<AnimePreviewTop> agregarPreviewsATempList() throws NullPointerException{
+    public List<AnimePreviewTop> formarPreviewsPagTop(){
         List<AnimePreviewTop> tempPreviewsList=new ArrayList<>();
         topRowsOfMedia.stream().forEach(animeRow->tempPreviewsList.add(formarRecordPreview(animeRow)));
         return tempPreviewsList;
     }
 
-    public AnimePreviewTop formarRecordPreview(HtmlElement animeRow) throws NullPointerException{
+    public AnimePreviewTop formarRecordPreview(HtmlElement animeRow){
         String urlAnime=getHrefFromAnchor(animeRow);
+
         return new AnimePreviewTop(obtenerID(urlAnime),obtenerNombreAnimePreview(animeRow),obtenerCategoriaAnime(animeRow),obtenerNumeroRank(animeRow),obtenerNumeroPuntos(animeRow),urlAnime);
     }
 
@@ -147,7 +108,7 @@ public class AnimeExtractor extends Extractor{
 
 
     public void getAnimeImportantInformationRaw(){
-        rawInformationElements =articleTags.getByXPath(AnimeXpaths.relAnimeDetailsGeneralInfo.xpath);
+        rawInformationElements =new ArrayList<>(articleTags.get(0).getByXPath(AnimeXpaths.relAnimeDetailsGeneralInfo.xpath));
     }
 
     public void formarListaInfoImportante(){
@@ -160,14 +121,14 @@ public class AnimeExtractor extends Extractor{
 
     public int buscarPosicionInicioInformacionRelevante(){
         System.out.println(rawInformationElements.size());
-        HtmlElement elementoBuscado =(HtmlElement) articleTags.getByXPath(AnimeXpaths.relAnimeImportantGeneralInfoDetails.xpath).get(0);
+        HtmlElement elementoBuscado =(HtmlElement) articleTags.get(0).getByXPath(AnimeXpaths.relAnimeImportantGeneralInfoDetails.xpath).get(0);
         System.out.println(rawInformationElements);
 
         return rawInformationElements.indexOf(elementoBuscado);
     }
 
     public int buscarPosicionFinInformacionRelevante(){
-        HtmlElement elementoBuscado =(HtmlElement) articleTags.getByXPath(AnimeXpaths.relAnimeEndofImportantGeneralInfoDetails.xpath).get(0);
+        HtmlElement elementoBuscado =(HtmlElement) articleTags.get(0).getByXPath(AnimeXpaths.relAnimeEndofImportantGeneralInfoDetails.xpath).get(0);
         //List<HtmlElement> elementoBuscado=new ArrayList<>(elementoClave.getByXPath(Xpaths.relAnimeImportantGeneralInfoDetails.xpath));
         //System.out.println(elementoBuscado.get(0).getVisibleText());
 
@@ -241,20 +202,19 @@ public class AnimeExtractor extends Extractor{
 
 
     public List<String> obtenerEmisorasDelAnime(){
-        List<HtmlElement> emisoras=extraerTagsEmisora();
+        List<HtmlElement> emisoras=articleTags.get(0).getByXPath(AnimeXpaths.relAnimeDetailsRowBroadcast.xpath);
         List<String> stringEmisoras=new ArrayList<>();
         if (tieneEmisoras(emisoras)){
             emisoras.stream().forEach(emisoraElement-> stringEmisoras.add(emisoraElement.asNormalizedText()));
             return stringEmisoras;
         }
         else {
-            System.out.println("returnednull");
             return null;
         }
     }
 
     public List<String> obtenerEmisorasDelAnime(HtmlElement anime){
-        List<HtmlElement> emisoras=extraerTagsEmisora();
+        List<HtmlElement> emisoras=anime.getByXPath(AnimeXpaths.relAnimeDetailsBroadcasters.xpath);
         List<String> stringEmisoras=new ArrayList<>();
         if (tieneEmisoras(emisoras)){
             emisoras.stream().forEach(emisoraElement-> stringEmisoras.add(emisoraElement.asNormalizedText()));
@@ -264,17 +224,8 @@ public class AnimeExtractor extends Extractor{
             return null;
         }
     }
-
-    public List<HtmlElement> extraerTagsEmisora(){
-        try {
-            return articleTags.getByXPath(AnimeXpaths.relAnimeDetailsRowBroadcast.xpath);
-        }
-        catch (NullPointerException nullp){
-            return null;
-        }
-    }
     private boolean tieneEmisoras(List<HtmlElement> emisoras){
-        return emisoras!=null? !emisoras.isEmpty(): false;
+        return !emisoras.isEmpty();
     }
 
 
@@ -283,17 +234,7 @@ public class AnimeExtractor extends Extractor{
 
     }
 
-    public void iniciarExtraerMusica(HtmlElement article){
-        try{
-            extraerMusica(article);
-        }
-        catch (NullPointerException nullPointerException){
-            System.out.println("Error: página no inicializada");
-        }
-
-    }
-
-    private void extraerMusica(HtmlElement article) throws NullPointerException{
+    public void extraerMusica(HtmlElement article){
         openingRows=new ArrayList<>();
         endingRows=new ArrayList<>();
         extractOpenings(article);
@@ -347,7 +288,7 @@ public class AnimeExtractor extends Extractor{
         try {
             anime.agregarInfoEmision(detallesSeparados[0],detallesSeparados[1]);
         }
-        catch (NullPointerException exception){
+        catch (IndexOutOfBoundsException exception){
             System.err.println("No existe un par en "+Arrays.toString(detallesSeparados));
         }
     }
@@ -386,7 +327,7 @@ public class AnimeExtractor extends Extractor{
     public void extraerVariasPaginasTop(int numPaginas){
         IntStream.range(1,numPaginas+1).forEach(pageNumber->{
             String urlObjetivo=baseSearchUrl+convertirPaginaTopAUrl(pageNumber);
-            startCollectFromTop(urlObjetivo);
+            collectFromTop(urlObjetivo);
         });
     }
 

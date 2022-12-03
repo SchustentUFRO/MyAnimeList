@@ -3,12 +3,8 @@ package scrapping;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
-import err.ExcepcionDeConexion;
-import err.MalFormatoURL;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +27,7 @@ public abstract class Extractor {
     List<HtmlElement> topRowsOfMedia,searchRowsOfMedia;
     List<String> articlesURLs,categoriasList;
     List<HtmlElement> rawInformationElements, usableInformationElements;
-    HtmlElement articleTags;
+    List<HtmlElement> articleTags;
 
 
 
@@ -48,58 +44,33 @@ public abstract class Extractor {
         client.getOptions().setJavaScriptEnabled(false);
     }
 
-    public HtmlPage setupPage(String targetURL) throws ExcepcionDeConexion, MalFormatoURL {
-            try{
-                return client.getPage(targetURL);
-            }
-            catch (MalformedURLException malURL){
-                throw new MalFormatoURL("Formato de URL incorrecto");
-            }
-            catch (IOException iox){
-                throw new ExcepcionDeConexion("Sin conexion a internet o página no disponible");
-            }
-    }
-    public void setupTopPage(String targetURL) throws ExcepcionDeConexion, MalFormatoURL{
-        HtmlPage tempPage=setupPage(targetURL);
-        if (tempPage==null){
-            System.out.println("No se pudo crear pagina");
-        }
-        else {
-            topPage=tempPage;
+    public HtmlPage setupPage(String targetURL){
+        try {
+            return client.getPage(targetURL);
+        } catch (IOException e) {
+            System.out.println("something bad");
+            return null;
+
         }
     }
-    public void setupArticlePage(String targetURL) throws ExcepcionDeConexion, MalFormatoURL{
-        HtmlPage tempPage=setupPage(targetURL);
-        if (tempPage==null){
-            System.out.println("No se pudo crear pagina");
-        }
-        else {
-            articlePage=tempPage;
-        }
+    public void setupTopPage(String targetURL){
+        topPage=setupPage(targetURL);
+    }
+    public void setupArticlePage(String targetURL){
+        articlePage=setupPage(targetURL);
     }
 
     public void extractDataFromArticle(String articleURL){
-        try {
-            setupArticlePage(articleURL);
-            extractArticleBody(articlePage);
-        }
-        catch (ExcepcionDeConexion ioEx){
-            System.out.println(ioEx);
-        }
-        catch (MalFormatoURL urlEx){
-            System.out.println(urlEx);
-        }
-        catch (NullPointerException nullp){
-            System.out.println("Error: página no inicializada");
-        }
+        setupArticlePage(articleURL);
+        extractArticleBody(articlePage);
     }
 
-    public void extractArticleBody(HtmlPage article) throws NullPointerException{
-        articleTags=article.getFirstByXPath(AnimeXpaths.animeDetailsBase.xpath);
+    public void extractArticleBody(HtmlPage article){
+        articleTags=new ArrayList<>(article.getByXPath(AnimeXpaths.animeDetailsBase.xpath));
 
     }
 
-    public void extractTopTags() throws NullPointerException {
+    public void extractTopTags(){
         //igual para top manga y anime
         topRowsOfMedia =new ArrayList<>(topPage.getByXPath(AnimeXpaths.mediaRowInTop.xpath));
     }
@@ -110,16 +81,11 @@ public abstract class Extractor {
     }
 
     public void getAnchors(){
-        /*for (HtmlElement tag:
+        for (HtmlElement tag:
                 topRowsOfMedia) {
             HtmlAnchor anchor= extractAnchorFromTitleInTop(tag);
             addToArticlesArray(anchor.getHrefAttribute());
-        }*/
-        topRowsOfMedia.stream().forEach(rowInTop->
-        {
-            HtmlAnchor anchor=extractAnchorFromTitleInTop(rowInTop);
-            addToArticlesArray(anchor.getHrefAttribute());
-        });
+        }
     }
 
 
@@ -184,26 +150,11 @@ public abstract class Extractor {
 
 
     private void prepararPaginaBusqueda(){
-        try {
-            searchPage = setupPage(searchURL);
-        }
-        catch (ExcepcionDeConexion ioEx){
-            System.out.println(ioEx);
-        }
-        catch (MalFormatoURL urlEx){
-            System.out.println(urlEx);
-        }
+        searchPage=setupPage(searchURL);
+
     }
-    private void prepararPaginaBusqueda(String urlBusqueda) throws ExcepcionDeConexion,MalFormatoURL{
-        //try{
-            searchPage=setupPage(urlBusqueda);
-        //}
-        /*catch (ExcepcionDeConexion conx){
-            System.out.println(conx);
-        }
-        catch (MalformedURLException badURL){
-            System.out.println(badURL);
-        }*/
+    private void prepararPaginaBusqueda(String urlBusqueda){
+        searchPage=setupPage(urlBusqueda);
 
     }
 

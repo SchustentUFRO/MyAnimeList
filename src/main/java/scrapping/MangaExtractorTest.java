@@ -21,7 +21,7 @@ class MangaExtractorTest {
     }
     @Test
     void collectFromTop() {
-        mangoExtractor.startCollectFromTop();
+        mangoExtractor.collectFromTop();
         System.out.println(mangoExtractor.topRowsOfMedia);
         System.out.println(mangoExtractor.articlesURLs);
         assertFalse(mangoExtractor.topRowsOfMedia.isEmpty());
@@ -29,7 +29,7 @@ class MangaExtractorTest {
 
     @Test
     void formarPreviewsTop50(){
-        mangoExtractor.startCollectFromTop();
+        mangoExtractor.collectFromTop();
         System.out.println(mangoExtractor.formarPreviewsPagTop());
         assertFalse(mangoExtractor.formarPreviewsPagTop().isEmpty());
     }
