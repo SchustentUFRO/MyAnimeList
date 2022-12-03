@@ -33,26 +33,29 @@ class AnimeExtractorTest {
     @ValueSource(strings = {"https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime","https://myanimelist.net/anime/33010/FLCL_Progressive?q=flcl%20prog&cat=anime","https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood"} )
     void extraerDatosObrasRelacionadas(String link) {
         animuExtractor.extractDataFromArticle(link);
-        System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags.get(0)));
-        assertNotEquals(null, animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags.get(0)));
+        System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
+        assertNotEquals(null, animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
     }
 
     @Test
     void extraerDatosSinObrasRelacionadas(){
         String link="https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers&cat=anime";
         animuExtractor.extractDataFromArticle(link);
-        System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags.get(0)));
-        assertEquals(null, animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags.get(0)));
+        System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
+        assertEquals(null, animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood","https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers","https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime","https://myanimelist.net/anime/33010/FLCL_Progressive?q=flcl%20prog&cat=anime"})
     void checkOpeningExtraction(String url) {
         animuExtractor.extractDataFromArticle(url);
-        System.out.println(animuExtractor.articleTags);
-        animuExtractor.extraerMusica(animuExtractor.articleTags.get(0));
-        System.out.println("animu.openingRows = " + animuExtractor.openingRows);
+        animuExtractor.iniciarExtraerMusica(animuExtractor.articleTags);
         assertFalse(animuExtractor.openingRows.isEmpty());
+    }
+
+    @Test
+    void testNullHtmlPageAsArgument() {
+        animuExtractor.iniciarExtraerMusica(null);
     }
 
     @ParameterizedTest
@@ -60,7 +63,7 @@ class AnimeExtractorTest {
     void checkEndingExtraction(String url) {
         animuExtractor.extractDataFromArticle(url);
         //System.out.println(animuExtractor.articleTags);
-        animuExtractor.extraerMusica(animuExtractor.articleTags.get(0));
+        animuExtractor.iniciarExtraerMusica(animuExtractor.articleTags);
         System.out.println("animu.endingRows = " + animuExtractor.endingRows);
         assertFalse(animuExtractor.endingRows.isEmpty());
     }
@@ -95,7 +98,7 @@ class AnimeExtractorTest {
 
     @Test
     void formarPreviewAnime(){
-        animuExtractor.collectFromTop();
+        animuExtractor.startCollectFromTop();
         System.out.println(animuExtractor.formarRecordPreview(animuExtractor.topRowsOfMedia.get(1)));
         assertNotNull(animuExtractor.formarRecordPreview(animuExtractor.topRowsOfMedia.get(1)));
     }
@@ -113,7 +116,7 @@ class AnimeExtractorTest {
 
     @Test
     void formarPreviewsTop50(){
-        animuExtractor.collectFromTop();
+        animuExtractor.startCollectFromTop();
         System.out.println(animuExtractor.formarPreviewsPagTop());
         assertFalse(animuExtractor.formarPreviewsPagTop().isEmpty());
     }
@@ -159,7 +162,7 @@ class AnimeExtractorTest {
     @Test
     void extraerInfoStaff(){
         animuExtractor.extractDataFromArticle("https://myanimelist.net/anime/666/JoJo_no_Kimyou_na_Bouken");
-        System.out.println(animuExtractor.extraerInfoStaff(animuExtractor.articleTags.get(0)));
+        System.out.println(animuExtractor.extraerInfoStaff(animuExtractor.articleTags));
     }
 
 
