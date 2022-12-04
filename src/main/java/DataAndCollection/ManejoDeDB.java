@@ -3,16 +3,15 @@ package DataAndCollection;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import errores.Errores;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import scrapping.Media.Preview.Preview;
+
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-public class ManejoDeUsuarios{
+public class ManejoDeDB {
     private static Firestore db = Conectar.getDb();
     private static Scanner teclado = new Scanner(System.in);
-    public ManejoDeUsuarios(){
+    public ManejoDeDB(){
 
     }
     public static void inputRegistarUsuario(){
@@ -89,6 +88,10 @@ public class ManejoDeUsuarios{
             // Si no se encuentra ningún usuario con el correo electrónico especificado, mostramos un mensaje de error
             System.out.println("No se encontró ningún usuario con el correo electrónico especificado");
         }
+    }
+
+    public static void guardarInformacionPreview(ArrayList<Preview> previews){
+
     }
 
 

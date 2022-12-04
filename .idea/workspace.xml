@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="clase error implementada">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_12_2022_10_59_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_12_2022_10_59_p__m___Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Principal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeUsuarios.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeUsuarios.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Principal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Principal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Media/MediaManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/Media/MediaManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Media/Preview/AnimePreviewSearch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Media/Preview/MangaPreviewSearch.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +30,8 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" root0="FORCE_HIGHLIGHTING" />
@@ -37,7 +42,6 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -80,7 +84,7 @@
       <recent name="scrapping" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AnimeExtractorTest.checkImportantInfoExtraction">
+  <component name="RunManager" selected="Application.Principal">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="MyAnimeList" />
@@ -154,8 +158,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AnimeExtractorTest.checkImportantInfoExtraction" />
         <item itemvalue="Application.Principal" />
+        <item itemvalue="JUnit.AnimeExtractorTest.checkImportantInfoExtraction" />
         <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisoras" />
         <item itemvalue="JUnit.MangaExtractorTest.formarPreviewsTop50" />
         <item itemvalue="JUnit.MangaExtractorTest.collectFromTop" />
@@ -234,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670118438497</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="clase error implementada">
+      <created>1670180078408</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1670180078408</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -1,7 +1,6 @@
 import DataAndCollection.Conectar;
-import DataAndCollection.ManejoDeUsuarios;
 
-import java.util.Scanner;
+import java.util.Date;
 
 
 public class Principal {
@@ -9,6 +8,12 @@ public class Principal {
     public static void main(String[] args) throws Exception {
         try {
             Conectar.conectar();
+
+            Date date = new Date();
+            System.out.println(date.getTime());
+            long consultaOriginal = date.getTime();
+
+            /*
             Scanner teclado = new Scanner(System.in);
             int op = 0;
             System.out.println("¿que desea hacer?");
@@ -18,6 +23,7 @@ public class Principal {
                 case 1 -> ManejoDeUsuarios.inputRegistarUsuario();
                 case 2 -> ManejoDeUsuarios.inputIniciarSesion();
             }
+            */
 
         } catch (IllegalStateException e) {
             System.out.println("error: " + e);
