@@ -17,7 +17,11 @@ public class AnimeExtractor extends Extractor{
 
     protected List<HtmlElement> emissionDataFromTop;
     protected List<String> openingRows,endingRows;
-    List<AnimePreview> animeSearchPreview,animeTopPreview;
+    List<AnimePreview> animeSearchPreview;
+    List<AnimePreview> animeTopPreview;
+
+
+
     List<AnimeMedia> animeMediaList;
 
     public AnimeExtractor() {
@@ -514,9 +518,9 @@ public class AnimeExtractor extends Extractor{
 
         }
     }
-
-
-
+    public List<AnimePreview> getAnimeTopPreview() {
+        return animeTopPreview;
+    }
 
 }
 

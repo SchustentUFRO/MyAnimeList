@@ -98,29 +98,7 @@ public class ManejoDeDB {
 
     }
 
-    public static void updateTime(long time) {
-        DocumentReference nuevoTiempo = db.collection("tiempo").document("tiempo");
-        try {
-            ApiFuture<WriteResult> future = nuevoTiempo.update("tiempo", time);
-            WriteResult result = future.get();
-            System.out.println("Write result: " + result);
-        } catch (Exception e) {
-            System.out.println("Error" + e.getMessage());
-        }
-    }
 
-    public static long getTime() throws NullPointerException {
-        try {
-            CollectionReference tiempo = db.collection("tiempo");
-            List<QueryDocumentSnapshot> timeGetter = tiempo.get().get().getDocuments();
-            for (QueryDocumentSnapshot document : timeGetter) {
-                return document.getLong("tiempo");
-            }
-        }catch (Exception e) {
-            return 0;
-        }
-        return 0;
-    }
 }
 
 

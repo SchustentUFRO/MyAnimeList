@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="clase error implementada">
-      <change afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDetiempo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDetiempo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDetiempo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Principal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeUsuarios.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Principal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Principal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/Conectar.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/Conectar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +107,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AnimeExtractorTest.formarPreviewsTop50" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="scrapping.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="scrapping" />
+      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+      <option name="METHOD_NAME" value="formarPreviewsTop50" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AnimeExtractorTest.testTieneEmisoras" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyAnimeList" />
       <extension name="coverage">
@@ -118,22 +134,6 @@
       <option name="PACKAGE_NAME" value="scrapping" />
       <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
       <option name="METHOD_NAME" value="testTieneEmisoras" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MangaExtractorTest.collectFromTop" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyAnimeList" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="scrapping.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="scrapping" />
-      <option name="MAIN_CLASS_NAME" value="scrapping.MangaExtractorTest" />
-      <option name="METHOD_NAME" value="collectFromTop" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -158,10 +158,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Principal" />
+        <item itemvalue="JUnit.AnimeExtractorTest.formarPreviewsTop50" />
         <item itemvalue="JUnit.AnimeExtractorTest.checkImportantInfoExtraction" />
         <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisoras" />
         <item itemvalue="JUnit.MangaExtractorTest.formarPreviewsTop50" />
-        <item itemvalue="JUnit.MangaExtractorTest.collectFromTop" />
       </list>
     </recent_temporary>
   </component>
@@ -251,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670180839296</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="clase error implementada">
+      <created>1670184538564</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1670184538564</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
