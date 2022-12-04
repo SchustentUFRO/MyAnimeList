@@ -15,6 +15,27 @@ public abstract class Media implements Comparable<Media> {
         this.link = link;
     }
 
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getPosicionRanking() {
+        return posicionRanking;
+    }
+
+    public double getPuntuacion() {
+        return puntuacion;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
     @Override
     public int compareTo(Media o) {
         if (this.puntuacion>o.puntuacion){

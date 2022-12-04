@@ -1,12 +1,8 @@
 package scrapping.Media.Preview;
 
-public record AnimePreviewSearch(int id, String nombre, String tipo, double puntuacion, String link) {
+public class AnimePreviewSearch extends Preview {
     public AnimePreviewSearch(int id, String nombre, String tipo, double puntuacion, String link) {
-        this.id = id;
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.puntuacion = puntuacion;
-        this.link = link;
+        super(id,nombre,tipo,link,puntuacion);
     }
 
     @Override

@@ -6,10 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import scrapping.Media.Preview.AnimePreview;
+import scrapping.Media.Preview.Preview;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,27 +32,30 @@ class AnimeExtractorTest {
         animuExtractor =null;
     }
 
+
+
     @ParameterizedTest
     @ValueSource(strings = {"https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime","https://myanimelist.net/anime/33010/FLCL_Progressive?q=flcl%20prog&cat=anime","https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood"} )
     void extraerDatosObrasRelacionadas(String link) {
-        animuExtractor.extractDataFromArticle(link);
-        System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
+        animuExtractor.testsExtractDataFromArticle(link);
+        //System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
         assertNotEquals(null, animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
     }
 
     @Test
     void extraerDatosSinObrasRelacionadas(){
         String link="https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers&cat=anime";
-        animuExtractor.extractDataFromArticle(link);
-        System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
+        animuExtractor.testsExtractDataFromArticle(link);
+        //System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
         assertEquals(null, animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood","https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers","https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime","https://myanimelist.net/anime/33010/FLCL_Progressive?q=flcl%20prog&cat=anime"})
     void checkOpeningExtraction(String url) {
-        animuExtractor.extractDataFromArticle(url);
+        animuExtractor.testsExtractDataFromArticle(url);
         animuExtractor.iniciarExtraerMusica(animuExtractor.articleTags);
+        System.out.println(animuExtractor.openingRows);
         assertFalse(animuExtractor.openingRows.isEmpty());
     }
 
@@ -61,7 +67,7 @@ class AnimeExtractorTest {
     @ParameterizedTest
     @ValueSource(strings = {"https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood","https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers","https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime","https://myanimelist.net/anime/33010/FLCL_Progressive?q=flcl%20prog&cat=anime"})
     void checkEndingExtraction(String url) {
-        animuExtractor.extractDataFromArticle(url);
+        animuExtractor.testsExtractDataFromArticle(url);
         //System.out.println(animuExtractor.articleTags);
         animuExtractor.iniciarExtraerMusica(animuExtractor.articleTags);
         System.out.println("animu.endingRows = " + animuExtractor.endingRows);
@@ -70,11 +76,10 @@ class AnimeExtractorTest {
     @ParameterizedTest
     @ValueSource(strings = {"https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood","https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers","https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime","https://myanimelist.net/anime/33010/FLCL_Progressive?q=flcl%20prog&cat=anime"})
     void checkImportantInfoExtraction(String url) {
-        animuExtractor.extractDataFromArticle(url);
-        System.out.println(animuExtractor.articleTags);
+        animuExtractor.testsExtractDataFromArticle(url);
         animuExtractor.obtenerInformacionImportanteAnime();
-        System.out.println(animuExtractor.ponerInfoImportanteEnMaps(animuExtractor.usableInformationElements));
-        assertTrue(!animuExtractor.ponerInfoImportanteEnMaps(animuExtractor.usableInformationElements).isEmpty());
+        System.out.println(animuExtractor.ponerInfoImportanteEnMaps());
+        assertTrue(!animuExtractor.ponerInfoImportanteEnMaps().isEmpty());
     }
 
     @ParameterizedTest
@@ -123,7 +128,7 @@ class AnimeExtractorTest {
 
     @Test
     void testTieneEmisoras(){
-        animuExtractor.extractDataFromArticle("https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime");
+        animuExtractor.testsExtractDataFromArticle("https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime");
         System.out.println(animuExtractor.obtenerEmisorasDelAnime());
         List<String> listaEmisoras= Arrays.asList("Crunchyroll","Netflix","Bilibili Global");
         assertEquals(listaEmisoras,animuExtractor.obtenerEmisorasDelAnime());
@@ -131,7 +136,7 @@ class AnimeExtractorTest {
 
     @Test
     void testTieneEmisorasFF(){
-        animuExtractor.extractDataFromArticle("https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers&cat=anime");
+        animuExtractor.testsExtractDataFromArticle("https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers&cat=anime");
         System.out.println(animuExtractor.obtenerEmisorasDelAnime());
         assertNotEquals(0,animuExtractor.obtenerEmisorasDelAnime().size());
     }
@@ -147,23 +152,34 @@ class AnimeExtractorTest {
     void extraerInfoBusquedaUnaPalabra(){
         String termino="jojo";
         animuExtractor.createSearchURL(termino);
-        animuExtractor.realizarBusqueda();
-        animuExtractor.pasarTodasFilasAPreview();
+        //animuExtractor.realizarBusqueda();
+        animuExtractor.pasarTodasFilasBusquedaApreview();
     }
 
     @Test
     void extraerInfoBusquedaTerminoCompuesto(){
         String termino="shoujo shuumatsu";
         animuExtractor.createSearchURL(termino);
-        animuExtractor.realizarBusqueda();
-        animuExtractor.pasarTodasFilasAPreview();
+        //animuExtractor.realizarBusqueda();
+        animuExtractor.pasarTodasFilasBusquedaApreview();
     }
 
     @Test
     void extraerInfoStaff(){
-        animuExtractor.extractDataFromArticle("https://myanimelist.net/anime/666/JoJo_no_Kimyou_na_Bouken");
-        System.out.println(animuExtractor.extraerInfoStaff(animuExtractor.articleTags));
+        Map<String,String> noneMap=new HashMap<>();
+        noneMap.put("none","none");
+        animuExtractor.iniciarScrapper();
+        animuExtractor.seleccionarPreviewParaMostrarDetalles(animuExtractor.animeTopPreview.get(2));
+        System.out.println(animuExtractor.safeExtraerInfoStaff(animuExtractor.articleTags));
+        assertNotEquals(noneMap,animuExtractor.animeMediaList.get(0).getInfoStaff());
     }
 
+
+
+    @Test
+    void probarExtraerPreviewsDeTop(){
+        animuExtractor.iniciarScrapper();
+        System.out.println(animuExtractor.animeTopPreview);
+    }
 
 }

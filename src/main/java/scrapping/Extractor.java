@@ -5,12 +5,11 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import err.ExcepcionDeConexion;
 import err.MalFormatoURL;
-import org.apache.commons.lang3.ObjectUtils;
+import scrapping.Media.Preview.Preview;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class Extractor {
@@ -25,7 +24,7 @@ public abstract class Extractor {
 
     HtmlImage previewImage;
 
-    int numeroPaginaEnTop;
+    int numeroPaginaEnTop,rankPosFromDetails;
     String baseSearchUrl="https://myanimelist.net/",searchURL,typeOfMediaUrl;
 
     List<HtmlElement> topRowsOfMedia,searchRowsOfMedia;
@@ -53,10 +52,10 @@ public abstract class Extractor {
                 return client.getPage(targetURL);
             }
             catch (MalformedURLException malURL){
-                throw new MalFormatoURL("Formato de URL incorrecto");
+                throw new MalFormatoURL();
             }
             catch (IOException iox){
-                throw new ExcepcionDeConexion("Sin conexion a internet o página no disponible");
+                throw new ExcepcionDeConexion();
             }
     }
     public void setupTopPage(String targetURL) throws ExcepcionDeConexion, MalFormatoURL{
@@ -68,33 +67,33 @@ public abstract class Extractor {
             topPage=tempPage;
         }
     }
-    public void setupArticlePage(String targetURL) throws ExcepcionDeConexion, MalFormatoURL{
-        HtmlPage tempPage=setupPage(targetURL);
-        if (tempPage==null){
-            System.out.println("No se pudo crear pagina");
-        }
-        else {
+    private void setupArticlePage(String targetURL) throws ExcepcionDeConexion, MalFormatoURL{
+            HtmlPage tempPage = setupPage(targetURL);
             articlePage=tempPage;
+    }
+
+
+
+    void usePreviewToCreateDetailsArticle(Preview preview) throws ExcepcionDeConexion,MalFormatoURL{
+        extractDataFromArticle(preview.getLink());
+    }
+
+
+    public void testsExtractDataFromArticle(String articleURL){
+        try{
+            extractDataFromArticle(articleURL);
+        }
+        catch (Exception e){
+            System.out.println(e);
         }
     }
 
-    public void extractDataFromArticle(String articleURL){
-        try {
+    private void extractDataFromArticle(String articleURL) throws ExcepcionDeConexion,MalFormatoURL{
             setupArticlePage(articleURL);
             extractArticleBody(articlePage);
-        }
-        catch (ExcepcionDeConexion ioEx){
-            System.out.println(ioEx);
-        }
-        catch (MalFormatoURL urlEx){
-            System.out.println(urlEx);
-        }
-        catch (NullPointerException nullp){
-            System.out.println("Error: página no inicializada");
-        }
     }
 
-    public void extractArticleBody(HtmlPage article) throws NullPointerException{
+    private void extractArticleBody(HtmlPage article) throws NullPointerException{
         articleTags=article.getFirstByXPath(AnimeXpaths.animeDetailsBase.xpath);
 
     }
@@ -150,7 +149,7 @@ public abstract class Extractor {
         return preliminaryResult.equals("")?"Other":preliminaryResult;
     }
 
-    public void regresararPaginaTop(){
+    public void regresarPaginaTop(){
         if (numeroPaginaEnTop>1) {
             numeroPaginaEnTop--;
             pageTopURL = topURL + convertirPaginaTopAUrl(numeroPaginaEnTop);
@@ -177,22 +176,14 @@ public abstract class Extractor {
         System.out.println(searchURL);
     }
 
-    public void realizarBusqueda(){
+    public void realizarBusqueda() throws ExcepcionDeConexion,MalFormatoURL{
         prepararPaginaBusqueda();
         obtenerFilasBusqueda();
     }
 
 
-    private void prepararPaginaBusqueda(){
-        try {
+    private void prepararPaginaBusqueda() throws ExcepcionDeConexion,MalFormatoURL{
             searchPage = setupPage(searchURL);
-        }
-        catch (ExcepcionDeConexion ioEx){
-            System.out.println(ioEx);
-        }
-        catch (MalFormatoURL urlEx){
-            System.out.println(urlEx);
-        }
     }
     private void prepararPaginaBusqueda(String urlBusqueda) throws ExcepcionDeConexion,MalFormatoURL{
         //try{
@@ -208,17 +199,13 @@ public abstract class Extractor {
     }
 
     public void obtenerFilasBusqueda(){
-        List<HtmlElement> tempSearchRowsOfMedia=new ArrayList<>(searchPage.getByXPath(searchRowXpath));
-        searchRowsOfMedia=tempSearchRowsOfMedia.subList(1,tempSearchRowsOfMedia.size());
+        try {
+            List<HtmlElement> tempSearchRowsOfMedia = new ArrayList<>(searchPage.getByXPath(searchRowXpath));
+            searchRowsOfMedia = tempSearchRowsOfMedia.subList(1, tempSearchRowsOfMedia.size());
+        }
+        catch (NullPointerException nullp){
+            System.out.println("Página no preparada");
+        }
     }
-
-
-
-
-
-
-
-
-
 
 }

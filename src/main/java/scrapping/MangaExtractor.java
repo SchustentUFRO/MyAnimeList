@@ -3,9 +3,8 @@ package scrapping;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import err.ExcepcionDeConexion;
 import err.MalFormatoURL;
-import scrapping.Media.Preview.MangaPreviewTop;
+import scrapping.Media.Preview.MangaPreview;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,16 +68,16 @@ public class MangaExtractor extends Extractor{
         //client.close();
     }
 
-    public List<MangaPreviewTop> formarPreviewsPagTop(){
-        List<MangaPreviewTop> tempPreviewsList=new ArrayList<>();
+    public List<MangaPreview> formarPreviewsPagTop(){
+        List<MangaPreview> tempPreviewsList=new ArrayList<>();
         topRowsOfMedia.stream().forEach(mangaRow ->tempPreviewsList.add(formarRecordPreview(mangaRow)));
         return tempPreviewsList;
     }
 
-    public MangaPreviewTop formarRecordPreview(HtmlElement mangaRow){
+    public MangaPreview formarRecordPreview(HtmlElement mangaRow){
         String urlManga =getHrefFromAnchor(mangaRow);
 
-        return new MangaPreviewTop(obtenerID(urlManga), obtenerNombreMangaPreview(mangaRow), obtenerCategoriaManga(mangaRow),obtenerNumeroRank(mangaRow),obtenerNumeroPuntos(mangaRow), urlManga);
+        return new MangaPreview(obtenerID(urlManga), obtenerNombreMangaPreview(mangaRow), obtenerCategoriaManga(mangaRow),obtenerNumeroRank(mangaRow),obtenerNumeroPuntos(mangaRow), urlManga);
     }
 
 
