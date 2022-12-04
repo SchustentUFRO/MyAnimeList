@@ -2,10 +2,7 @@ package scrapping.Media;
 
 import scrapping.Media.DetailedMedia.AnimeMedia;
 import scrapping.Media.DetailedMedia.MangaMedia;
-import scrapping.Media.DetailedMedia.Media;
-import scrapping.Media.Preview.AnimePreviewSearch;
 import scrapping.Media.Preview.AnimePreview;
-import scrapping.Media.Preview.MangaPreviewSearch;
 import scrapping.Media.Preview.MangaPreview;
 
 import java.util.ArrayList;

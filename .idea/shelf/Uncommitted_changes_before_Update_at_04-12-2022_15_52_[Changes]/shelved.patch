@@ -1,0 +1,818 @@
+Index: src/main/java/GUI/LoginPanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package GUI;\r\n\r\nimport javax.swing.*;\r\n\r\npublic class LoginPanel {\r\n    private JTextField textField9;\r\n    private JTextField textField1;\r\n    private JButton registrarButton;\r\n    private JButton iniciarSesiónButton;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/GUI/LoginPanel.java b/src/main/java/GUI/LoginPanel.java
+--- a/src/main/java/GUI/LoginPanel.java	(revision dbb44fe1b4caa43ee06b29c0f62a222ec1df562c)
++++ b/src/main/java/GUI/LoginPanel.java	(date 1670179819371)
+@@ -8,3 +8,5 @@
+     private JButton registrarButton;
+     private JButton iniciarSesiónButton;
+ }
++
++
+Index: src/main/java/scrapping/AnimeExtractor.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package scrapping;\r\n\r\nimport com.gargoylesoftware.htmlunit.html.Html;\r\nimport com.gargoylesoftware.htmlunit.html.HtmlAnchor;\r\nimport com.gargoylesoftware.htmlunit.html.HtmlElement;\r\nimport err.ExcepcionDeConexion;\r\nimport err.MalFormatoURL;\r\nimport org.apache.commons.lang3.ObjectUtils;\r\nimport scrapping.Media.DetailedMedia.AnimeMedia;\r\nimport scrapping.Media.MediaManager;\r\nimport scrapping.Media.Preview.AnimePreviewSearch;\r\nimport scrapping.Media.Preview.AnimePreviewTop;\r\n\r\nimport javax.imageio.ImageReader;\r\nimport java.awt.image.BufferedImage;\r\nimport java.io.IOException;\r\nimport java.util.*;\r\nimport java.util.stream.IntStream;\r\n\r\npublic class AnimeExtractor extends Extractor{\r\n\r\n\r\n    protected List<HtmlElement> emissionDataFromTop;\r\n    protected List<String> openingRows,endingRows;\r\n    //protected List<AnimePreviewTop> previewsList;\r\n\r\n    public AnimeExtractor() {\r\n        //previewsList=new ArrayList<>();\r\n        anchorXpathRef=AnimeXpaths.relHrefToAnimeInTop.xpath;\r\n        typeOfMediaUrl+=\"anime/\";\r\n        searchCat=\"&cat=anime\";\r\n        numeroPaginaEnTop=1;\r\n        topURL+=\"topanime.php\";\r\n        searchType=\"anime.php?q=\";\r\n        searchRowXpath=AnimeXpaths.relAnimeSearchResultRows.xpath;\r\n        categoriasList=Arrays.asList(\"TV\",\"OVA\",\"Movie\",\"ONA\",\"Special\");\r\n\r\n    }\r\n\r\n    public void startCollectFromTop(){\r\n        try{\r\n            collectFromTop();\r\n        }\r\n        catch (ExcepcionDeConexion ioEx){\r\n            System.out.println(ioEx);\r\n        }\r\n        catch (MalFormatoURL urlEx){\r\n            System.out.println(urlEx);\r\n        }\r\n    }\r\n\r\n    public void startCollectFromTop(String targetURL){\r\n        try{\r\n            collectFromTop(targetURL);\r\n        }\r\n        catch (ExcepcionDeConexion ioEx){\r\n            System.out.println(ioEx);\r\n        }\r\n        catch (MalFormatoURL urlEx){\r\n            System.out.println(urlEx);\r\n        }\r\n    }\r\n\r\n\r\n    private void collectFromTop() throws ExcepcionDeConexion, MalFormatoURL{\r\n            setupTopPage(topURL);\r\n            extractTopTags();\r\n            getAnchors();\r\n        //client.close();\r\n    }\r\n    private void collectFromTop(String targetURL) throws ExcepcionDeConexion, MalFormatoURL {\r\n            setupTopPage(targetURL);\r\n            extractTopTags();\r\n            getAnchors();\r\n        //client.close();\r\n    }\r\n\r\n    public void pasarPreviewsAMediaManager(){\r\n        try {\r\n            List<AnimePreviewTop> tempPreviewsList = formarPreviewsPagTop();\r\n            tempPreviewsList.stream().forEach(MediaManager::agregarAnimePreviewTopALista);\r\n        }\r\n        catch (NullPointerException nullp){\r\n            System.out.println(\"Error al crear preview inicializada!\");\r\n        }\r\n    }\r\n\r\n\r\n    public List<AnimePreviewTop> formarPreviewsPagTop() {\r\n        try {\r\n            return agregarPreviewsATempList();\r\n        }\r\n        catch (NullPointerException nullp){\r\n            System.out.println(\"Página no inicializada\");\r\n            return null;\r\n        }\r\n    }\r\n    public List<AnimePreviewTop> agregarPreviewsATempList() throws NullPointerException{\r\n        List<AnimePreviewTop> tempPreviewsList=new ArrayList<>();\r\n        topRowsOfMedia.stream().forEach(animeRow->tempPreviewsList.add(formarRecordPreview(animeRow)));\r\n        return tempPreviewsList;\r\n    }\r\n\r\n    public AnimePreviewTop formarRecordPreview(HtmlElement animeRow) throws NullPointerException{\r\n        String urlAnime=getHrefFromAnchor(animeRow);\r\n        return new AnimePreviewTop(obtenerID(urlAnime),obtenerNombreAnimePreview(animeRow),obtenerCategoriaAnime(animeRow),obtenerNumeroRank(animeRow),obtenerNumeroPuntos(animeRow),urlAnime);\r\n    }\r\n\r\n    public String obtenerNombreAnimePreview(HtmlElement animePreview){\r\n        return ((HtmlElement) animePreview.getFirstByXPath(AnimeXpaths.relTitleAnimeInTop.xpath)).getVisibleText();\r\n    }\r\n\r\n\r\n    public String obtenerCategoriaAnime(HtmlElement elementoInteres){\r\n        getAnimeEmissionDetailsFromTop(elementoInteres);\r\n        String datosEmision=emissionDataFromTop.get(0).getVisibleText();\r\n        return definirCategoria(datosEmision);\r\n    }\r\n\r\n\r\n    public void getAnimeEmissionDetailsFromTop(HtmlElement elementoInteres){\r\n        emissionDataFromTop=new ArrayList<>(elementoInteres.getByXPath(AnimeXpaths.relEmissionDetailsAnimeInTop.xpath));\r\n    }\r\n\r\n\r\n\r\n\r\n    public int obtenerNumeroRank(HtmlElement animePreview){\r\n        List<HtmlElement> templist=new ArrayList<>(animePreview.getByXPath(AnimeXpaths.relRankingNumberAnimeInTop.xpath));\r\n        return Integer.parseInt(templist.get(0).getVisibleText());\r\n    }\r\n\r\n    public double obtenerNumeroPuntos(HtmlElement animePreview){\r\n        List<HtmlElement> templist=new ArrayList<>(animePreview.getByXPath(AnimeXpaths.relScoreNumberAnimeInTop.xpath));\r\n        return Double.parseDouble(templist.get(0).getVisibleText());\r\n    }\r\n\r\n    public void obtenerInformacionImportanteElemSeleccionado(int seleccion){\r\n        extractDataFromArticle(articlesURLs.get(seleccion));\r\n        obtenerInformacionImportanteAnime();\r\n    }\r\n\r\n    public void obtenerInformacionImportanteAnime(){\r\n        getAnimeImportantInformationRaw();\r\n        formarListaInfoImportante();\r\n    }\r\n\r\n\r\n    public void getAnimeImportantInformationRaw(){\r\n        rawInformationElements =articleTags.getByXPath(AnimeXpaths.relAnimeDetailsGeneralInfo.xpath);\r\n    }\r\n\r\n    public void formarListaInfoImportante(){\r\n        int inicio,fin;\r\n        inicio=buscarPosicionInicioInformacionRelevante()+1;\r\n        fin=buscarPosicionFinInformacionRelevante()-1; //exclusive y evitar incluir el <br>\r\n        usableInformationElements = rawInformationElements.subList(inicio,fin);\r\n    }\r\n\r\n\r\n    public int buscarPosicionInicioInformacionRelevante(){\r\n        System.out.println(rawInformationElements.size());\r\n        HtmlElement elementoBuscado =(HtmlElement) articleTags.getByXPath(AnimeXpaths.relAnimeImportantGeneralInfoDetails.xpath).get(0);\r\n        System.out.println(rawInformationElements);\r\n\r\n        return rawInformationElements.indexOf(elementoBuscado);\r\n    }\r\n\r\n    public int buscarPosicionFinInformacionRelevante(){\r\n        HtmlElement elementoBuscado =(HtmlElement) articleTags.getByXPath(AnimeXpaths.relAnimeEndofImportantGeneralInfoDetails.xpath).get(0);\r\n        //List<HtmlElement> elementoBuscado=new ArrayList<>(elementoClave.getByXPath(Xpaths.relAnimeImportantGeneralInfoDetails.xpath));\r\n        //System.out.println(elementoBuscado.get(0).getVisibleText());\r\n\r\n        return rawInformationElements.indexOf(elementoBuscado);\r\n    }\r\n\r\n\r\n\r\n    public Map<String,String> ponerInfoImportanteEnMaps(List<HtmlElement> listaInfoImportante){\r\n        Map<String,String> importantInfoPairs=new HashMap<>();\r\n        usableInformationElements.stream().forEach(importantInfoRow->\r\n        {\r\n            String[] separatedImportantInfo =importantInfoRow.asNormalizedText().split(\":\",2);\r\n            importantInfoPairs.put(separatedImportantInfo[0], separatedImportantInfo[1]);\r\n\r\n        });\r\n        return importantInfoPairs;\r\n    }\r\n\r\n\r\n    public void mostrarInformacionImportante(){\r\n        usableInformationElements.stream().forEach(infoRow-> System.out.println(infoRow.getVisibleText()));\r\n    }\r\n\r\n    /*public void getPreviewsTodos(){\r\n        previewsList.stream().forEach(preview-> System.out.println(\"[\"+preview.posicionRanking()+\"] \"+preview));\r\n    }*/\r\n\r\n    public void obtenerYMostrarImagenPreview(HtmlElement columna){\r\n        obtenerImagen(columna);\r\n        mostrarImagen();\r\n    }\r\n\r\n    public void obtenerImagen(HtmlElement columna){\r\n        previewImage=columna.getFirstByXPath(AnimeXpaths.relPreviewCoverImageInTop.xpath);\r\n    }\r\n\r\n    public void mostrarImagen(){\r\n        try {\r\n            ImageReader imgreader = previewImage.getImageReader();\r\n            BufferedImage bimage =imgreader.read(0);\r\n        }\r\n        catch (IOException e){\r\n\r\n        }\r\n    }\r\n\r\n    public Map<String,String> extraerDatosObrasRelacionadas(HtmlElement articulo){\r\n        if (contieneObrasRelacionadas(articulo)){\r\n            Map<String,String> relMediaMap=obtenerObrasRelacionadasEnMap(articulo);\r\n            return relMediaMap;\r\n        }\r\n        else{\r\n            return null;\r\n        }\r\n    }\r\n\r\n\r\n    private Map<String,String> obtenerObrasRelacionadasEnMap(HtmlElement articulo){\r\n        Map<String,String> tempRelMediaMap=new HashMap<>();\r\n        List<HtmlElement> tempRelatedMediaList= articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath);\r\n        tempRelatedMediaList.stream()\r\n                .forEach(relatedMediaType->\r\n                {\r\n                    //System.out.println(\"relatedMediaType.asNormalizedText() = \" + relatedMediaType.asNormalizedText());\r\n                    String[] splitRelMedia=relatedMediaType.asNormalizedText().split(\":\",2);\r\n                    tempRelMediaMap.put(splitRelMedia[0],splitRelMedia[1]);\r\n                });\r\n        return tempRelMediaMap;\r\n    }\r\n\r\n\r\n    public List<String> obtenerEmisorasDelAnime(){\r\n        List<HtmlElement> emisoras=extraerTagsEmisora();\r\n        List<String> stringEmisoras=new ArrayList<>();\r\n        if (tieneEmisoras(emisoras)){\r\n            emisoras.stream().forEach(emisoraElement-> stringEmisoras.add(emisoraElement.asNormalizedText()));\r\n            return stringEmisoras;\r\n        }\r\n        else {\r\n            System.out.println(\"returnednull\");\r\n            return null;\r\n        }\r\n    }\r\n\r\n    public List<String> obtenerEmisorasDelAnime(HtmlElement anime){\r\n        List<HtmlElement> emisoras=extraerTagsEmisora();\r\n        List<String> stringEmisoras=new ArrayList<>();\r\n        if (tieneEmisoras(emisoras)){\r\n            emisoras.stream().forEach(emisoraElement-> stringEmisoras.add(emisoraElement.asNormalizedText()));\r\n            return stringEmisoras;\r\n        }\r\n        else {\r\n            return null;\r\n        }\r\n    }\r\n\r\n    public List<HtmlElement> extraerTagsEmisora(){\r\n        try {\r\n            return articleTags.getByXPath(AnimeXpaths.relAnimeDetailsRowBroadcast.xpath);\r\n        }\r\n        catch (NullPointerException nullp){\r\n            return null;\r\n        }\r\n    }\r\n    private boolean tieneEmisoras(List<HtmlElement> emisoras){\r\n        return emisoras!=null? !emisoras.isEmpty(): false;\r\n    }\r\n\r\n\r\n    public boolean contieneObrasRelacionadas(HtmlElement articulo){\r\n        return !articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath).isEmpty();\r\n\r\n    }\r\n\r\n    public void iniciarExtraerMusica(HtmlElement article){\r\n        try{\r\n            extraerMusica(article);\r\n        }\r\n        catch (NullPointerException nullPointerException){\r\n            System.out.println(\"Error: página no inicializada\");\r\n        }\r\n\r\n    }\r\n\r\n    private void extraerMusica(HtmlElement article) throws NullPointerException{\r\n        openingRows=new ArrayList<>();\r\n        endingRows=new ArrayList<>();\r\n        extractOpenings(article);\r\n        extractEndings(article);\r\n    }\r\n    public void extractOpenings(HtmlElement article){\r\n        extraerTableOpenings(article);\r\n    }\r\n\r\n    public void extractEndings(HtmlElement article){\r\n        extraerTableEndings(article);\r\n    }\r\n\r\n    public void extraerTableOpenings(HtmlElement article){\r\n        ArrayList<HtmlElement> openingsTable=new ArrayList<>(article.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsTable.xpath));\r\n        extraerFilasOpenings(openingsTable.get(0));\r\n    }\r\n    public void extraerFilasOpenings(HtmlElement tablaOpenings){\r\n        //openingRows.addAll(tablaOpenings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));\r\n        ArrayList<HtmlElement> tempOpeningRows =new ArrayList<>(tablaOpenings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));\r\n        tempOpeningRows.stream().forEach(opRow-> openingRows.add(opRow.getVisibleText()));\r\n    }\r\n\r\n    public void extraerTableEndings(HtmlElement article){\r\n        HtmlElement endingsTable=article.getFirstByXPath(AnimeXpaths.relAnimeDetailsEndingsTable.xpath);\r\n        extraerFilasEndings(endingsTable);\r\n\r\n    }\r\n\r\n    public void extraerFilasEndings(HtmlElement tablaEndings){\r\n        //openingRows.addAll(tablaEndings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));\r\n        ArrayList<HtmlElement> tempEndingRows =new ArrayList<>(tablaEndings.getByXPath(AnimeXpaths.relAnimeDetailsEndingsRows.xpath));\r\n        tempEndingRows.stream().forEach(edRow -> endingRows.add(edRow.getVisibleText()));\r\n    }\r\n\r\n    public AnimeMedia crearAnimeDetalles(AnimePreviewTop preview){\r\n\r\n        return new AnimeMedia(preview);\r\n\r\n    }\r\n\r\n    public void obtenerDetallesDeEmision(AnimeMedia objetivo){\r\n        usableInformationElements.stream().forEach(infoRow->{\r\n            String[] infoPair=infoRow.getVisibleText().split(\":\",0);\r\n            agregarAHashMapAnime(objetivo,infoPair);\r\n\r\n        });\r\n\r\n    }\r\n    public void agregarAHashMapAnime(AnimeMedia anime, String[] detallesSeparados){\r\n        try {\r\n            anime.agregarInfoEmision(detallesSeparados[0],detallesSeparados[1]);\r\n        }\r\n        catch (NullPointerException exception){\r\n            System.err.println(\"No existe un par en \"+Arrays.toString(detallesSeparados));\r\n        }\r\n    }\r\n\r\n    public Map<String,String> extraerInfoStaff(HtmlElement articleBody){\r\n        List<HtmlElement> tablaStaff=articleBody.getByXPath(AnimeXpaths.relAnimeDetailsStaffTable.xpath);\r\n        List<HtmlElement> tablasSeparadas=tablaStaff.get(1).getByXPath(AnimeXpaths.relAnimeDetailsStaffIndividualTable.xpath);\r\n        List<String> stringStaff=pasarHtmlElementStaffAString(tablasSeparadas);\r\n\r\n\r\n        return pasarInformacionStaffAMap(stringStaff);\r\n    }\r\n\r\n    private List<String> pasarHtmlElementStaffAString(List<HtmlElement> tablasSeparadasStaff){\r\n        List<String> tempStringStaff=new ArrayList<>();\r\n        tablasSeparadasStaff.stream().forEach(tabla->tempStringStaff.add(tabla.asNormalizedText()));\r\n        return tempStringStaff;\r\n    }\r\n\r\n    private Map<String,String> pasarInformacionStaffAMap(List<String> staffAsString){\r\n        Map<String,String> tempStaffCargo=new HashMap<>();\r\n        staffAsString.stream()\r\n                .forEach(stringDeStaff->\r\n                {\r\n                    String[] nombreCargo=stringDeStaff.split(\"\\n\",2);\r\n                    tempStaffCargo.put(nombreCargo[0],nombreCargo[1]);\r\n                });\r\n        return tempStaffCargo;\r\n    }\r\n\r\n    public void formarAnimeDetalle(){\r\n\r\n    }\r\n\r\n\r\n    public void extraerVariasPaginasTop(int numPaginas){\r\n        IntStream.range(1,numPaginas+1).forEach(pageNumber->{\r\n            String urlObjetivo=baseSearchUrl+convertirPaginaTopAUrl(pageNumber);\r\n            startCollectFromTop(urlObjetivo);\r\n        });\r\n    }\r\n\r\n    public void pasarTodasFilasAPreview(){\r\n        List<AnimePreviewSearch> searchPreviewList=new ArrayList<>();\r\n        searchRowsOfMedia.stream().forEach(searchRow->searchPreviewList.add(pasarFilaSearchAPreview(searchRow)));\r\n        System.out.println(searchPreviewList);\r\n\r\n\r\n    }\r\n\r\n    public AnimePreviewSearch pasarFilaSearchAPreview(HtmlElement filaBusqueda){\r\n        String url=obtenerLinkBusqueda(filaBusqueda);\r\n        int id=obtenerID(url);\r\n        String tipoEmision=obtenerTipoEmisionBusqueda(filaBusqueda);\r\n        String nombre=obtenerNombreBusqueda(filaBusqueda);\r\n        double puntuacion=obtenerPuntajeBusqueda(filaBusqueda);\r\n        return new AnimePreviewSearch(id,nombre,tipoEmision,puntuacion,url);\r\n\r\n    }\r\n\r\n    public String obtenerNombreBusqueda(HtmlElement filaBusqueda){\r\n        String tempNombre=((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchTitle.xpath)).asNormalizedText();\r\n        return tempNombre;\r\n    }\r\n\r\n    public String obtenerLinkBusqueda(HtmlElement filaBusqueda){\r\n\r\n        return ((HtmlAnchor) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchHref.xpath)).getHrefAttribute();\r\n    }\r\n\r\n\r\n    public double obtenerPuntajeBusqueda(HtmlElement filaBusqueda){\r\n        String puntajeString=((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchScore.xpath)).asNormalizedText();\r\n        return puntajeString.equals(\"N/A\")?0.0:Double.parseDouble(puntajeString);\r\n    }\r\n\r\n    public String obtenerTipoEmisionBusqueda(HtmlElement filaBusqueda){\r\n        return ((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchEmissionType.xpath)).asNormalizedText();\r\n    }\r\n\r\n\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/scrapping/AnimeExtractor.java b/src/main/java/scrapping/AnimeExtractor.java
+--- a/src/main/java/scrapping/AnimeExtractor.java	(revision dbb44fe1b4caa43ee06b29c0f62a222ec1df562c)
++++ b/src/main/java/scrapping/AnimeExtractor.java	(date 1670179702152)
+@@ -17,70 +17,65 @@
+ import java.util.*;
+ import java.util.stream.IntStream;
+ 
+-public class AnimeExtractor extends Extractor{
++public class AnimeExtractor extends Extractor {
+ 
+ 
+     protected List<HtmlElement> emissionDataFromTop;
+-    protected List<String> openingRows,endingRows;
++    protected List<String> openingRows, endingRows;
+     //protected List<AnimePreviewTop> previewsList;
+ 
+     public AnimeExtractor() {
+         //previewsList=new ArrayList<>();
+-        anchorXpathRef=AnimeXpaths.relHrefToAnimeInTop.xpath;
+-        typeOfMediaUrl+="anime/";
+-        searchCat="&cat=anime";
+-        numeroPaginaEnTop=1;
+-        topURL+="topanime.php";
+-        searchType="anime.php?q=";
+-        searchRowXpath=AnimeXpaths.relAnimeSearchResultRows.xpath;
+-        categoriasList=Arrays.asList("TV","OVA","Movie","ONA","Special");
+-
++        anchorXpathRef = AnimeXpaths.relHrefToAnimeInTop.xpath;
++        typeOfMediaUrl += "anime/";
++        searchCat = "&cat=anime";
++        numeroPaginaEnTop = 1;
++        topURL += "topanime.php";
++        searchType = "anime.php?q=";
++        searchRowXpath = AnimeXpaths.relAnimeSearchResultRows.xpath;
++        categoriasList = Arrays.asList("TV", "OVA", "Movie", "ONA", "Special");
+     }
+ 
+-    public void startCollectFromTop(){
+-        try{
++    public void startCollectFromTop() {
++        try {
+             collectFromTop();
+-        }
+-        catch (ExcepcionDeConexion ioEx){
++        } catch (ExcepcionDeConexion ioEx) {
+             System.out.println(ioEx);
+-        }
+-        catch (MalFormatoURL urlEx){
++        } catch (MalFormatoURL urlEx) {
+             System.out.println(urlEx);
+         }
+     }
+ 
+-    public void startCollectFromTop(String targetURL){
+-        try{
++    public void startCollectFromTop(String targetURL) {
++        try {
+             collectFromTop(targetURL);
+-        }
+-        catch (ExcepcionDeConexion ioEx){
++        } catch (ExcepcionDeConexion ioEx) {
+             System.out.println(ioEx);
+-        }
+-        catch (MalFormatoURL urlEx){
++        } catch (MalFormatoURL urlEx) {
+             System.out.println(urlEx);
+         }
+     }
+ 
+ 
+-    private void collectFromTop() throws ExcepcionDeConexion, MalFormatoURL{
+-            setupTopPage(topURL);
+-            extractTopTags();
+-            getAnchors();
++    private void collectFromTop() throws ExcepcionDeConexion, MalFormatoURL {
++        setupTopPage(topURL);
++        extractTopTags();
++        getAnchors();
+         //client.close();
+     }
++
+     private void collectFromTop(String targetURL) throws ExcepcionDeConexion, MalFormatoURL {
+-            setupTopPage(targetURL);
+-            extractTopTags();
+-            getAnchors();
++        setupTopPage(targetURL);
++        extractTopTags();
++        getAnchors();
+         //client.close();
+     }
+ 
+-    public void pasarPreviewsAMediaManager(){
++    public void pasarPreviewsAMediaManager() {
+         try {
+             List<AnimePreviewTop> tempPreviewsList = formarPreviewsPagTop();
+             tempPreviewsList.stream().forEach(MediaManager::agregarAnimePreviewTopALista);
+-        }
+-        catch (NullPointerException nullp){
++        } catch (NullPointerException nullp) {
+             System.out.println("Error al crear preview inicializada!");
+         }
+     }
+@@ -89,85 +84,83 @@
+     public List<AnimePreviewTop> formarPreviewsPagTop() {
+         try {
+             return agregarPreviewsATempList();
+-        }
+-        catch (NullPointerException nullp){
++        } catch (NullPointerException nullp) {
+             System.out.println("Página no inicializada");
+             return null;
+         }
+     }
+-    public List<AnimePreviewTop> agregarPreviewsATempList() throws NullPointerException{
+-        List<AnimePreviewTop> tempPreviewsList=new ArrayList<>();
+-        topRowsOfMedia.stream().forEach(animeRow->tempPreviewsList.add(formarRecordPreview(animeRow)));
++
++    public List<AnimePreviewTop> agregarPreviewsATempList() throws NullPointerException {
++        List<AnimePreviewTop> tempPreviewsList = new ArrayList<>();
++        topRowsOfMedia.stream().forEach(animeRow -> tempPreviewsList.add(formarRecordPreview(animeRow)));
+         return tempPreviewsList;
+     }
+ 
+-    public AnimePreviewTop formarRecordPreview(HtmlElement animeRow) throws NullPointerException{
+-        String urlAnime=getHrefFromAnchor(animeRow);
+-        return new AnimePreviewTop(obtenerID(urlAnime),obtenerNombreAnimePreview(animeRow),obtenerCategoriaAnime(animeRow),obtenerNumeroRank(animeRow),obtenerNumeroPuntos(animeRow),urlAnime);
++    public AnimePreviewTop formarRecordPreview(HtmlElement animeRow) throws NullPointerException {
++        String urlAnime = getHrefFromAnchor(animeRow);
++        return new AnimePreviewTop(obtenerID(urlAnime), obtenerNombreAnimePreview(animeRow), obtenerCategoriaAnime(animeRow), obtenerNumeroRank(animeRow), obtenerNumeroPuntos(animeRow), urlAnime);
+     }
+ 
+-    public String obtenerNombreAnimePreview(HtmlElement animePreview){
++    public String obtenerNombreAnimePreview(HtmlElement animePreview) {
+         return ((HtmlElement) animePreview.getFirstByXPath(AnimeXpaths.relTitleAnimeInTop.xpath)).getVisibleText();
+     }
+ 
+ 
+-    public String obtenerCategoriaAnime(HtmlElement elementoInteres){
++    public String obtenerCategoriaAnime(HtmlElement elementoInteres) {
+         getAnimeEmissionDetailsFromTop(elementoInteres);
+-        String datosEmision=emissionDataFromTop.get(0).getVisibleText();
++        String datosEmision = emissionDataFromTop.get(0).getVisibleText();
+         return definirCategoria(datosEmision);
+     }
+ 
+ 
+-    public void getAnimeEmissionDetailsFromTop(HtmlElement elementoInteres){
+-        emissionDataFromTop=new ArrayList<>(elementoInteres.getByXPath(AnimeXpaths.relEmissionDetailsAnimeInTop.xpath));
++    public void getAnimeEmissionDetailsFromTop(HtmlElement elementoInteres) {
++        emissionDataFromTop = new ArrayList<>(elementoInteres.getByXPath(AnimeXpaths.relEmissionDetailsAnimeInTop.xpath));
+     }
+ 
+ 
+-
+-
+-    public int obtenerNumeroRank(HtmlElement animePreview){
+-        List<HtmlElement> templist=new ArrayList<>(animePreview.getByXPath(AnimeXpaths.relRankingNumberAnimeInTop.xpath));
++    public int obtenerNumeroRank(HtmlElement animePreview) {
++        List<HtmlElement> templist = new ArrayList<>(animePreview.getByXPath(AnimeXpaths.relRankingNumberAnimeInTop.xpath));
+         return Integer.parseInt(templist.get(0).getVisibleText());
+     }
+ 
+-    public double obtenerNumeroPuntos(HtmlElement animePreview){
+-        List<HtmlElement> templist=new ArrayList<>(animePreview.getByXPath(AnimeXpaths.relScoreNumberAnimeInTop.xpath));
++    public double obtenerNumeroPuntos(HtmlElement animePreview) {
++        List<HtmlElement> templist = new ArrayList<>(animePreview.getByXPath(AnimeXpaths.relScoreNumberAnimeInTop.xpath));
+         return Double.parseDouble(templist.get(0).getVisibleText());
+     }
+ 
+-    public void obtenerInformacionImportanteElemSeleccionado(int seleccion){
++    public void obtenerInformacionImportanteElemSeleccionado(int seleccion) {
+         extractDataFromArticle(articlesURLs.get(seleccion));
+         obtenerInformacionImportanteAnime();
+     }
+ 
+-    public void obtenerInformacionImportanteAnime(){
++    public void obtenerInformacionImportanteAnime() {
+         getAnimeImportantInformationRaw();
+         formarListaInfoImportante();
+     }
+ 
+ 
+-    public void getAnimeImportantInformationRaw(){
+-        rawInformationElements =articleTags.getByXPath(AnimeXpaths.relAnimeDetailsGeneralInfo.xpath);
++    public void getAnimeImportantInformationRaw() {
++        rawInformationElements = articleTags.getByXPath(AnimeXpaths.relAnimeDetailsGeneralInfo.xpath);
+     }
+ 
+-    public void formarListaInfoImportante(){
+-        int inicio,fin;
+-        inicio=buscarPosicionInicioInformacionRelevante()+1;
+-        fin=buscarPosicionFinInformacionRelevante()-1; //exclusive y evitar incluir el <br>
+-        usableInformationElements = rawInformationElements.subList(inicio,fin);
++    public void formarListaInfoImportante() {
++        int inicio, fin;
++        inicio = buscarPosicionInicioInformacionRelevante() + 1;
++        fin = buscarPosicionFinInformacionRelevante() - 1; //exclusive y evitar incluir el <br>
++        usableInformationElements = rawInformationElements.subList(inicio, fin);
+     }
+ 
+ 
+-    public int buscarPosicionInicioInformacionRelevante(){
++    public int buscarPosicionInicioInformacionRelevante() {
+         System.out.println(rawInformationElements.size());
+-        HtmlElement elementoBuscado =(HtmlElement) articleTags.getByXPath(AnimeXpaths.relAnimeImportantGeneralInfoDetails.xpath).get(0);
++        HtmlElement elementoBuscado = (HtmlElement) articleTags.getByXPath(AnimeXpaths.relAnimeImportantGeneralInfoDetails.xpath).get(0);
+         System.out.println(rawInformationElements);
+ 
+         return rawInformationElements.indexOf(elementoBuscado);
+     }
+ 
+-    public int buscarPosicionFinInformacionRelevante(){
+-        HtmlElement elementoBuscado =(HtmlElement) articleTags.getByXPath(AnimeXpaths.relAnimeEndofImportantGeneralInfoDetails.xpath).get(0);
++    public int buscarPosicionFinInformacionRelevante() {
++        HtmlElement elementoBuscado = (HtmlElement) articleTags.getByXPath(AnimeXpaths.relAnimeEndofImportantGeneralInfoDetails.xpath).get(0);
+         //List<HtmlElement> elementoBuscado=new ArrayList<>(elementoClave.getByXPath(Xpaths.relAnimeImportantGeneralInfoDetails.xpath));
+         //System.out.println(elementoBuscado.get(0).getVisibleText());
+ 
+@@ -175,12 +168,11 @@
+     }
+ 
+ 
+-
+-    public Map<String,String> ponerInfoImportanteEnMaps(List<HtmlElement> listaInfoImportante){
+-        Map<String,String> importantInfoPairs=new HashMap<>();
+-        usableInformationElements.stream().forEach(importantInfoRow->
++    public Map<String, Object> ponerInfoImportanteEnMaps(List<HtmlElement> listaInfoImportante) {
++        Map<String, Object> importantInfoPairs = new HashMap<>();
++        usableInformationElements.stream().forEach(importantInfoRow ->
+         {
+-            String[] separatedImportantInfo =importantInfoRow.asNormalizedText().split(":",2);
++            String[] separatedImportantInfo = importantInfoRow.asNormalizedText().split(":", 2);
+             importantInfoPairs.put(separatedImportantInfo[0], separatedImportantInfo[1]);
+ 
+         });
+@@ -188,247 +180,243 @@
+     }
+ 
+ 
+-    public void mostrarInformacionImportante(){
+-        usableInformationElements.stream().forEach(infoRow-> System.out.println(infoRow.getVisibleText()));
++    public void mostrarInformacionImportante() {
++        usableInformationElements.stream().forEach(infoRow -> System.out.println(infoRow.getVisibleText()));
+     }
+ 
+     /*public void getPreviewsTodos(){
+         previewsList.stream().forEach(preview-> System.out.println("["+preview.posicionRanking()+"] "+preview));
+     }*/
+ 
+-    public void obtenerYMostrarImagenPreview(HtmlElement columna){
++    public void obtenerYMostrarImagenPreview(HtmlElement columna) {
+         obtenerImagen(columna);
+         mostrarImagen();
+     }
+ 
+-    public void obtenerImagen(HtmlElement columna){
+-        previewImage=columna.getFirstByXPath(AnimeXpaths.relPreviewCoverImageInTop.xpath);
++    public void obtenerImagen(HtmlElement columna) {
++        previewImage = columna.getFirstByXPath(AnimeXpaths.relPreviewCoverImageInTop.xpath);
+     }
+ 
+-    public void mostrarImagen(){
++    public void mostrarImagen() {
+         try {
+             ImageReader imgreader = previewImage.getImageReader();
+-            BufferedImage bimage =imgreader.read(0);
+-        }
+-        catch (IOException e){
++            BufferedImage bimage = imgreader.read(0);
++        } catch (IOException e) {
+ 
+         }
+     }
+ 
+-    public Map<String,String> extraerDatosObrasRelacionadas(HtmlElement articulo){
+-        if (contieneObrasRelacionadas(articulo)){
+-            Map<String,String> relMediaMap=obtenerObrasRelacionadasEnMap(articulo);
++    public Map<String, String> extraerDatosObrasRelacionadas(HtmlElement articulo) {
++        if (contieneObrasRelacionadas(articulo)) {
++            Map<String, String> relMediaMap = obtenerObrasRelacionadasEnMap(articulo);
+             return relMediaMap;
+-        }
+-        else{
++        } else {
+             return null;
+         }
+     }
+ 
+ 
+-    private Map<String,String> obtenerObrasRelacionadasEnMap(HtmlElement articulo){
+-        Map<String,String> tempRelMediaMap=new HashMap<>();
+-        List<HtmlElement> tempRelatedMediaList= articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath);
++    private Map<String, String> obtenerObrasRelacionadasEnMap(HtmlElement articulo) {
++        Map<String, String> tempRelMediaMap = new HashMap<>();
++        List<HtmlElement> tempRelatedMediaList = articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath);
+         tempRelatedMediaList.stream()
+-                .forEach(relatedMediaType->
++                .forEach(relatedMediaType ->
+                 {
+                     //System.out.println("relatedMediaType.asNormalizedText() = " + relatedMediaType.asNormalizedText());
+-                    String[] splitRelMedia=relatedMediaType.asNormalizedText().split(":",2);
+-                    tempRelMediaMap.put(splitRelMedia[0],splitRelMedia[1]);
++                    String[] splitRelMedia = relatedMediaType.asNormalizedText().split(":", 2);
++                    tempRelMediaMap.put(splitRelMedia[0], splitRelMedia[1]);
+                 });
+         return tempRelMediaMap;
+     }
+ 
+ 
+-    public List<String> obtenerEmisorasDelAnime(){
+-        List<HtmlElement> emisoras=extraerTagsEmisora();
+-        List<String> stringEmisoras=new ArrayList<>();
+-        if (tieneEmisoras(emisoras)){
+-            emisoras.stream().forEach(emisoraElement-> stringEmisoras.add(emisoraElement.asNormalizedText()));
++    public List<String> obtenerEmisorasDelAnime() {
++        List<HtmlElement> emisoras = extraerTagsEmisora();
++        List<String> stringEmisoras = new ArrayList<>();
++        if (tieneEmisoras(emisoras)) {
++            emisoras.stream().forEach(emisoraElement -> stringEmisoras.add(emisoraElement.asNormalizedText()));
+             return stringEmisoras;
+-        }
+-        else {
++        } else {
+             System.out.println("returnednull");
+             return null;
+         }
+     }
+ 
+-    public List<String> obtenerEmisorasDelAnime(HtmlElement anime){
+-        List<HtmlElement> emisoras=extraerTagsEmisora();
+-        List<String> stringEmisoras=new ArrayList<>();
+-        if (tieneEmisoras(emisoras)){
+-            emisoras.stream().forEach(emisoraElement-> stringEmisoras.add(emisoraElement.asNormalizedText()));
++    public List<String> obtenerEmisorasDelAnime(HtmlElement anime) {
++        List<HtmlElement> emisoras = extraerTagsEmisora();
++        List<String> stringEmisoras = new ArrayList<>();
++        if (tieneEmisoras(emisoras)) {
++            emisoras.stream().forEach(emisoraElement -> stringEmisoras.add(emisoraElement.asNormalizedText()));
+             return stringEmisoras;
+-        }
+-        else {
++        } else {
+             return null;
+         }
+     }
+ 
+-    public List<HtmlElement> extraerTagsEmisora(){
++    public List<HtmlElement> extraerTagsEmisora() {
+         try {
+             return articleTags.getByXPath(AnimeXpaths.relAnimeDetailsRowBroadcast.xpath);
+-        }
+-        catch (NullPointerException nullp){
++        } catch (NullPointerException nullp) {
+             return null;
+         }
+     }
+-    private boolean tieneEmisoras(List<HtmlElement> emisoras){
+-        return emisoras!=null? !emisoras.isEmpty(): false;
++
++    private boolean tieneEmisoras(List<HtmlElement> emisoras) {
++        return emisoras != null ? !emisoras.isEmpty() : false;
+     }
+ 
+ 
+-    public boolean contieneObrasRelacionadas(HtmlElement articulo){
++    public boolean contieneObrasRelacionadas(HtmlElement articulo) {
+         return !articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath).isEmpty();
+ 
+     }
+ 
+-    public void iniciarExtraerMusica(HtmlElement article){
+-        try{
++    public void iniciarExtraerMusica(HtmlElement article) {
++        try {
+             extraerMusica(article);
+-        }
+-        catch (NullPointerException nullPointerException){
++        } catch (NullPointerException nullPointerException) {
+             System.out.println("Error: página no inicializada");
+         }
+ 
+     }
+ 
+-    private void extraerMusica(HtmlElement article) throws NullPointerException{
+-        openingRows=new ArrayList<>();
+-        endingRows=new ArrayList<>();
++    private void extraerMusica(HtmlElement article) throws NullPointerException {
++        openingRows = new ArrayList<>();
++        endingRows = new ArrayList<>();
+         extractOpenings(article);
+         extractEndings(article);
+     }
+-    public void extractOpenings(HtmlElement article){
++
++    public void extractOpenings(HtmlElement article) {
+         extraerTableOpenings(article);
+     }
+ 
+-    public void extractEndings(HtmlElement article){
++    public void extractEndings(HtmlElement article) {
+         extraerTableEndings(article);
+     }
+ 
+-    public void extraerTableOpenings(HtmlElement article){
+-        ArrayList<HtmlElement> openingsTable=new ArrayList<>(article.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsTable.xpath));
++    public void extraerTableOpenings(HtmlElement article) {
++        ArrayList<HtmlElement> openingsTable = new ArrayList<>(article.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsTable.xpath));
+         extraerFilasOpenings(openingsTable.get(0));
+     }
+-    public void extraerFilasOpenings(HtmlElement tablaOpenings){
++
++    public void extraerFilasOpenings(HtmlElement tablaOpenings) {
+         //openingRows.addAll(tablaOpenings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));
+-        ArrayList<HtmlElement> tempOpeningRows =new ArrayList<>(tablaOpenings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));
+-        tempOpeningRows.stream().forEach(opRow-> openingRows.add(opRow.getVisibleText()));
++        ArrayList<HtmlElement> tempOpeningRows = new ArrayList<>(tablaOpenings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));
++        tempOpeningRows.stream().forEach(opRow -> openingRows.add(opRow.getVisibleText()));
+     }
+ 
+-    public void extraerTableEndings(HtmlElement article){
+-        HtmlElement endingsTable=article.getFirstByXPath(AnimeXpaths.relAnimeDetailsEndingsTable.xpath);
++    public void extraerTableEndings(HtmlElement article) {
++        HtmlElement endingsTable = article.getFirstByXPath(AnimeXpaths.relAnimeDetailsEndingsTable.xpath);
+         extraerFilasEndings(endingsTable);
+ 
+     }
+ 
+-    public void extraerFilasEndings(HtmlElement tablaEndings){
++    public void extraerFilasEndings(HtmlElement tablaEndings) {
+         //openingRows.addAll(tablaEndings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));
+-        ArrayList<HtmlElement> tempEndingRows =new ArrayList<>(tablaEndings.getByXPath(AnimeXpaths.relAnimeDetailsEndingsRows.xpath));
++        ArrayList<HtmlElement> tempEndingRows = new ArrayList<>(tablaEndings.getByXPath(AnimeXpaths.relAnimeDetailsEndingsRows.xpath));
+         tempEndingRows.stream().forEach(edRow -> endingRows.add(edRow.getVisibleText()));
+     }
+ 
+-    public AnimeMedia crearAnimeDetalles(AnimePreviewTop preview){
++    public AnimeMedia crearAnimeDetalles(AnimePreviewTop preview) {
+ 
+         return new AnimeMedia(preview);
+ 
+     }
+ 
+-    public void obtenerDetallesDeEmision(AnimeMedia objetivo){
+-        usableInformationElements.stream().forEach(infoRow->{
+-            String[] infoPair=infoRow.getVisibleText().split(":",0);
+-            agregarAHashMapAnime(objetivo,infoPair);
++    public void obtenerDetallesDeEmision(AnimeMedia objetivo) {
++        usableInformationElements.stream().forEach(infoRow -> {
++            String[] infoPair = infoRow.getVisibleText().split(":", 0);
++            agregarAHashMapAnime(objetivo, infoPair);
+ 
+         });
+ 
+     }
+-    public void agregarAHashMapAnime(AnimeMedia anime, String[] detallesSeparados){
++
++    public void agregarAHashMapAnime(AnimeMedia anime, String[] detallesSeparados) {
+         try {
+-            anime.agregarInfoEmision(detallesSeparados[0],detallesSeparados[1]);
+-        }
+-        catch (NullPointerException exception){
+-            System.err.println("No existe un par en "+Arrays.toString(detallesSeparados));
++            anime.agregarInfoEmision(detallesSeparados[0], detallesSeparados[1]);
++        } catch (NullPointerException exception) {
++            System.err.println("No existe un par en " + Arrays.toString(detallesSeparados));
+         }
+     }
+ 
+-    public Map<String,String> extraerInfoStaff(HtmlElement articleBody){
+-        List<HtmlElement> tablaStaff=articleBody.getByXPath(AnimeXpaths.relAnimeDetailsStaffTable.xpath);
+-        List<HtmlElement> tablasSeparadas=tablaStaff.get(1).getByXPath(AnimeXpaths.relAnimeDetailsStaffIndividualTable.xpath);
+-        List<String> stringStaff=pasarHtmlElementStaffAString(tablasSeparadas);
++    public Map<String, String> extraerInfoStaff(HtmlElement articleBody) {
++        List<HtmlElement> tablaStaff = articleBody.getByXPath(AnimeXpaths.relAnimeDetailsStaffTable.xpath);
++        List<HtmlElement> tablasSeparadas = tablaStaff.get(1).getByXPath(AnimeXpaths.relAnimeDetailsStaffIndividualTable.xpath);
++        List<String> stringStaff = pasarHtmlElementStaffAString(tablasSeparadas);
+ 
+ 
+         return pasarInformacionStaffAMap(stringStaff);
+     }
+ 
+-    private List<String> pasarHtmlElementStaffAString(List<HtmlElement> tablasSeparadasStaff){
+-        List<String> tempStringStaff=new ArrayList<>();
+-        tablasSeparadasStaff.stream().forEach(tabla->tempStringStaff.add(tabla.asNormalizedText()));
++    private List<String> pasarHtmlElementStaffAString(List<HtmlElement> tablasSeparadasStaff) {
++        List<String> tempStringStaff = new ArrayList<>();
++        tablasSeparadasStaff.stream().forEach(tabla -> tempStringStaff.add(tabla.asNormalizedText()));
+         return tempStringStaff;
+     }
+ 
+-    private Map<String,String> pasarInformacionStaffAMap(List<String> staffAsString){
+-        Map<String,String> tempStaffCargo=new HashMap<>();
++    private Map<String, String> pasarInformacionStaffAMap(List<String> staffAsString) {
++        Map<String, String> tempStaffCargo = new HashMap<>();
+         staffAsString.stream()
+-                .forEach(stringDeStaff->
++                .forEach(stringDeStaff ->
+                 {
+-                    String[] nombreCargo=stringDeStaff.split("\n",2);
+-                    tempStaffCargo.put(nombreCargo[0],nombreCargo[1]);
++                    String[] nombreCargo = stringDeStaff.split("\n", 2);
++                    tempStaffCargo.put(nombreCargo[0], nombreCargo[1]);
+                 });
+         return tempStaffCargo;
+     }
+ 
+-    public void formarAnimeDetalle(){
++    public void formarAnimeDetalle() {
+ 
+     }
+ 
+ 
+-    public void extraerVariasPaginasTop(int numPaginas){
+-        IntStream.range(1,numPaginas+1).forEach(pageNumber->{
+-            String urlObjetivo=baseSearchUrl+convertirPaginaTopAUrl(pageNumber);
++    public void extraerVariasPaginasTop(int numPaginas) {
++        IntStream.range(1, numPaginas + 1).forEach(pageNumber -> {
++            String urlObjetivo = baseSearchUrl + convertirPaginaTopAUrl(pageNumber);
+             startCollectFromTop(urlObjetivo);
+         });
+     }
+ 
+-    public void pasarTodasFilasAPreview(){
+-        List<AnimePreviewSearch> searchPreviewList=new ArrayList<>();
+-        searchRowsOfMedia.stream().forEach(searchRow->searchPreviewList.add(pasarFilaSearchAPreview(searchRow)));
++    public void pasarTodasFilasAPreview() {
++        List<AnimePreviewSearch> searchPreviewList = new ArrayList<>();
++        searchRowsOfMedia.stream().forEach(searchRow -> searchPreviewList.add(pasarFilaSearchAPreview(searchRow)));
+         System.out.println(searchPreviewList);
+ 
+ 
+     }
+ 
+-    public AnimePreviewSearch pasarFilaSearchAPreview(HtmlElement filaBusqueda){
+-        String url=obtenerLinkBusqueda(filaBusqueda);
+-        int id=obtenerID(url);
+-        String tipoEmision=obtenerTipoEmisionBusqueda(filaBusqueda);
+-        String nombre=obtenerNombreBusqueda(filaBusqueda);
+-        double puntuacion=obtenerPuntajeBusqueda(filaBusqueda);
+-        return new AnimePreviewSearch(id,nombre,tipoEmision,puntuacion,url);
++    public AnimePreviewSearch pasarFilaSearchAPreview(HtmlElement filaBusqueda) {
++        String url = obtenerLinkBusqueda(filaBusqueda);
++        int id = obtenerID(url);
++        String tipoEmision = obtenerTipoEmisionBusqueda(filaBusqueda);
++        String nombre = obtenerNombreBusqueda(filaBusqueda);
++        double puntuacion = obtenerPuntajeBusqueda(filaBusqueda);
++        return new AnimePreviewSearch(id, nombre, tipoEmision, puntuacion, url);
+ 
+     }
+ 
+-    public String obtenerNombreBusqueda(HtmlElement filaBusqueda){
+-        String tempNombre=((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchTitle.xpath)).asNormalizedText();
++    public String obtenerNombreBusqueda(HtmlElement filaBusqueda) {
++        String tempNombre = ((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchTitle.xpath)).asNormalizedText();
+         return tempNombre;
+     }
+ 
+-    public String obtenerLinkBusqueda(HtmlElement filaBusqueda){
++    public String obtenerLinkBusqueda(HtmlElement filaBusqueda) {
+ 
+         return ((HtmlAnchor) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchHref.xpath)).getHrefAttribute();
+     }
+ 
+ 
+-    public double obtenerPuntajeBusqueda(HtmlElement filaBusqueda){
+-        String puntajeString=((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchScore.xpath)).asNormalizedText();
+-        return puntajeString.equals("N/A")?0.0:Double.parseDouble(puntajeString);
++    public double obtenerPuntajeBusqueda(HtmlElement filaBusqueda) {
++        String puntajeString = ((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchScore.xpath)).asNormalizedText();
++        return puntajeString.equals("N/A") ? 0.0 : Double.parseDouble(puntajeString);
+     }
+ 
+-    public String obtenerTipoEmisionBusqueda(HtmlElement filaBusqueda){
++    public String obtenerTipoEmisionBusqueda(HtmlElement filaBusqueda) {
+         return ((HtmlElement) filaBusqueda.getFirstByXPath(AnimeXpaths.relAnimeSearchEmissionType.xpath)).asNormalizedText();
+     }
+ 
+ 
+-
+ }
+ 
+Index: src/main/java/scrapping/Media/DetailedMedia/AnimeMedia.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package scrapping.Media.DetailedMedia;\r\n\r\nimport scrapping.Media.Preview.AnimePreviewTop;\r\n\r\nimport java.util.HashMap;\r\nimport java.util.Map;\r\n\r\npublic class AnimeMedia extends Media{\r\n\r\n    final String tipo;\r\n\r\n\r\n    Map<String,String> infoEmision;\r\n    Map<String,String> obrasRelacionadas;\r\n\r\n    public AnimeMedia(int id, String nombre, int posRanking, double puntuacion, String link,String tipo){\r\n        super(id,nombre,posRanking,puntuacion,link);\r\n        this.tipo=tipo;\r\n        infoEmision=new HashMap<>();\r\n    }\r\n\r\n    public AnimeMedia(AnimePreviewTop preview) {\r\n        super(preview.id(),preview.nombre(), preview.posicionRanking(), preview.puntuacion(), preview.link());\r\n        this.tipo=preview.tipo();\r\n        infoEmision=new HashMap<>();\r\n    }\r\n\r\n    public void agregarInfoEmision(String llave, String valor){\r\n        infoEmision.put(llave,valor);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/scrapping/Media/DetailedMedia/AnimeMedia.java b/src/main/java/scrapping/Media/DetailedMedia/AnimeMedia.java
+--- a/src/main/java/scrapping/Media/DetailedMedia/AnimeMedia.java	(revision dbb44fe1b4caa43ee06b29c0f62a222ec1df562c)
++++ b/src/main/java/scrapping/Media/DetailedMedia/AnimeMedia.java	(date 1670178951710)
+@@ -10,8 +10,8 @@
+     final String tipo;
+ 
+ 
+-    Map<String,String> infoEmision;
+-    Map<String,String> obrasRelacionadas;
++    Map<String,Object> infoEmision;
++    Map<String,Object> obrasRelacionadas;
+ 
+     public AnimeMedia(int id, String nombre, int posRanking, double puntuacion, String link,String tipo){
+         super(id,nombre,posRanking,puntuacion,link);
+Index: src/main/java/DataAndCollection/ManejoDeUsuarios.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package DataAndCollection;\r\n\r\nimport com.google.api.core.ApiFuture;\r\nimport com.google.cloud.firestore.*;\r\nimport errores.Errores;\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\nimport java.util.Map;\r\nimport java.util.Scanner;\r\nimport java.util.concurrent.ExecutionException;\r\n\r\npublic class ManejoDeUsuarios{\r\n    private static Firestore db = Conectar.getDb();\r\n    private static Scanner teclado = new Scanner(System.in);\r\n    public ManejoDeUsuarios(){\r\n\r\n    }\r\n    public static void inputRegistarUsuario(){\r\n        // entradas\r\n        String contraseña;\r\n        String correo;\r\n        String nombre;\r\n        // manejos\r\n        System.out.println(\"ingresa nombre del usuario\");\r\n        nombre=teclado.next();\r\n        System.out.println(\"ingresa correo del usuario\");\r\n        correo= teclado.next();;\r\n        System.out.println(\"ingresa contraseña del usuario\");\r\n        contraseña=teclado.next();\r\n        registrarUsuario(db,nombre,correo,contraseña);\r\n\r\n    }\r\n    public static void inputIniciarSesion() throws ExecutionException, InterruptedException, Errores {\r\n        String correo;\r\n        String contraseña;\r\n        System.out.println(\"Ingresa correo\");\r\n        correo= teclado.next();\r\n        System.out.println(\"Ingresa contraseña\");\r\n        contraseña=teclado.next();\r\n        try {\r\n            iniciarSesion(db, correo, contraseña);\r\n        }catch(Errores e){\r\n            System.out.println(\"error al iniciar sesion: \"+e.getMessage());\r\n        }\r\n    }\r\n\r\n    private static void registrarUsuario(Firestore db, String nombre, String correo, String contraseña) {\r\n        // Creamos una nueva colección en Firestore llamada \"usuarios\"\r\n        // donde guardaremos los datos del usuario\r\n        CollectionReference usuarios = db.collection(\"usuarios\");\r\n\r\n        // Creamos un nuevo documento en la colección \"usuarios\"\r\n        // donde guardaremos los datos del usuario\r\n        DocumentReference nuevoUsuario = usuarios.document();\r\n\r\n        // Creamos un mapa de clave-valor donde guardaremos los datos del usuario\r\n        Map<String, Object> usuario = new HashMap<>();\r\n        usuario.put(\"nombre\", nombre);\r\n        usuario.put(\"correo\", correo);\r\n        usuario.put(\"contraseña\", contraseña);\r\n\r\n        try {\r\n            // Guardamos los datos del usuario en el documento creado previamente\r\n            ApiFuture<WriteResult> result = nuevoUsuario.set(usuario);\r\n            System.out.println(\"Usuario registrado correctamente: \" + result.get().getUpdateTime());\r\n        } catch (Exception e) {\r\n            // Si ocurre algún error, mostramos un mensaje de error al usuario\r\n            System.out.println(\"Error al registrar el usuario: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n    private static void iniciarSesion(Firestore db, String correo, String contraseña) throws ExecutionException, InterruptedException, Errores {\r\n        // Buscamos en la colección \"usuarios\" de Firestore un usuario con el correo electrónico especificado\r\n        ApiFuture<QuerySnapshot> future = db.collection(\"usuarios\").whereEqualTo(\"correo\", correo).get();\r\n\r\n        // Obtenemos el primer documento encontrado (si existe)\r\n        List<QueryDocumentSnapshot> documentos = future.get().getDocuments();\r\n        if (documentos.size() > 0) {\r\n            DocumentSnapshot documento = documentos.get(0);\r\n\r\n            // Verificamos que la contraseña es correcta\r\n            if (documento.getString(\"contraseña\").equals(contraseña)) {\r\n                // Si la contraseña es correcta, mostramos un mensaje de éxito y continuamos con la sesión\r\n                System.out.println(\"Bienvenido, \" + documento.getString(\"nombre\"));\r\n            } else {\r\n                throw new Errores(\"la contraseña es incorrecta\");\r\n            }\r\n        } else {\r\n            // Si no se encuentra ningún usuario con el correo electrónico especificado, mostramos un mensaje de error\r\n            System.out.println(\"No se encontró ningún usuario con el correo electrónico especificado\");\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/DataAndCollection/ManejoDeUsuarios.java b/src/main/java/DataAndCollection/ManejoDeUsuarios.java
+--- a/src/main/java/DataAndCollection/ManejoDeUsuarios.java	(revision dbb44fe1b4caa43ee06b29c0f62a222ec1df562c)
++++ b/src/main/java/DataAndCollection/ManejoDeUsuarios.java	(date 1670179956209)
+@@ -3,10 +3,9 @@
+ import com.google.api.core.ApiFuture;
+ import com.google.cloud.firestore.*;
+ import errores.Errores;
+-import java.util.HashMap;
+-import java.util.List;
+-import java.util.Map;
+-import java.util.Scanner;
++import scrapping.Media.Preview.AnimePreviewSearch;
++
++import java.util.*;
+ import java.util.concurrent.ExecutionException;
+ 
+ public class ManejoDeUsuarios{
+@@ -55,7 +54,7 @@
+ 
+         // Creamos un mapa de clave-valor donde guardaremos los datos del usuario
+         Map<String, Object> usuario = new HashMap<>();
+-        usuario.put("nombre", nombre);
++        usuario.put("nombre", nombre); //var
+         usuario.put("correo", correo);
+         usuario.put("contraseña", contraseña);
+ 
+@@ -91,6 +90,31 @@
+         }
+     }
+ 
++    private static void guardarInformacion(ArrayList<AnimePreviewSearch> ){
++// Creamos una nueva colección en Firestore llamada "usuarios"
++        // donde guardaremos los datos del usuario
++        CollectionReference usuarios = db.collection("usuarios");
++
++        // Creamos un nuevo documento en la colección "usuarios"
++        // donde guardaremos los datos del usuario
++        DocumentReference nuevoUsuario = usuarios.document();
++
++        // Creamos un mapa de clave-valor donde guardaremos los datos del usuario
++        Map<String, Object> usuario = new HashMap<>();
++        usuario.put("nombre", nombre); //var
++        usuario.put("correo", correo);
++        usuario.put("contraseña", contraseña);
++
++        try {
++            // Guardamos los datos del usuario en el documento creado previamente
++            ApiFuture<WriteResult> result = nuevoUsuario.set(usuario);
++            System.out.println("Usuario registrado correctamente: " + result.get().getUpdateTime());
++        } catch (Exception e) {
++            // Si ocurre algún error, mostramos un mensaje de error al usuario
++            System.out.println("Error al registrar el usuario: " + e.getMessage());
++        }
++    }
++
+ 
+ 
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2bb1cd44-2640-47b6-9bf4-2e813eedbd86\" name=\"Changes\" comment=\"clase error implementada\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_12_2022_10_59_p__m___Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_12_2022_10_59_p__m___Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/GUI/LoginPanel.form\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/GUI/LoginPanel.form\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Record\" />\r\n        <option value=\"Enum\" />\r\n        <option value=\"JUnit5 Test Class\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/GUI/JFrame.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/Principal.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/Extractor.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2I667cuHOAHKaIVHSfmr8GljJTp\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH\": \"319\",\r\n    \"com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary\": \"JUnit5\",\r\n    \"com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5\": \"\",\r\n    \"create.test.in.the.same.root\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/Manuel/Desktop/Proyectos poo/MyAnimeList\",\r\n    \"project.structure.last.edited\": \"Project\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"shared-indexes\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Manuel\\Desktop\\Proyectos poo\\MyAnimeList\" />\r\n      <recent name=\"C:\\Users\\Manuel\\Desktop\\Proyectos poo\\MyAnimeList\\.idea\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.Recents.Supers\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.RecentsKey\">\r\n      <recent name=\"\" />\r\n      <recent name=\"scrapping\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.Principal\">\r\n    <configuration name=\"Principal\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Principal\" />\r\n      <module name=\"MyAnimeList\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AnimeExtractorTest.extraerDatosObrasRelacionadas\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.AnimeExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"extraerDatosObrasRelacionadas(java.lang.String)\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AnimeExtractorTest.testTieneEmisoras\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.AnimeExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"testTieneEmisoras\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MangaExtractorTest.collectFromTop\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.MangaExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"collectFromTop\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MangaExtractorTest.formarPreviewsTop50\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.MangaExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"formarPreviewsTop50\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Principal\" />\r\n        <item itemvalue=\"JUnit.AnimeExtractorTest.testTieneEmisoras\" />\r\n        <item itemvalue=\"JUnit.MangaExtractorTest.formarPreviewsTop50\" />\r\n        <item itemvalue=\"JUnit.MangaExtractorTest.collectFromTop\" />\r\n        <item itemvalue=\"JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2bb1cd44-2640-47b6-9bf4-2e813eedbd86\" name=\"Changes\" comment=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\" />\r\n      <created>1669489522036</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1669489522036</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"update\">\r\n      <created>1669491891277</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669491891277</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"cambio al git\">\r\n      <created>1669491635527</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669491635527</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase\">\r\n      <created>1669740959962</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669740959962</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\">\r\n      <created>1669741444516</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669741444516</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\">\r\n      <created>1669744759595</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669744759595</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"adicion para registrar usuario\">\r\n      <created>1669995563624</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669995563624</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"adicion para registrar usuario\">\r\n      <created>1669995617415</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669995617415</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"adicion para registrar usuario&#10;y login\">\r\n      <created>1669998437931</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669998437931</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"clase error implementada\">\r\n      <created>1670118438497</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670118438497</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"10\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"update\" />\r\n    <MESSAGE value=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase\" />\r\n    <MESSAGE value=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\" />\r\n    <MESSAGE value=\"adicion para registrar usuario\" />\r\n    <MESSAGE value=\"adicion para registrar usuario&#10;y login\" />\r\n    <MESSAGE value=\"clase error implementada\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"clase error implementada\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision dbb44fe1b4caa43ee06b29c0f62a222ec1df562c)
++++ b/.idea/workspace.xml	(date 1670179956236)
+@@ -5,9 +5,15 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="clase error implementada">
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_12_2022_10_59_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_12_2022_10_59_p__m___Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/DetailedMedia/AnimeMedia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/DetailedMedia/AnimeMedia.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeUsuarios.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeUsuarios.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/guiLogin/JFrame.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/guiLogin/JLabel.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Media/DetailedMedia/AnimeMedia.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/Media/DetailedMedia/AnimeMedia.class" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -57,7 +63,7 @@
+     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+     "create.test.in.the.same.root": "true",
+-    "last_opened_file_path": "C:/Users/Manuel/Desktop/Proyectos poo/MyAnimeList",
++    "last_opened_file_path": "C:/Users/Manuel/OneDrive/Universidad/Semestre 2022(1)/Programacion orientada a objetos/POO proyectos 2022 semestre 1/GUI",
+     "project.structure.last.edited": "Project",
+     "project.structure.proportion": "0.15",
+     "project.structure.side.proportion": "0.2",
+@@ -80,7 +86,7 @@
+       <recent name="scrapping" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.Principal">
++  <component name="RunManager" selected="JUnit.AnimeExtractorTest">
+     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="Principal" />
+       <module name="MyAnimeList" />
+@@ -88,7 +94,7 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="AnimeExtractorTest.extraerDatosObrasRelacionadas" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++    <configuration name="AnimeExtractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="MyAnimeList" />
+       <extension name="coverage">
+         <pattern>
+@@ -98,13 +104,12 @@
+       </extension>
+       <option name="PACKAGE_NAME" value="scrapping" />
+       <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+-      <option name="METHOD_NAME" value="extraerDatosObrasRelacionadas(java.lang.String)" />
+-      <option name="TEST_OBJECT" value="method" />
++      <option name="TEST_OBJECT" value="class" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="AnimeExtractorTest.testTieneEmisoras" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++    <configuration name="AnimeExtractorTest.formarPreviewsTop50" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="MyAnimeList" />
+       <extension name="coverage">
+         <pattern>
+@@ -114,13 +119,13 @@
+       </extension>
+       <option name="PACKAGE_NAME" value="scrapping" />
+       <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+-      <option name="METHOD_NAME" value="testTieneEmisoras" />
++      <option name="METHOD_NAME" value="formarPreviewsTop50" />
+       <option name="TEST_OBJECT" value="method" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="MangaExtractorTest.collectFromTop" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++    <configuration name="AnimeExtractorTest.testTieneEmisoras" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="MyAnimeList" />
+       <extension name="coverage">
+         <pattern>
+@@ -129,8 +134,8 @@
+         </pattern>
+       </extension>
+       <option name="PACKAGE_NAME" value="scrapping" />
+-      <option name="MAIN_CLASS_NAME" value="scrapping.MangaExtractorTest" />
+-      <option name="METHOD_NAME" value="collectFromTop" />
++      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
++      <option name="METHOD_NAME" value="testTieneEmisoras" />
+       <option name="TEST_OBJECT" value="method" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+@@ -154,11 +159,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="JUnit.AnimeExtractorTest" />
++        <item itemvalue="JUnit.AnimeExtractorTest.formarPreviewsTop50" />
+         <item itemvalue="Application.Principal" />
+         <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisoras" />
+         <item itemvalue="JUnit.MangaExtractorTest.formarPreviewsTop50" />
+-        <item itemvalue="JUnit.MangaExtractorTest.collectFromTop" />
+-        <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -234,7 +239,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1670118438497</updated>
+     </task>
+-    <option name="localTasksCounter" value="10" />
++    <task id="LOCAL-00010" summary="clase error implementada">
++      <created>1670121814825</created>
++      <option name="number" value="00010" />
++      <option name="presentableId" value="LOCAL-00010" />
++      <option name="project" value="LOCAL" />
++      <updated>1670121814825</updated>
++    </task>
++    <option name="localTasksCounter" value="11" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
