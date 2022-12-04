@@ -1,4 +1,4 @@
-package guiLogin;
+package GUI;
 
 public class JFrame {
 }
