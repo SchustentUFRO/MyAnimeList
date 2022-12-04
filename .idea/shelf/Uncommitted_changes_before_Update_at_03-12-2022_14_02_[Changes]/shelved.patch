@@ -1,0 +1,238 @@
+Index: src/main/java/DataAndCollection/ManejoDeUsuarios.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package DataAndCollection;\r\n\r\nimport com.google.api.core.ApiFuture;\r\nimport com.google.cloud.firestore.*;\r\n\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\nimport java.util.Map;\r\nimport java.util.Scanner;\r\nimport java.util.concurrent.ExecutionException;\r\n\r\npublic class ManejoDeUsuarios {\r\n    private static Firestore db = Conectar.getDb();\r\n    private static Scanner teclado = new Scanner(System.in);\r\n    public ManejoDeUsuarios(){\r\n\r\n    }\r\n    public static void inputRegistarUsuario(){\r\n        // entradas\r\n        String contraseña;\r\n        String correo;\r\n        String nombre;\r\n        // manejos\r\n        System.out.println(\"ingresa nombre del usuario\");\r\n        nombre=teclado.next();\r\n        System.out.println(\"ingresa correo del usuario\");\r\n        correo= teclado.next();;\r\n        System.out.println(\"ingresa contraseña del usuario\");\r\n        contraseña=teclado.next();\r\n        registrarUsuario(db,nombre,correo,contraseña);\r\n\r\n    }\r\n    public static void inputIniciarSesion() throws ExecutionException, InterruptedException {\r\n        String correo;\r\n        String contraseña;\r\n        System.out.println(\"Ingresa correo\");\r\n        correo= teclado.next();\r\n        System.out.println(\"Ingresa contraseña\");\r\n        contraseña=teclado.next();\r\n        iniciarSesion(db,correo,contraseña);\r\n    }\r\n\r\n    private static void registrarUsuario(Firestore db, String nombre, String correo, String contraseña) {\r\n        // Creamos una nueva colección en Firestore llamada \"usuarios\"\r\n        // donde guardaremos los datos del usuario\r\n        CollectionReference usuarios = db.collection(\"usuarios\");\r\n\r\n        // Creamos un nuevo documento en la colección \"usuarios\"\r\n        // donde guardaremos los datos del usuario\r\n        DocumentReference nuevoUsuario = usuarios.document();\r\n\r\n        // Creamos un mapa de clave-valor donde guardaremos los datos del usuario\r\n        Map<String, Object> usuario = new HashMap<>();\r\n        usuario.put(\"nombre\", nombre);\r\n        usuario.put(\"correo\", correo);\r\n        usuario.put(\"contraseña\", contraseña);\r\n\r\n        try {\r\n            // Guardamos los datos del usuario en el documento creado previamente\r\n            ApiFuture<WriteResult> result = nuevoUsuario.set(usuario);\r\n            System.out.println(\"Usuario registrado correctamente: \" + result.get().getUpdateTime());\r\n        } catch (Exception e) {\r\n            // Si ocurre algún error, mostramos un mensaje de error al usuario\r\n            System.out.println(\"Error al registrar el usuario: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n    private static void iniciarSesion(Firestore db, String correo, String contraseña) throws ExecutionException, InterruptedException {\r\n        // Buscamos en la colección \"usuarios\" de Firestore un usuario con el correo electrónico especificado\r\n        ApiFuture<QuerySnapshot> future = db.collection(\"usuarios\").whereEqualTo(\"correo\", correo).get();\r\n\r\n        // Obtenemos el primer documento encontrado (si existe)\r\n        List<QueryDocumentSnapshot> documentos = future.get().getDocuments();\r\n        if (documentos.size() > 0) {\r\n            DocumentSnapshot documento = documentos.get(0);\r\n\r\n            // Verificamos que la contraseña es correcta\r\n            if (documento.getString(\"contraseña\").equals(contraseña)) {\r\n                // Si la contraseña es correcta, mostramos un mensaje de éxito y continuamos con la sesión\r\n                System.out.println(\"Bienvenido, \" + documento.getString(\"nombre\"));\r\n            } else {\r\n                // Si la contraseña es incorrecta, mostramos un mensaje de error\r\n                System.out.println(\"La contraseña es incorrecta\");\r\n            }\r\n        } else {\r\n            // Si no se encuentra ningún usuario con el correo electrónico especificado, mostramos un mensaje de error\r\n            System.out.println(\"No se encontró ningún usuario con el correo electrónico especificado\");\r\n        }\r\n    }\r\n\r\n\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/DataAndCollection/ManejoDeUsuarios.java b/src/main/java/DataAndCollection/ManejoDeUsuarios.java
+--- a/src/main/java/DataAndCollection/ManejoDeUsuarios.java	(revision c5b2875745bfd9c6a6ccf34ff64819998a9384a1)
++++ b/src/main/java/DataAndCollection/ManejoDeUsuarios.java	(date 1670086905162)
+@@ -2,14 +2,14 @@
+ 
+ import com.google.api.core.ApiFuture;
+ import com.google.cloud.firestore.*;
+-
++import errores.Errores;
+ import java.util.HashMap;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.Scanner;
+ import java.util.concurrent.ExecutionException;
+ 
+-public class ManejoDeUsuarios {
++public class ManejoDeUsuarios{
+     private static Firestore db = Conectar.getDb();
+     private static Scanner teclado = new Scanner(System.in);
+     public ManejoDeUsuarios(){
+@@ -30,14 +30,18 @@
+         registrarUsuario(db,nombre,correo,contraseña);
+ 
+     }
+-    public static void inputIniciarSesion() throws ExecutionException, InterruptedException {
++    public static void inputIniciarSesion() throws ExecutionException, InterruptedException, Errores {
+         String correo;
+         String contraseña;
+         System.out.println("Ingresa correo");
+         correo= teclado.next();
+         System.out.println("Ingresa contraseña");
+         contraseña=teclado.next();
+-        iniciarSesion(db,correo,contraseña);
++        try {
++            iniciarSesion(db, correo, contraseña);
++        }catch(Errores e){
++            System.out.println("error al iniciar sesion: "+e.getMessage());
++        }
+     }
+ 
+     private static void registrarUsuario(Firestore db, String nombre, String correo, String contraseña) {
+@@ -65,7 +69,7 @@
+         }
+     }
+ 
+-    private static void iniciarSesion(Firestore db, String correo, String contraseña) throws ExecutionException, InterruptedException {
++    private static void iniciarSesion(Firestore db, String correo, String contraseña) throws ExecutionException, InterruptedException, Errores {
+         // Buscamos en la colección "usuarios" de Firestore un usuario con el correo electrónico especificado
+         ApiFuture<QuerySnapshot> future = db.collection("usuarios").whereEqualTo("correo", correo).get();
+ 
+@@ -79,8 +83,7 @@
+                 // Si la contraseña es correcta, mostramos un mensaje de éxito y continuamos con la sesión
+                 System.out.println("Bienvenido, " + documento.getString("nombre"));
+             } else {
+-                // Si la contraseña es incorrecta, mostramos un mensaje de error
+-                System.out.println("La contraseña es incorrecta");
++                throw new Errores("la contraseña es incorrecta");
+             }
+         } else {
+             // Si no se encuentra ningún usuario con el correo electrónico especificado, mostramos un mensaje de error
+@@ -89,6 +92,8 @@
+     }
+ 
+ 
++
++
+ }
+ 
+ 
+Index: src/main/java/Principal.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import DataAndCollection.Conectar;\r\nimport DataAndCollection.ManejoDeUsuarios;\r\n\r\nimport java.util.Scanner;\r\n\r\n\r\npublic class Principal {\r\n\r\n    public static void main(String[] args) throws Exception {\r\n        try{\r\n            Conectar.conectar();\r\n            Scanner teclado = new Scanner(System.in);\r\n            int op=0;\r\n            System.out.println(\"¿que desea hacer?\");\r\n            System.out.println(\"1: registrar usuario\\n2: iniciar sesion\");\r\n            op= teclado.nextInt();\r\n            switch (op) {\r\n                case 1 -> ManejoDeUsuarios.inputRegistarUsuario();\r\n                case 2 -> ManejoDeUsuarios.inputIniciarSesion();\r\n            }\r\n\r\n        }catch(IllegalStateException e){\r\n            System.out.println(\"error: \"+e);\r\n        }\r\n\r\n\r\n\r\n\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/Principal.java b/src/main/java/Principal.java
+--- a/src/main/java/Principal.java	(revision c5b2875745bfd9c6a6ccf34ff64819998a9384a1)
++++ b/src/main/java/Principal.java	(date 1670003682222)
+@@ -7,25 +7,24 @@
+ public class Principal {
+ 
+     public static void main(String[] args) throws Exception {
+-        try{
++        try {
+             Conectar.conectar();
+             Scanner teclado = new Scanner(System.in);
+-            int op=0;
++            int op = 0;
+             System.out.println("¿que desea hacer?");
+             System.out.println("1: registrar usuario\n2: iniciar sesion");
+-            op= teclado.nextInt();
++            op = teclado.nextInt();
+             switch (op) {
+                 case 1 -> ManejoDeUsuarios.inputRegistarUsuario();
+                 case 2 -> ManejoDeUsuarios.inputIniciarSesion();
+             }
+ 
+-        }catch(IllegalStateException e){
+-            System.out.println("error: "+e);
++        } catch (IllegalStateException e) {
++            System.out.println("error: " + e);
+         }
++    }
+ 
+ 
++}
+ 
+ 
+-    }
+-}
+-
+Index: src/main/java/DataAndCollection/LoginUsuario.java
+===================================================================
+diff --git a/src/main/java/DataAndCollection/LoginUsuario.java b/src/main/java/DataAndCollection/LoginUsuario.java
+deleted file mode 100644
+--- a/src/main/java/DataAndCollection/LoginUsuario.java	(revision c5b2875745bfd9c6a6ccf34ff64819998a9384a1)
++++ /dev/null	(revision c5b2875745bfd9c6a6ccf34ff64819998a9384a1)
+@@ -1,4 +0,0 @@
+-package DataAndCollection;
+-
+-public class LoginUsuario {
+-}
+Index: src/main/java/err/Error.java
+===================================================================
+diff --git a/src/main/java/err/Error.java b/src/main/java/err/Error.java
+deleted file mode 100644
+--- a/src/main/java/err/Error.java	(revision c5b2875745bfd9c6a6ccf34ff64819998a9384a1)
++++ /dev/null	(revision c5b2875745bfd9c6a6ccf34ff64819998a9384a1)
+@@ -1,10 +0,0 @@
+-package err;
+-
+-public class Error {
+-    public Error(){
+-
+-    }
+-    public static void loginError(){
+-
+-    }
+-}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2bb1cd44-2640-47b6-9bf4-2e813eedbd86\" name=\"Changes\" comment=\"adicion para registrar usuario&#10;y login\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/DataAndCollection/RegistrarUsuario.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/Principal.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/Principal.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/err/Error.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/err/Error.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/DataAndCollection/Conectar.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/DataAndCollection/Conectar.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/DataAndCollection/manejoDeDatos/ManejoDeDatos.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/Principal.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/Principal.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/AbstractLayout.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/DimensionInfo.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridConstraints.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridLayoutManager.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/HorizontalInfo.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/LayoutState.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Spacer.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Util.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/VerticalInfo.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/err/Error.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/err/Error.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/scrapping/AnimePreview.class\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Record\" />\r\n        <option value=\"Enum\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"JUnit5 Test Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/Principal.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/guiLogin/JFrame.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/Extractor.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2I667cuHOAHKaIVHSfmr8GljJTp\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,\r\n    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,\r\n    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Manuel\\Desktop\\Proyectos poo\\MyAnimeList\" />\r\n      <recent name=\"C:\\Users\\Manuel\\Desktop\\Proyectos poo\\MyAnimeList\\.idea\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.Recents.Supers\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.RecentsKey\">\r\n      <recent name=\"\" />\r\n      <recent name=\"scrapping\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.Principal\">\r\n    <configuration name=\"Principal\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Principal\" />\r\n      <module name=\"MyAnimeList\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AnimeExtractorTest.checkEndingExtraction\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.Media.PreviewRecords.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.AnimeExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"checkEndingExtraction(java.lang.String)\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AnimeExtractorTest.extraerDatosObrasRelacionadas\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.AnimeExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"extraerDatosObrasRelacionadas(java.lang.String)\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MangaExtractorTest.collectFromTop\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.MangaExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"collectFromTop\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MangaExtractorTest.formarPreviewsTop50\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.MangaExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"formarPreviewsTop50\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Principal\" />\r\n        <item itemvalue=\"JUnit.MangaExtractorTest.formarPreviewsTop50\" />\r\n        <item itemvalue=\"JUnit.MangaExtractorTest.collectFromTop\" />\r\n        <item itemvalue=\"JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas\" />\r\n        <item itemvalue=\"JUnit.AnimeExtractorTest.checkEndingExtraction\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2bb1cd44-2640-47b6-9bf4-2e813eedbd86\" name=\"Changes\" comment=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\" />\r\n      <created>1669489522036</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1669489522036</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"update\">\r\n      <created>1669491891277</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669491891277</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"cambio al git\">\r\n      <created>1669491635527</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669491635527</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase\">\r\n      <created>1669740959962</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669740959962</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\">\r\n      <created>1669741444516</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669741444516</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\">\r\n      <created>1669744759595</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669744759595</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"adicion para registrar usuario\">\r\n      <created>1669995563624</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669995563624</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"adicion para registrar usuario\">\r\n      <created>1669995617415</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669995617415</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"update\" />\r\n    <MESSAGE value=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase\" />\r\n    <MESSAGE value=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\" />\r\n    <MESSAGE value=\"adicion para registrar usuario\" />\r\n    <MESSAGE value=\"adicion para registrar usuario&#10;y login\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"adicion para registrar usuario&#10;y login\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision c5b2875745bfd9c6a6ccf34ff64819998a9384a1)
++++ b/.idea/workspace.xml	(date 1670008160693)
+@@ -5,28 +5,16 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="adicion para registrar usuario&#10;y login">
++      <change afterPath="$PROJECT_DIR$/src/main/java/errores/Errores.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/RegistrarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/LoginUsuario.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Principal.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/err/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/err/Error.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/Conectar.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/Conectar.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/manejoDeDatos/ManejoDeDatos.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/err/Error.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDatos.class" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/target/classes/Principal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Principal.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/AbstractLayout.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/DimensionInfo.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridLayoutManager.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/HorizontalInfo.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/LayoutState.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Spacer.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Util.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/VerticalInfo.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/err/Error.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/err/Error.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimePreview.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/err/Error.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/guiLogin/guiDesing.class" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -38,8 +26,8 @@
+       <list>
+         <option value="Record" />
+         <option value="Enum" />
+-        <option value="Class" />
+         <option value="JUnit5 Test Class" />
++        <option value="Class" />
+       </list>
+     </option>
+   </component>
+@@ -233,7 +221,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1669995617415</updated>
+     </task>
+-    <option name="localTasksCounter" value="8" />
++    <task id="LOCAL-00008" summary="adicion para registrar usuario&#10;y login">
++      <created>1669998437931</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1669998437931</updated>
++    </task>
++    <option name="localTasksCounter" value="9" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+Index: src/main/java/errores/Errores.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/errores/Errores.java b/src/main/java/errores/Errores.java
+new file mode 100644
+--- /dev/null	(date 1670086470068)
++++ b/src/main/java/errores/Errores.java	(date 1670086470068)
+@@ -0,0 +1,9 @@
++package errores;
++
++public class Errores extends Exception{
++    public static final long serialVersionUID = 700L;
++    public Errores(String message) {
++        super(message);
++    }
++}
++

@@ -2,14 +2,14 @@ package DataAndCollection;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
-
+import errores.Errores;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
-public class ManejoDeUsuarios {
+public class ManejoDeUsuarios{
     private static Firestore db = Conectar.getDb();
     private static Scanner teclado = new Scanner(System.in);
     public ManejoDeUsuarios(){
@@ -30,14 +30,18 @@ public class ManejoDeUsuarios {
         registrarUsuario(db,nombre,correo,contraseña);
 
     }
-    public static void inputIniciarSesion() throws ExecutionException, InterruptedException {
+    public static void inputIniciarSesion() throws ExecutionException, InterruptedException, Errores {
         String correo;
         String contraseña;
         System.out.println("Ingresa correo");
         correo= teclado.next();
         System.out.println("Ingresa contraseña");
         contraseña=teclado.next();
-        iniciarSesion(db,correo,contraseña);
+        try {
+            iniciarSesion(db, correo, contraseña);
+        }catch(Errores e){
+            System.out.println("error al iniciar sesion: "+e.getMessage());
+        }
     }
 
     private static void registrarUsuario(Firestore db, String nombre, String correo, String contraseña) {
@@ -65,7 +69,7 @@ public class ManejoDeUsuarios {
         }
     }
 
-    private static void iniciarSesion(Firestore db, String correo, String contraseña) throws ExecutionException, InterruptedException {
+    private static void iniciarSesion(Firestore db, String correo, String contraseña) throws ExecutionException, InterruptedException, Errores {
         // Buscamos en la colección "usuarios" de Firestore un usuario con el correo electrónico especificado
         ApiFuture<QuerySnapshot> future = db.collection("usuarios").whereEqualTo("correo", correo).get();
 
@@ -79,14 +83,15 @@ public class ManejoDeUsuarios {
                 // Si la contraseña es correcta, mostramos un mensaje de éxito y continuamos con la sesión
                 System.out.println("Bienvenido, " + documento.getString("nombre"));
             } else {
-                // Si la contraseña es incorrecta, mostramos un mensaje de error
-                System.out.println("La contraseña es incorrecta");
+                throw new Errores("la contraseña es incorrecta");
             }
         } else {
             // Si no se encuentra ningún usuario con el correo electrónico especificado, mostramos un mensaje de error
             System.out.println("No se encontró ningún usuario con el correo electrónico especificado");
         }
     }
+
+
 
 
 }

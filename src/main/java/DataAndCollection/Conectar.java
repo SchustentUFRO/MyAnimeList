@@ -21,7 +21,7 @@ public class Conectar {
         FirebaseApp.initializeApp(options);
 
         db = FirestoreClient.getFirestore();
-        System.out.println("exito");
+        System.out.println("conectar a la base de datos: exito");
 
     }
 
