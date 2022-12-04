@@ -10,7 +10,8 @@ public class Principal {
     public static void main(String[] args) throws Exception {
         try {
             Conectar.conectar();
-            ManejoDetiempo.manejarTiempo();
+            ManejoDeDB.guardarInformacionPreview();
+            //ManejoDetiempo.manejarTiempo();
 
             /*
             Scanner teclado = new Scanner(System.in);

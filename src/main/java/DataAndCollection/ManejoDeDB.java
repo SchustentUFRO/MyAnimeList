@@ -2,9 +2,13 @@ package DataAndCollection;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import errores.Errores;
+import scrapping.AnimeExtractor;
 import scrapping.Media.Preview.Preview;
 
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -94,8 +98,21 @@ public class ManejoDeDB {
         }
     }
 
-    public static void guardarInformacionPreview(ArrayList<Preview> previews) {
-
+    public static void guardarInformacionPreview() {
+        AnimeExtractor animeExtractor = new AnimeExtractor();
+        animeExtractor.iniciarScrapper();
+        Gson gson = new Gson();
+        for (int i=0;i<animeExtractor.getAnimeTopPreview().size();i++) {
+            Type type = new TypeToken<Map<String,Object>>(){}.getType();
+            Map<String,Object> map = gson.fromJson(gson.toJson(animeExtractor.getAnimeTopPreview().get(i)), type);
+            CollectionReference collectionReference = db.collection("animes");
+            try{
+                ApiFuture<WriteResult> result = collectionReference.document().set(map);
+                System.out.println("animes guardados, tiempo: " + result.get().getUpdateTime());
+            }catch(Exception e){
+                e.getMessage();
+            }
+        }
     }
 
 
