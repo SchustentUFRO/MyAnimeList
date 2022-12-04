@@ -11,42 +11,46 @@ import java.util.concurrent.ExecutionException;
 public class ManejoDeDB {
     private static Firestore db = Conectar.getDb();
     private static Scanner teclado = new Scanner(System.in);
-    public ManejoDeDB(){
+
+    public ManejoDeDB() {
 
     }
-    public static void inputRegistarUsuario(){
+
+    public static void inputRegistarUsuario() {
         // entradas
         String contraseña;
         String correo;
         String nombre;
         // manejos
         System.out.println("ingresa nombre del usuario");
-        nombre=teclado.next();
+        nombre = teclado.next();
         System.out.println("ingresa correo del usuario");
-        correo= teclado.next();;
+        correo = teclado.next();
+        ;
         System.out.println("ingresa contraseña del usuario");
-        contraseña=teclado.next();
-        registrarUsuario(db,nombre,correo,contraseña);
+        contraseña = teclado.next();
+        registrarUsuario(nombre, correo, contraseña);
 
     }
+
     public static void inputIniciarSesion() throws ExecutionException, InterruptedException, Errores {
         String correo;
         String contraseña;
         System.out.println("Ingresa correo");
-        correo= teclado.next();
+        correo = teclado.next();
         System.out.println("Ingresa contraseña");
-        contraseña=teclado.next();
+        contraseña = teclado.next();
         try {
-            iniciarSesion(db, correo, contraseña);
-        }catch(Errores e){
-            System.out.println("error al iniciar sesion: "+e.getMessage());
+            iniciarSesion(correo, contraseña);
+        } catch (Errores e) {
+            System.out.println("error al iniciar sesion: " + e.getMessage());
         }
     }
 
-    private static void registrarUsuario(Firestore db, String nombre, String correo, String contraseña) {
+    private static void registrarUsuario(String nombre, String correo, String contraseña) {
         // Creamos una nueva colección en Firestore llamada "usuarios"
         // donde guardaremos los datos del usuario
-        CollectionReference usuarios = db.collection("usuarios");
+        CollectionReference usuarios = ManejoDeDB.db.collection("usuarios");
 
         // Creamos un nuevo documento en la colección "usuarios"
         // donde guardaremos los datos del usuario
@@ -68,9 +72,9 @@ public class ManejoDeDB {
         }
     }
 
-    private static void iniciarSesion(Firestore db, String correo, String contraseña) throws ExecutionException, InterruptedException, Errores {
+    private static void iniciarSesion(String correo, String contraseña) throws ExecutionException, InterruptedException, Errores {
         // Buscamos en la colección "usuarios" de Firestore un usuario con el correo electrónico especificado
-        ApiFuture<QuerySnapshot> future = db.collection("usuarios").whereEqualTo("correo", correo).get();
+        ApiFuture<QuerySnapshot> future = ManejoDeDB.db.collection("usuarios").whereEqualTo("correo", correo).get();
 
         // Obtenemos el primer documento encontrado (si existe)
         List<QueryDocumentSnapshot> documentos = future.get().getDocuments();
@@ -90,14 +94,38 @@ public class ManejoDeDB {
         }
     }
 
-    public static void guardarInformacionPreview(ArrayList<Preview> previews){
+    public static void guardarInformacionPreview(ArrayList<Preview> previews) {
 
     }
 
+    public static void updateTime(long time) {
+        DocumentReference nuevoTiempo = db.collection("tiempo").document("tiempo");
+        try {
+            ApiFuture<WriteResult> future = nuevoTiempo.update("tiempo", time);
+            WriteResult result = future.get();
+            System.out.println("Write result: " + result);
+        } catch (Exception e) {
+            System.out.println("Error" + e.getMessage());
+        }
+    }
 
-
-
+    public static long getTime() throws NullPointerException {
+        try {
+            CollectionReference tiempo = db.collection("tiempo");
+            List<QueryDocumentSnapshot> timeGetter = tiempo.get().get().getDocuments();
+            for (QueryDocumentSnapshot document : timeGetter) {
+                return document.getLong("tiempo");
+            }
+        }catch (Exception e) {
+            return 0;
+        }
+        return 0;
+    }
 }
+
+
+
+
 
 
 

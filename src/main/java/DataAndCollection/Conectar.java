@@ -22,7 +22,6 @@ public class Conectar {
 
         db = FirestoreClient.getFirestore();
         System.out.println("conectar a la base de datos: exito");
-
     }
 
     public static Firestore getDb() {

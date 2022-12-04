@@ -1,4 +1,6 @@
 import DataAndCollection.Conectar;
+import DataAndCollection.ManejoDeDB;
+import DataAndCollection.ManejoDetiempo;
 
 import java.util.Date;
 
@@ -8,10 +10,7 @@ public class Principal {
     public static void main(String[] args) throws Exception {
         try {
             Conectar.conectar();
-
-            Date date = new Date();
-            System.out.println(date.getTime());
-            long consultaOriginal = date.getTime();
+            ManejoDetiempo.manejarTiempo();
 
             /*
             Scanner teclado = new Scanner(System.in);
