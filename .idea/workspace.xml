@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="clase error implementada">
-      <change afterPath="$PROJECT_DIR$/src/test/java/DataAndCollection/ManejoDeDBTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40__Changes_.xml" beforeDir="false" />
+    <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="implementado la funcion delete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/JFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/JLabel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Principal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DataAndCollection/ManejoDeDBTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DataAndCollection/ManejoDeDBTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/JFrame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/JLabel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Principal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Principal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/DataAndCollection/ManejoDeDBTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/DataAndCollection/ManejoDeDBTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,58 +83,10 @@
       <recent name="scrapping" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ManejoDeDBTest.deteleContent">
+  <component name="RunManager" selected="JUnit.ManejoDeDBTest.testDeteleContent">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="MyAnimeList" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AnimeExtractorTest.checkImportantInfoExtraction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyAnimeList" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="scrapping.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="scrapping" />
-      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
-      <option name="METHOD_NAME" value="checkImportantInfoExtraction(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AnimeExtractorTest.formarPreviewsTop50" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyAnimeList" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="scrapping.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="scrapping" />
-      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
-      <option name="METHOD_NAME" value="formarPreviewsTop50" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AnimeExtractorTest.testTieneEmisoras" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyAnimeList" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="scrapping.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="scrapping" />
-      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
-      <option name="METHOD_NAME" value="testTieneEmisoras" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -161,13 +107,61 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ManejoDeDBTest.guardarInformacionPreview" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DataAndCollection.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="DataAndCollection" />
+      <option name="MAIN_CLASS_NAME" value="DataAndCollection.ManejoDeDBTest" />
+      <option name="METHOD_NAME" value="guardarInformacionPreview" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ManejoDeDBTest.testDeteleContent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DataAndCollection.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="DataAndCollection" />
+      <option name="MAIN_CLASS_NAME" value="DataAndCollection.ManejoDeDBTest" />
+      <option name="METHOD_NAME" value="testDeteleContent" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ManejoDeDBTest.updateTop50" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DataAndCollection.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="DataAndCollection" />
+      <option name="MAIN_CLASS_NAME" value="DataAndCollection.ManejoDeDBTest" />
+      <option name="METHOD_NAME" value="updateTop50" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ManejoDeDBTest.testDeteleContent" />
+        <item itemvalue="JUnit.ManejoDeDBTest.updateTop50" />
+        <item itemvalue="JUnit.ManejoDeDBTest.guardarInformacionPreview" />
         <item itemvalue="JUnit.ManejoDeDBTest.deteleContent" />
         <item itemvalue="Application.Principal" />
-        <item itemvalue="JUnit.AnimeExtractorTest.formarPreviewsTop50" />
-        <item itemvalue="JUnit.AnimeExtractorTest.checkImportantInfoExtraction" />
-        <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisoras" />
       </list>
     </recent_temporary>
   </component>
@@ -278,7 +272,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670188297640</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="implementado la funcion delete">
+      <created>1670272697924</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1670272697924</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -299,7 +300,8 @@
     <MESSAGE value="adicion para registrar usuario" />
     <MESSAGE value="adicion para registrar usuario&#10;y login" />
     <MESSAGE value="clase error implementada" />
-    <option name="LAST_COMMIT_MESSAGE" value="clase error implementada" />
+    <MESSAGE value="implementado la funcion delete" />
+    <option name="LAST_COMMIT_MESSAGE" value="implementado la funcion delete" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

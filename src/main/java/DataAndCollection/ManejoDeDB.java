@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import errores.Errores;
 import scrapping.AnimeExtractor;
-import scrapping.Media.Preview.Preview;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -97,7 +96,7 @@ public class ManejoDeDB {
             System.out.println("No se encontró ningún usuario con el correo electrónico especificado");
         }
     }
-
+    //funcion solo usada para crear y guardar el top 50 de la lista de animes en la db
     public static void guardarInformacionPreview() {
         AnimeExtractor animeExtractor = new AnimeExtractor();
         animeExtractor.iniciarScrapper();
@@ -114,23 +113,56 @@ public class ManejoDeDB {
             }
         }
     }
+    public static void updateTop50() {
+        AnimeExtractor animeExtractor = new AnimeExtractor();
+        animeExtractor.iniciarScrapper();
+        Gson gson = new Gson();
+        for (int i = 0; i<animeExtractor.getAnimeTopPreview().size() ; i++) {
+            Type type = new TypeToken<Map<String,Object>>(){}.getType();
+            Map<String,Object> map = gson.fromJson(gson.toJson(animeExtractor.getAnimeTopPreview().get(i)), type);
+            DocumentReference animes = db.collection("animes").document(String.valueOf(i+1));
+            try {
+                ApiFuture<WriteResult> future = animes.set(map);
+                WriteResult result = future.get();
+                System.out.println("Write result: " + result);
+            } catch (Exception e) {
+                System.out.println("Error" + e.getMessage());
+            }
+        }
+    }
 
+    // metodo usado por ahora solo con fines de testeo
     public static void deteleContent() throws ExecutionException, InterruptedException {
-        // Obtén una referencia a la colección que quieres borrar
+
         CollectionReference collection = db.collection("animes");
 
-// Obtén una lista de todos los documentos en la colección
         List<QueryDocumentSnapshot> documents = collection.get().get().getDocuments();
 
-// Itera sobre cada documento en la colección y bórralo
         for (DocumentSnapshot document : documents) {
             ApiFuture<WriteResult> result = document.getReference().delete();
             System.out.println("documento borrado: "+result.get().getUpdateTime());
         }
     }
 
+    public static void leerInfoAnimes() throws ExecutionException, InterruptedException {
+        ApiFuture<QuerySnapshot> query = db.collection("animes").get();
 
-}
+        QuerySnapshot querySnapshot = query.get();
+        List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+        for (QueryDocumentSnapshot document : documents) {
+
+            System.out.println("id " + document.getId());
+            System.out.println("link: " + document.getString("link"));
+            System.out.println("nombre: "+ document.getString("nombre"));
+            System.out.println("position ranking: " + document.getLong("posicionRanking"));
+            System.out.println("punctuacion: " + document.getDouble("puntuacion"));
+            System.out.println("tipo: "+ document.getString("tipo"));
+        }
+        }
+    }
+
+
+
 
 
 

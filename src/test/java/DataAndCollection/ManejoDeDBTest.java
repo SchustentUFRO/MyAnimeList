@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutionException;
 
-import static org.junit.jupiter.api.Assertions.*;
 class ManejoDeDBTest {
 
     @BeforeEach
@@ -18,4 +17,18 @@ class ManejoDeDBTest {
         ManejoDeDB.deteleContent();
     }
 
+    @Test
+    void guardarInformacionPreview() {
+        ManejoDeDB.guardarInformacionPreview();
+    }
+
+    @Test
+    void updateTop50() {
+        ManejoDeDB.updateTop50();
+    }
+
+    @Test
+    void testDeteleContent() throws ExecutionException, InterruptedException {
+        ManejoDeDB.leerInfoAnimes();
+    }
 }
