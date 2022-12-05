@@ -17,17 +17,11 @@ public class AnimeExtractor extends Extractor{
 
     protected List<HtmlElement> emissionDataFromTop;
     protected List<String> openingRows,endingRows;
-<<<<<<< Updated upstream
-    List<AnimePreview> animeSearchPreview;
-    List<AnimePreview> animeTopPreview;
 
 
-
-    List<AnimeMedia> animeMediaList;
-=======
     public List<AnimePreview> animeSearchPreview,animeTopPreview;
     public List<AnimeMedia> animeMediaList;
->>>>>>> Stashed changes
+
 
     public AnimeExtractor() {
         //previewsList=new ArrayList<>();
