@@ -3,7 +3,8 @@ package scrapping;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import err.ExcepcionDeConexion;
-import err.MalFormatoURL;
+import err.ExcepcionMalFormatoURL;
+import err.ExcepcionPaginaNoPreparada;
 import scrapping.Media.DetailedMedia.MangaMedia;
 import scrapping.Media.Preview.MangaPreview;
 
@@ -67,7 +68,7 @@ public class MangaExtractor extends Extractor{
         }
     }
 
-    private void formarDetallesMangaDeTop(MangaPreview preview) throws ExcepcionDeConexion,MalFormatoURL{
+    private void formarDetallesMangaDeTop(MangaPreview preview) throws ExcepcionDeConexion, ExcepcionMalFormatoURL, ExcepcionPaginaNoPreparada {
         usePreviewToCreateDetailsArticle(preview);
         MangaMedia nuevoDetalles =crearMangaDetalles(preview);
         obtenerInformacionImportanteManga();
@@ -85,7 +86,7 @@ public class MangaExtractor extends Extractor{
         }
     }
 
-    private void formarDetallesMangaDeBusqueda(MangaPreview previewBusqueda) throws ExcepcionDeConexion,MalFormatoURL{
+    private void formarDetallesMangaDeBusqueda(MangaPreview previewBusqueda) throws ExcepcionDeConexion, ExcepcionMalFormatoURL, ExcepcionPaginaNoPreparada {
         usePreviewToCreateDetailsArticle(previewBusqueda);
         MangaMedia nuevoDetalles=crearMangaDetalles(previewBusqueda);
         obtenerInformacionImportanteManga();
@@ -166,11 +167,11 @@ public class MangaExtractor extends Extractor{
         return importantInfoPairs;
     }
 
-    public void collectFromTopAndFormPreviews() throws ExcepcionDeConexion,MalFormatoURL{
+    public void collectFromTopAndFormPreviews() throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
         collectFromTop();
         mangaTopPreview=new ArrayList<>(formarPreviewsPagTop());
     }
-    public void collectFromTopAndFormPreviews(String url) throws ExcepcionDeConexion,MalFormatoURL{
+    public void collectFromTopAndFormPreviews(String url) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
         collectFromTop(url);
         mangaTopPreview=new ArrayList<>(formarPreviewsPagTop());
     }
@@ -184,7 +185,7 @@ public class MangaExtractor extends Extractor{
         catch (ExcepcionDeConexion excCon){
             System.out.println(excCon);
         }
-        catch(MalFormatoURL malURL){
+        catch(ExcepcionMalFormatoURL malURL){
             System.out.println(malURL);
         }
     }
@@ -245,14 +246,14 @@ public class MangaExtractor extends Extractor{
 
 
 
-    private void collectFromTop() throws ExcepcionDeConexion,MalFormatoURL {
+    private void collectFromTop() throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
         setupTopPage(topURL);
         extractTopTags();
         getAnchors();
 
         //client.close();
     }
-    private void collectFromTop(String targetURL) throws ExcepcionDeConexion,MalFormatoURL{
+    private void collectFromTop(String targetURL) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
         setupTopPage(targetURL);
         extractTopTags();
         getAnchors();

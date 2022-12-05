@@ -1,6 +1,6 @@
 package scrapping.Media.Preview;
 
-public class MangaPreview extends Preview{
+public class MangaPreview extends Preview implements Comparable<MangaPreview>{
 
 
     public MangaPreview(int id, String nombre, String tipo, int posicionRanking, double puntuacion, String link) {
@@ -23,4 +23,16 @@ public class MangaPreview extends Preview{
                 "}\n";
     }
 
+
+    @Override
+    public int compareTo(MangaPreview o) {
+        if (this.id>o.getId()){
+            return 1;
+        } else if (this.puntuacion<o.getId()) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    }
 }

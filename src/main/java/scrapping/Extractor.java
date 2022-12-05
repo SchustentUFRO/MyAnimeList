@@ -4,7 +4,8 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import err.ExcepcionDeConexion;
-import err.MalFormatoURL;
+import err.ExcepcionMalFormatoURL;
+import err.ExcepcionPaginaNoPreparada;
 import scrapping.Media.Preview.Preview;
 
 import java.io.IOException;
@@ -47,18 +48,18 @@ public abstract class Extractor {
         client.getOptions().setJavaScriptEnabled(false);
     }
 
-    public HtmlPage setupPage(String targetURL) throws ExcepcionDeConexion, MalFormatoURL {
+    public HtmlPage setupPage(String targetURL) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
             try{
                 return client.getPage(targetURL);
             }
             catch (MalformedURLException malURL){
-                throw new MalFormatoURL();
+                throw new ExcepcionMalFormatoURL();
             }
             catch (IOException iox){
                 throw new ExcepcionDeConexion();
             }
     }
-    public void setupTopPage(String targetURL) throws ExcepcionDeConexion, MalFormatoURL{
+    public void setupTopPage(String targetURL) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
         HtmlPage tempPage=setupPage(targetURL);
         if (tempPage==null){
             System.out.println("No se pudo crear pagina");
@@ -67,15 +68,20 @@ public abstract class Extractor {
             topPage=tempPage;
         }
     }
-    private void setupArticlePage(String targetURL) throws ExcepcionDeConexion, MalFormatoURL{
+    private void setupArticlePage(String targetURL) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
             HtmlPage tempPage = setupPage(targetURL);
             articlePage=tempPage;
     }
 
 
 
-    void usePreviewToCreateDetailsArticle(Preview preview) throws ExcepcionDeConexion,MalFormatoURL{
-        extractDataFromArticle(preview.getLink());
+    void usePreviewToCreateDetailsArticle(Preview preview) throws ExcepcionDeConexion, ExcepcionMalFormatoURL, ExcepcionPaginaNoPreparada {
+        try {
+            extractDataFromArticle(preview.getLink());
+        }
+        catch (NullPointerException nullp){
+            throw new ExcepcionPaginaNoPreparada();
+        }
     }
 
 
@@ -88,14 +94,18 @@ public abstract class Extractor {
         }
     }
 
-    private void extractDataFromArticle(String articleURL) throws ExcepcionDeConexion,MalFormatoURL{
+    private void extractDataFromArticle(String articleURL) throws ExcepcionDeConexion, ExcepcionMalFormatoURL, ExcepcionPaginaNoPreparada {
             setupArticlePage(articleURL);
             extractArticleBody(articlePage);
     }
 
-    private void extractArticleBody(HtmlPage article) throws NullPointerException{
-        articleTags=article.getFirstByXPath(AnimeXpaths.animeDetailsBase.xpath);
-
+    private void extractArticleBody(HtmlPage article) throws ExcepcionPaginaNoPreparada{
+        try {
+            articleTags = article.getFirstByXPath(AnimeXpaths.animeDetailsBase.xpath);
+        }
+        catch (NullPointerException nullp){
+            throw new ExcepcionPaginaNoPreparada();
+        }
     }
 
     public void extractTopTags() throws NullPointerException {
@@ -176,16 +186,16 @@ public abstract class Extractor {
         System.out.println(searchURL);
     }
 
-    public void realizarBusqueda() throws ExcepcionDeConexion,MalFormatoURL{
+    public void realizarBusqueda() throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
         prepararPaginaBusqueda();
         obtenerFilasBusqueda();
     }
 
 
-    private void prepararPaginaBusqueda() throws ExcepcionDeConexion,MalFormatoURL{
+    private void prepararPaginaBusqueda() throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
             searchPage = setupPage(searchURL);
     }
-    private void prepararPaginaBusqueda(String urlBusqueda) throws ExcepcionDeConexion,MalFormatoURL{
+    private void prepararPaginaBusqueda(String urlBusqueda) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
         //try{
             searchPage=setupPage(urlBusqueda);
         //}

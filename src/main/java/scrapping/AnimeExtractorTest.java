@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import scrapping.Media.Preview.AnimePreview;
+import scrapping.Media.Preview.Preview;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,9 +37,12 @@ class AnimeExtractorTest {
     @ParameterizedTest
     @ValueSource(strings = {"https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime","https://myanimelist.net/anime/33010/FLCL_Progressive?q=flcl%20prog&cat=anime","https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood"} )
     void extraerDatosObrasRelacionadas(String link) {
+        Map<String,String> noneMap=new HashMap<>();
+        noneMap.put("none","none");
         animuExtractor.testsExtractDataFromArticle(link);
         //System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
-        assertNotEquals(null, animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
+        System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
+        assertNotEquals(noneMap, animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
     }
 
     @Test
@@ -151,10 +156,21 @@ class AnimeExtractorTest {
         Map<String,String> noneMap=new HashMap<>();
         noneMap.put("none","none");
         animuExtractor.iniciarScrapper();
-        animuExtractor.seleccionarPreviewTopParaMostrarDetalles(animuExtractor.animeTopPreview.get(2));
-        System.out.println(animuExtractor.safeExtraerInfoStaff(animuExtractor.articleTags));
-        assertNotEquals(noneMap,animuExtractor.animeMediaList.get(0).getInfoStaff());
+        AnimePreview previewUsada=animuExtractor.testsSeleccionarPreviewMedianteInt(2);
+        animuExtractor.seleccionarPreviewTopParaMostrarDetalles(previewUsada);
+        //System.out.println(animuExtractor.safeExtraerInfoStaff(animuExtractor.articleTags));
+        assertAll(
+                ()->assertFalse(animuExtractor.animeMediaList.isEmpty()),
+                ()->assertNotEquals(noneMap,animuExtractor.animeMediaList.get(0).getInfoStaff()));
     }
+
+    @Test
+    void efectosSinConexion(){
+        animuExtractor.iniciarScrapper();
+        animuExtractor.seleccionarPreviewTopParaMostrarDetalles(animuExtractor.testsSeleccionarPreviewMedianteInt(1));
+        assertTrue(animuExtractor.animeMediaList.isEmpty());
+    }
+
 
     @Test
     void formarPreviewsBusqueda(){

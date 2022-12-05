@@ -27,11 +27,15 @@ public class AnimeMedia extends Media{
         super(preview.getId(),preview.getNombre(), preview.getPosicionRanking(), preview.getPuntuacion(), preview.getLink());
         this.tipo=preview.getTipo();
         infoEmision=new HashMap<>();
+        infoStaff=new HashMap<>();
+        obrasRelacionadas=new HashMap<>();
     }
     public AnimeMedia(AnimePreview preview, int posicionRanking) {
         super(preview.getId(),preview.getNombre(), posicionRanking, preview.getPuntuacion(), preview.getLink());
         this.tipo=preview.getTipo();
         infoEmision=new HashMap<>();
+        infoStaff=new HashMap<>();
+        obrasRelacionadas=new HashMap<>();
     }
 
     public void agregarInfoEmision(String llave, String valor){

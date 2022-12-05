@@ -3,7 +3,8 @@ package scrapping;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import err.ExcepcionDeConexion;
-import err.MalFormatoURL;
+import err.ExcepcionMalFormatoURL;
+import err.ExcepcionPaginaNoPreparada;
 import scrapping.Media.DetailedMedia.AnimeMedia;
 import scrapping.Media.Preview.AnimePreview;
 
@@ -42,8 +43,11 @@ public class AnimeExtractor extends Extractor{
         try {
             collectFromTopAndFormPreviews();
         }
-        catch (Exception e){
-            System.out.println(e);
+        catch (ExcepcionDeConexion conEx){
+            System.out.println(conEx);
+        }
+        catch (ExcepcionMalFormatoURL malURL){
+            System.out.println(malURL);
         }
     }
 
@@ -52,8 +56,12 @@ public class AnimeExtractor extends Extractor{
             avanzarPaginaTop();
             collectFromTopAndFormPreviews(pageTopURL);
         }
-        catch (Exception e){
-            System.out.println(e);
+        catch (ExcepcionDeConexion conEx){
+            System.out.println(conEx);
+        }
+        catch (ExcepcionMalFormatoURL malUrl){
+            System.out.println(malUrl);
+
         }
     }
 
@@ -64,8 +72,20 @@ public class AnimeExtractor extends Extractor{
                 collectFromTopAndFormPreviews(pageTopURL);
             }
         }
-        catch (Exception e){
-            System.out.println(e);
+        catch (ExcepcionDeConexion conEx){
+            System.out.println(conEx);
+        }
+        catch (ExcepcionMalFormatoURL malUrl){
+            System.out.println(malUrl);
+        }
+    }
+
+    AnimePreview testsSeleccionarPreviewMedianteInt(int seleccion){
+        try{
+            return animeTopPreview.get(seleccion);
+        }
+        catch (NullPointerException e){
+            return null;
         }
     }
 
@@ -73,14 +93,20 @@ public class AnimeExtractor extends Extractor{
         try {
             formarDetallesAnimeDeTop(preview);
         }
-        catch (Exception e){
-            System.out.println(e);
+        catch (ExcepcionDeConexion conEx){
+            System.out.println(conEx);
+        }
+        catch (ExcepcionMalFormatoURL malUrl){
+            System.out.println(malUrl);
+        }
+        catch (ExcepcionPaginaNoPreparada noPrep){
+            System.out.println(noPrep+" en seleccionar preview top");
         }
     }
 
-    private void formarDetallesAnimeDeTop(AnimePreview preview) throws ExcepcionDeConexion,MalFormatoURL{
+    private void formarDetallesAnimeDeTop(AnimePreview preview) throws ExcepcionDeConexion, ExcepcionMalFormatoURL, ExcepcionPaginaNoPreparada {
         usePreviewToCreateDetailsArticle(preview);
-        AnimeMedia nuevoDetalles =crearAnimeDetalles(preview);
+        AnimeMedia nuevoDetalles = safeCrearAnimeDetalles(preview);
         obtenerInformacionImportanteAnime();
         obtenerDetallesDeEmision(nuevoDetalles);
         addMusicDataToAnime(nuevoDetalles);
@@ -94,15 +120,21 @@ public class AnimeExtractor extends Extractor{
         try {
             formarDetallesAnimeDeBusqueda(preview);
         }
-        catch (Exception e){
-            System.out.println(e);
+        catch (ExcepcionDeConexion conEx){
+            System.out.println(conEx);
+        }
+        catch (ExcepcionMalFormatoURL malUrl){
+            System.out.println(malUrl);
+        }
+        catch (ExcepcionPaginaNoPreparada noPrep){
+            System.out.println(noPrep+" en seleccionar preview busqueda");
         }
     }
 
-    private void formarDetallesAnimeDeBusqueda(AnimePreview previewBusqueda) throws ExcepcionDeConexion,MalFormatoURL{
+    private void formarDetallesAnimeDeBusqueda(AnimePreview previewBusqueda) throws ExcepcionDeConexion, ExcepcionMalFormatoURL, ExcepcionPaginaNoPreparada {
         usePreviewToCreateDetailsArticle(previewBusqueda);
         rankPosFromDetails=obtenerPosicionRankingDetalles();
-        AnimeMedia nuevoDetalles=crearAnimeDetalles(previewBusqueda);
+        AnimeMedia nuevoDetalles= safeCrearAnimeDetalles(previewBusqueda);
         obtenerInformacionImportanteAnime();
         obtenerDetallesDeEmision(nuevoDetalles);
         addMusicDataToAnime(nuevoDetalles);
@@ -111,11 +143,11 @@ public class AnimeExtractor extends Extractor{
         animeMediaList.add(nuevoDetalles);
     }
 
-    public void collectFromTopAndFormPreviews() throws ExcepcionDeConexion,MalFormatoURL{
+    public void collectFromTopAndFormPreviews() throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
             collectFromTop();
             animeTopPreview=new ArrayList<>(formarPreviewsPagTop());
     }
-    public void collectFromTopAndFormPreviews(String url) throws ExcepcionDeConexion,MalFormatoURL{
+    public void collectFromTopAndFormPreviews(String url) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
         collectFromTop(url);
         animeTopPreview=new ArrayList<>(formarPreviewsPagTop());
     }
@@ -129,19 +161,19 @@ public class AnimeExtractor extends Extractor{
         catch (ExcepcionDeConexion excCon){
             System.out.println(excCon);
         }
-        catch(MalFormatoURL malURL){
+        catch(ExcepcionMalFormatoURL malURL){
             System.out.println(malURL);
         }
     }
 
 
-    private void collectFromTop() throws ExcepcionDeConexion, MalFormatoURL{
+    private void collectFromTop() throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
             setupTopPage(topURL);
             extractTopTags();
             getAnchors();
         //client.close();
     }
-    private void collectFromTop(String targetURL) throws ExcepcionDeConexion, MalFormatoURL {
+    private void collectFromTop(String targetURL) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
             setupTopPage(targetURL);
             extractTopTags();
             getAnchors();
@@ -161,7 +193,7 @@ public class AnimeExtractor extends Extractor{
             return tempPreviewsList;
     }
 
-    public AnimePreview formarRecordPreview(HtmlElement animeRow) throws NullPointerException{
+    public AnimePreview formarRecordPreview(HtmlElement animeRow) {
         String urlAnime=getHrefFromAnchor(animeRow);
         return new AnimePreview(obtenerID(urlAnime),obtenerNombreAnimePreview(animeRow),obtenerCategoriaAnime(animeRow),obtenerNumeroRank(animeRow),obtenerNumeroPuntos(animeRow),urlAnime);
     }
@@ -308,7 +340,7 @@ public class AnimeExtractor extends Extractor{
         }
         else {
             System.out.println("returnednull");
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -327,7 +359,12 @@ public class AnimeExtractor extends Extractor{
 
 
     public boolean contieneObrasRelacionadas(HtmlElement articulo){
-        return !articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath).isEmpty();
+        try{
+            return !articulo.getByXPath(AnimeXpaths.relAnimeDetailsRelatedMediaTable.xpath).isEmpty();
+        }
+        catch (NullPointerException nullp){
+            return false;
+        }
     }
 
 
@@ -504,13 +541,21 @@ public class AnimeExtractor extends Extractor{
     }
 
 
-    private AnimeMedia crearAnimeDetalles(AnimePreview preview){
+    private AnimeMedia safeCrearAnimeDetalles(AnimePreview preview) throws ExcepcionPaginaNoPreparada{
+        try {
+            return crearAnimeDetalles(preview);
+        }
+        catch (NullPointerException nullp){
+            throw new ExcepcionPaginaNoPreparada();
+        }
+    }
+
+    AnimeMedia crearAnimeDetalles(AnimePreview preview){
         AnimeMedia detalleAnimeSimple = new AnimeMedia(preview);
-        if (detalleAnimeSimple.getPosicionRanking()!=0){
+        if (detalleAnimeSimple.getPosicionRanking() != 0) {
             return detalleAnimeSimple;
         } else {
-            return new AnimeMedia(preview,rankPosFromDetails);
-
+            return new AnimeMedia(preview, rankPosFromDetails);
         }
     }
     public List<AnimePreview> getAnimeTopPreview() {
