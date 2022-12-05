@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="clase error implementada">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
@@ -13,6 +14,26 @@
       <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDetiempo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDetiempo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Principal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Principal.class" afterDir="false" />
+=======
+    <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="adicion para registrar usuario&#10;y login">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/AnimeExtractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/DetailedMedia/AnimeMedia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/DetailedMedia/AnimeMedia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/DetailedMedia/MangaMedia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/DetailedMedia/MangaMedia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/AnimeExtractorTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/MangaExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/MangaExtractor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/MangaExtractorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/MangaExtractorTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Media/DetailedMedia/AnimeMedia.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/Media/DetailedMedia/AnimeMedia.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Media/DetailedMedia/MangaMedia.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/Media/DetailedMedia/MangaMedia.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scrapping/Media/Preview/MangaPreview.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scrapping/Media/Preview/MangaPreview.class" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +63,10 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java" root0="FORCE_HIGHLIGHTING" />
+<<<<<<< Updated upstream
+=======
+    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreview.java" root0="FORCE_HIGHLIGHTING" />
+>>>>>>> Stashed changes
     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -85,15 +110,14 @@
       <recent name="scrapping" />
     </key>
   </component>
+<<<<<<< Updated upstream
   <component name="RunManager" selected="Application.Principal">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
-      <module name="MyAnimeList" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AnimeExtractorTest.checkImportantInfoExtraction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+=======
+  <component name="RunManager" selected="JUnit.AnimeExtractorTest.formarDetalleBusqueda">
+    <configuration name="AnimeExtractorTest.formarDetalleBusqueda" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+>>>>>>> Stashed changes
       <module name="MyAnimeList" />
       <extension name="coverage">
         <pattern>
@@ -103,7 +127,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="scrapping" />
       <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
-      <option name="METHOD_NAME" value="checkImportantInfoExtraction(java.lang.String)" />
+      <option name="METHOD_NAME" value="formarDetalleBusqueda" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AnimeExtractorTest.formarPreviewAnime" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyAnimeList" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="scrapping.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="scrapping" />
+      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+      <option name="METHOD_NAME" value="formarPreviewAnime" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -125,7 +165,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< Updated upstream
     <configuration name="AnimeExtractorTest.testTieneEmisoras" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+=======
+    <configuration name="AnimeExtractorTest.probarExtraerPreviewsDeTop" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+>>>>>>> Stashed changes
       <module name="MyAnimeList" />
       <extension name="coverage">
         <pattern>
@@ -135,13 +179,17 @@
       </extension>
       <option name="PACKAGE_NAME" value="scrapping" />
       <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+<<<<<<< Updated upstream
       <option name="METHOD_NAME" value="testTieneEmisoras" />
+=======
+      <option name="METHOD_NAME" value="probarExtraerPreviewsDeTop" />
+>>>>>>> Stashed changes
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MangaExtractorTest.formarPreviewsTop50" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MangaExtractorTest.crearDetallesManga" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyAnimeList" />
       <extension name="coverage">
         <pattern>
@@ -151,7 +199,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="scrapping" />
       <option name="MAIN_CLASS_NAME" value="scrapping.MangaExtractorTest" />
-      <option name="METHOD_NAME" value="formarPreviewsTop50" />
+      <option name="METHOD_NAME" value="crearDetallesManga" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -159,11 +207,19 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< Updated upstream
         <item itemvalue="Application.Principal" />
         <item itemvalue="JUnit.AnimeExtractorTest.formarPreviewsTop50" />
         <item itemvalue="JUnit.AnimeExtractorTest.checkImportantInfoExtraction" />
         <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisoras" />
         <item itemvalue="JUnit.MangaExtractorTest.formarPreviewsTop50" />
+=======
+        <item itemvalue="JUnit.AnimeExtractorTest.formarDetalleBusqueda" />
+        <item itemvalue="JUnit.AnimeExtractorTest.probarExtraerPreviewsDeTop" />
+        <item itemvalue="JUnit.AnimeExtractorTest.formarPreviewAnime" />
+        <item itemvalue="JUnit.AnimeExtractorTest.formarPreviewsTop50" />
+        <item itemvalue="JUnit.MangaExtractorTest.crearDetallesManga" />
+>>>>>>> Stashed changes
       </list>
     </recent_temporary>
   </component>

@@ -21,17 +21,17 @@ class MangaExtractorTest {
     }
     @Test
     void collectFromTop() {
-        mangoExtractor.startCollectFromTop();
-        System.out.println(mangoExtractor.topRowsOfMedia);
-        System.out.println(mangoExtractor.articlesURLs);
-        assertFalse(mangoExtractor.topRowsOfMedia.isEmpty());
+        mangoExtractor.iniciarScrapper();
+        System.out.println(mangoExtractor.mangaTopPreview);
+        assertNotNull(mangoExtractor.mangaTopPreview);
     }
 
     @Test
-    void formarPreviewsTop50(){
-        mangoExtractor.startCollectFromTop();
-        System.out.println(mangoExtractor.formarPreviewsPagTop());
-        assertFalse(mangoExtractor.formarPreviewsPagTop().isEmpty());
+    void crearDetallesManga(){
+        mangoExtractor.iniciarScrapper();
+        mangoExtractor.seleccionarPreviewTopParaMostrarDetalles(mangoExtractor.mangaTopPreview.get(0));
+        System.out.println(mangoExtractor.mangaMediaList.get(0));
+        assertFalse(mangoExtractor.mangaMediaList.isEmpty());
     }
 
 

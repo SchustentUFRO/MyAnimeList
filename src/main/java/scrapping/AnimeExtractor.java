@@ -17,12 +17,17 @@ public class AnimeExtractor extends Extractor{
 
     protected List<HtmlElement> emissionDataFromTop;
     protected List<String> openingRows,endingRows;
+<<<<<<< Updated upstream
     List<AnimePreview> animeSearchPreview;
     List<AnimePreview> animeTopPreview;
 
 
 
     List<AnimeMedia> animeMediaList;
+=======
+    public List<AnimePreview> animeSearchPreview,animeTopPreview;
+    public List<AnimeMedia> animeMediaList;
+>>>>>>> Stashed changes
 
     public AnimeExtractor() {
         //previewsList=new ArrayList<>();
@@ -38,29 +43,6 @@ public class AnimeExtractor extends Extractor{
 
     }
 
-    public void startCollectFromTop(){
-        try{
-            collectFromTop();
-        }
-        catch (ExcepcionDeConexion ioEx){
-            System.out.println(ioEx);
-        }
-        catch (MalFormatoURL urlEx){
-            System.out.println(urlEx);
-        }
-    }
-
-    public void startCollectFromTop(String targetURL){
-        try{
-            collectFromTop(targetURL);
-        }
-        catch (ExcepcionDeConexion ioEx){
-            System.out.println(ioEx);
-        }
-        catch (MalFormatoURL urlEx){
-            System.out.println(urlEx);
-        }
-    }
 
     public void iniciarScrapper(){
         try {
@@ -93,7 +75,7 @@ public class AnimeExtractor extends Extractor{
         }
     }
 
-    public void seleccionarPreviewParaMostrarDetalles(AnimePreview preview){
+    public void seleccionarPreviewTopParaMostrarDetalles(AnimePreview preview){
         try {
             formarDetallesAnimeDeTop(preview);
         }
@@ -112,6 +94,27 @@ public class AnimeExtractor extends Extractor{
         agregarInfoStaffAdetalles(nuevoDetalles);
         animeMediaList.add(nuevoDetalles);
 
+    }
+
+    public void seleccionarPreviewSearchParaMostrarDetalles(AnimePreview preview){
+        try {
+            formarDetallesAnimeDeBusqueda(preview);
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    private void formarDetallesAnimeDeBusqueda(AnimePreview previewBusqueda) throws ExcepcionDeConexion,MalFormatoURL{
+        usePreviewToCreateDetailsArticle(previewBusqueda);
+        rankPosFromDetails=obtenerPosicionRankingDetalles();
+        AnimeMedia nuevoDetalles=crearAnimeDetalles(previewBusqueda);
+        obtenerInformacionImportanteAnime();
+        obtenerDetallesDeEmision(nuevoDetalles);
+        addMusicDataToAnime(nuevoDetalles);
+        nuevoDetalles.setEmisoras(obtenerEmisorasDelAnime());
+        agregarInfoStaffAdetalles(nuevoDetalles);
+        animeMediaList.add(nuevoDetalles);
     }
 
     public void collectFromTopAndFormPreviews() throws ExcepcionDeConexion,MalFormatoURL{
@@ -195,11 +198,6 @@ public class AnimeExtractor extends Extractor{
         return Double.parseDouble(templist.get(0).getVisibleText());
     }
 
-    /*public void obtenerInformacionImportanteElemSeleccionado(int seleccion){
-        extractDataFromArticle(articlesURLs.get(seleccion));
-        rankPosFromDetails=obtenerPosicionRankingDetalles();
-        obtenerInformacionImportanteAnime();
-    }*/
 
     public int obtenerPosicionRankingDetalles(){
         String rankPosAsText=((HtmlElement) articleTags.getFirstByXPath(AnimeXpaths.relAnimeDetailsRank.xpath)).asNormalizedText();
@@ -339,12 +337,12 @@ public class AnimeExtractor extends Extractor{
     }
 
 
-    public void iniciarExtraerMusica(HtmlElement article){
+    void iniciarExtraerMusica(HtmlElement article){
         extraerMusica(article);
     }
 
 
-    private void addMusicDataToAnime(AnimeMedia detalle){
+    void addMusicDataToAnime(AnimeMedia detalle){
         extraerMusica();
         detalle.setOpenings(openingRows);
         detalle.setEndings(endingRows);
@@ -360,30 +358,34 @@ public class AnimeExtractor extends Extractor{
     }
 
     private void extraerMusica(HtmlElement article){
-
             openingRows = new ArrayList<>();
             endingRows = new ArrayList<>();
             extractOpenings(article);
             extractEndings(article);
-
     }
+
+
     public void extractOpenings(HtmlElement article){
         extraerTableOpenings(article);
     }
+
 
     public void extractEndings(HtmlElement article){
         extraerTableEndings(article);
     }
 
+
     public void extraerTableOpenings(HtmlElement article){
         ArrayList<HtmlElement> openingsTable=new ArrayList<>(article.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsTable.xpath));
         extraerFilasOpenings(openingsTable.get(0));
     }
+
+
     public void extraerFilasOpenings(HtmlElement tablaOpenings){
-        //openingRows.addAll(tablaOpenings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));
         ArrayList<HtmlElement> tempOpeningRows =new ArrayList<>(tablaOpenings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));
         tempOpeningRows.stream().forEach(opRow-> openingRows.add(opRow.getVisibleText()));
     }
+
 
     public void extraerTableEndings(HtmlElement article){
         HtmlElement endingsTable=article.getFirstByXPath(AnimeXpaths.relAnimeDetailsEndingsTable.xpath);
@@ -408,7 +410,6 @@ public class AnimeExtractor extends Extractor{
                 tempDeleteList.stream().forEach(deleteElement->
                 {
                     tempElem.removeChild(deleteElement);
-                    //System.out.println("nodo removido");
                 });
             }
             catch (Exception e){

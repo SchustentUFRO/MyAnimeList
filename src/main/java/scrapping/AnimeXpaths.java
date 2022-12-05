@@ -1,7 +1,8 @@
 package scrapping;
 
 public enum AnimeXpaths {
-    mediaRowInTop("/html/body/div[1]/div[2]/div[3]/div[2]/div[4]/table/tbody/tr[@class=\"ranking-list\"]"),
+    mediaRowInTop("//table[@class=\"top-ranking-table\"]/tbody/tr[@class=\"ranking-list\"]"),
+    //algunas paginas tienen diferente estructura, se puede buscar la tabla por clase.
     relTitleAnimeInTop("td[2]/div/div[2]"),
     relHrefToAnimeInTop("td[2]/div/div[2]/h3/a"),
     relRankingNumberAnimeInTop("td[1]/span"),

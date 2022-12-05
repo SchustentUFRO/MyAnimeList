@@ -3,7 +3,6 @@ package scrapping.Media.Preview;
 public class MangaPreview extends Preview{
 
 
-
     public MangaPreview(int id, String nombre, String tipo, int posicionRanking, double puntuacion, String link) {
         super(id,nombre,tipo,posicionRanking,link,puntuacion);
     }

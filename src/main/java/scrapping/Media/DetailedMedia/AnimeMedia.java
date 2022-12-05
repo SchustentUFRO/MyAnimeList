@@ -61,4 +61,22 @@ public class AnimeMedia extends Media{
     public void setInfoStaff(Map<String, String> infoStaff) {
         this.infoStaff = infoStaff;
     }
+
+    @Override
+    public String toString() {
+        return "AnimeMedia{" +
+                "tipo='" + tipo + '\'' +
+                ", infoEmision=" + infoEmision +
+                ", infoStaff=" + infoStaff +
+                ", obrasRelacionadas=" + obrasRelacionadas +
+                ", emisoras=" + emisoras +
+                ", openings=" + openings +
+                ", endings=" + endings +
+                ", id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", posicionRanking=" + posicionRanking +
+                ", puntuacion=" + puntuacion +
+                ", link='" + link + '\'' +
+                '}';
+    }
 }
