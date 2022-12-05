@@ -107,11 +107,25 @@ public class ManejoDeDB {
             Map<String,Object> map = gson.fromJson(gson.toJson(animeExtractor.getAnimeTopPreview().get(i)), type);
             CollectionReference collectionReference = db.collection("animes");
             try{
-                ApiFuture<WriteResult> result = collectionReference.document().set(map);
+                ApiFuture<WriteResult> result = collectionReference.document(String.valueOf(i+1)).set(map);
                 System.out.println("animes guardados, tiempo: " + result.get().getUpdateTime());
             }catch(Exception e){
                 e.getMessage();
             }
+        }
+    }
+
+    public static void deteleContent() throws ExecutionException, InterruptedException {
+        // Obtén una referencia a la colección que quieres borrar
+        CollectionReference collection = db.collection("animes");
+
+// Obtén una lista de todos los documentos en la colección
+        List<QueryDocumentSnapshot> documents = collection.get().get().getDocuments();
+
+// Itera sobre cada documento en la colección y bórralo
+        for (DocumentSnapshot document : documents) {
+            ApiFuture<WriteResult> result = document.getReference().delete();
+            System.out.println("documento borrado: "+result.get().getUpdateTime());
         }
     }
 

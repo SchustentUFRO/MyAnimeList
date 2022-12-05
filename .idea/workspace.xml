@@ -5,13 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="clase error implementada">
+      <change afterPath="$PROJECT_DIR$/src/test/java/DataAndCollection/ManejoDeDBTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDetiempo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDetiempo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/JFrame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/JLabel.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Principal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDetiempo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDetiempo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/JFrame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/JLabel.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Principal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Principal.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,8 +28,8 @@
       <list>
         <option value="Record" />
         <option value="Enum" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -36,7 +40,6 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeDB.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/GUI/JFrame.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Principal.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" root0="FORCE_HIGHLIGHTING" />
@@ -81,11 +84,12 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="DataAndCollection" />
       <recent name="" />
       <recent name="scrapping" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Principal">
+  <component name="RunManager" selected="JUnit.ManejoDeDBTest.deteleContent">
     <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Principal" />
       <module name="MyAnimeList" />
@@ -141,17 +145,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MangaExtractorTest.formarPreviewsTop50" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManejoDeDBTest.deteleContent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyAnimeList" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="scrapping.*" />
+          <option name="PATTERN" value="DataAndCollection.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="scrapping" />
-      <option name="MAIN_CLASS_NAME" value="scrapping.MangaExtractorTest" />
-      <option name="METHOD_NAME" value="formarPreviewsTop50" />
+      <option name="PACKAGE_NAME" value="DataAndCollection" />
+      <option name="MAIN_CLASS_NAME" value="DataAndCollection.ManejoDeDBTest" />
+      <option name="METHOD_NAME" value="deteleContent" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -159,11 +163,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ManejoDeDBTest.deteleContent" />
         <item itemvalue="Application.Principal" />
         <item itemvalue="JUnit.AnimeExtractorTest.formarPreviewsTop50" />
         <item itemvalue="JUnit.AnimeExtractorTest.checkImportantInfoExtraction" />
         <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisoras" />
-        <item itemvalue="JUnit.MangaExtractorTest.formarPreviewsTop50" />
       </list>
     </recent_temporary>
   </component>
@@ -267,7 +271,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670185957254</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="clase error implementada">
+      <created>1670188297640</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1670188297640</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

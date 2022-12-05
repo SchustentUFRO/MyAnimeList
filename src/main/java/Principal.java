@@ -10,6 +10,7 @@ public class Principal {
     public static void main(String[] args) throws Exception {
         try {
             Conectar.conectar();
+            //ManejoDeDB.deteleContent();
             ManejoDeDB.guardarInformacionPreview();
             //ManejoDetiempo.manejarTiempo();
 
