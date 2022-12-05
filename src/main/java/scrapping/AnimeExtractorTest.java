@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import scrapping.Media.Preview.AnimePreview;
-import scrapping.Media.Preview.Preview;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -103,7 +101,7 @@ class AnimeExtractorTest {
 
     @Test
     void formarPreviewAnime(){
-        animuExtractor.startCollectFromTop();
+        animuExtractor.iniciarScrapper();
         System.out.println(animuExtractor.formarRecordPreview(animuExtractor.topRowsOfMedia.get(1)));
         assertNotNull(animuExtractor.formarRecordPreview(animuExtractor.topRowsOfMedia.get(1)));
     }
@@ -121,7 +119,7 @@ class AnimeExtractorTest {
 
     @Test
     void formarPreviewsTop50(){
-        animuExtractor.startCollectFromTop();
+        animuExtractor.iniciarScrapper();
         System.out.println(animuExtractor.formarPreviewsPagTop());
         assertFalse(animuExtractor.formarPreviewsPagTop().isEmpty());
     }
@@ -149,29 +147,27 @@ class AnimeExtractorTest {
     }
 
     @Test
-    void extraerInfoBusquedaUnaPalabra(){
-        String termino="jojo";
-        animuExtractor.createSearchURL(termino);
-        //animuExtractor.realizarBusqueda();
-        animuExtractor.pasarTodasFilasBusquedaApreview();
-    }
-
-    @Test
-    void extraerInfoBusquedaTerminoCompuesto(){
-        String termino="shoujo shuumatsu";
-        animuExtractor.createSearchURL(termino);
-        //animuExtractor.realizarBusqueda();
-        animuExtractor.pasarTodasFilasBusquedaApreview();
-    }
-
-    @Test
     void extraerInfoStaff(){
         Map<String,String> noneMap=new HashMap<>();
         noneMap.put("none","none");
         animuExtractor.iniciarScrapper();
-        animuExtractor.seleccionarPreviewParaMostrarDetalles(animuExtractor.animeTopPreview.get(2));
+        animuExtractor.seleccionarPreviewTopParaMostrarDetalles(animuExtractor.animeTopPreview.get(2));
         System.out.println(animuExtractor.safeExtraerInfoStaff(animuExtractor.articleTags));
         assertNotEquals(noneMap,animuExtractor.animeMediaList.get(0).getInfoStaff());
+    }
+
+    @Test
+    void formarPreviewsBusqueda(){
+        animuExtractor.collectFromSearchAndFormPreviews("jojo bizarre");
+        System.out.println(animuExtractor.animeSearchPreview);
+        assertNotNull(animuExtractor.animeSearchPreview);
+    }
+
+    @Test
+    void formarDetalleBusqueda(){
+        animuExtractor.collectFromSearchAndFormPreviews("shoujo shuumatsu");
+        animuExtractor.seleccionarPreviewSearchParaMostrarDetalles(animuExtractor.animeSearchPreview.get(0));
+        System.out.println(animuExtractor.animeMediaList);
     }
 
 
