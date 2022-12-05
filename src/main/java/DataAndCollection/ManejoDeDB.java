@@ -6,6 +6,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import errores.Errores;
 import scrapping.AnimeExtractor;
+import scrapping.Media.Comparations.PreviewIdComparator;
+import scrapping.Media.Comparations.PreviewRankingComparator;
+import scrapping.Media.Preview.AnimePreview;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -96,31 +99,35 @@ public class ManejoDeDB {
             System.out.println("No se encontró ningún usuario con el correo electrónico especificado");
         }
     }
+
     //funcion solo usada para crear y guardar el top 50 de la lista de animes en la db
     public static void guardarInformacionPreview() {
         AnimeExtractor animeExtractor = new AnimeExtractor();
         animeExtractor.iniciarScrapper();
         Gson gson = new Gson();
-        for (int i=0;i<animeExtractor.getAnimeTopPreview().size();i++) {
-            Type type = new TypeToken<Map<String,Object>>(){}.getType();
-            Map<String,Object> map = gson.fromJson(gson.toJson(animeExtractor.getAnimeTopPreview().get(i)), type);
+        for (int i = 0; i < animeExtractor.getAnimeTopPreview().size(); i++) {
+            Type type = new TypeToken<Map<String, Object>>() {
+            }.getType();
+            Map<String, Object> map = gson.fromJson(gson.toJson(animeExtractor.getAnimeTopPreview().get(i)), type);
             CollectionReference collectionReference = db.collection("animes");
-            try{
-                ApiFuture<WriteResult> result = collectionReference.document(String.valueOf(i+1)).set(map);
+            try {
+                ApiFuture<WriteResult> result = collectionReference.document(String.valueOf(i + 1)).set(map);
                 System.out.println("animes guardados, tiempo: " + result.get().getUpdateTime());
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.getMessage();
             }
         }
     }
+
     public static void updateTop50() {
         AnimeExtractor animeExtractor = new AnimeExtractor();
         animeExtractor.iniciarScrapper();
         Gson gson = new Gson();
-        for (int i = 0; i<animeExtractor.getAnimeTopPreview().size() ; i++) {
-            Type type = new TypeToken<Map<String,Object>>(){}.getType();
-            Map<String,Object> map = gson.fromJson(gson.toJson(animeExtractor.getAnimeTopPreview().get(i)), type);
-            DocumentReference animes = db.collection("animes").document(String.valueOf(i+1));
+        for (int i = 0; i < animeExtractor.getAnimeTopPreview().size(); i++) {
+            Type type = new TypeToken<Map<String, Object>>() {
+            }.getType();
+            Map<String, Object> map = gson.fromJson(gson.toJson(animeExtractor.getAnimeTopPreview().get(i)), type);
+            DocumentReference animes = db.collection("animes").document(String.valueOf(i + 1));
             try {
                 ApiFuture<WriteResult> future = animes.set(map);
                 WriteResult result = future.get();
@@ -140,26 +147,32 @@ public class ManejoDeDB {
 
         for (DocumentSnapshot document : documents) {
             ApiFuture<WriteResult> result = document.getReference().delete();
-            System.out.println("documento borrado: "+result.get().getUpdateTime());
+            System.out.println("documento borrado: " + result.get().getUpdateTime());
         }
     }
 
     public static void leerInfoAnimes() throws ExecutionException, InterruptedException {
         ApiFuture<QuerySnapshot> query = db.collection("animes").get();
-
+        //instancia para comparar los datos
+        PreviewRankingComparator p = new PreviewRankingComparator();
+        Gson gson = new Gson();
         QuerySnapshot querySnapshot = query.get();
         List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
-        for (QueryDocumentSnapshot document : documents) {
+        List<AnimePreview> listaEnJSon = new ArrayList<>();
+        documents.stream().forEach(querysnap ->
+                listaEnJSon.add(querysnap.toObject(AnimePreview.class)));
+        Collections.sort(listaEnJSon, p);
+        for (AnimePreview document : listaEnJSon) {
 
             System.out.println("id " + document.getId());
-            System.out.println("link: " + document.getString("link"));
-            System.out.println("nombre: "+ document.getString("nombre"));
-            System.out.println("position ranking: " + document.getLong("posicionRanking"));
-            System.out.println("punctuacion: " + document.getDouble("puntuacion"));
-            System.out.println("tipo: "+ document.getString("tipo"));
-        }
+            System.out.println("link: " + document.getLink());
+            System.out.println("nombre: " + document.getNombre());
+            System.out.println("position ranking: " + document.getPosicionRanking());
+            System.out.println("punctuacion: " + document.getPuntuacion());
+            System.out.println("tipo: " + document.getTipo());
         }
     }
+}
 
 
 

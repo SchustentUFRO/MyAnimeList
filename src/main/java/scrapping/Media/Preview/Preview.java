@@ -5,6 +5,9 @@ public abstract class Preview {
     String nombre,tipo,link;
     double puntuacion;
 
+    public Preview() {
+    }
+
     public Preview(int id, String nombre, String tipo, String link, double puntuacion) {
         this.id = id;
         this.nombre = nombre;

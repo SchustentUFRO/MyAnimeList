@@ -3,6 +3,9 @@ package scrapping.Media.Preview;
 import scrapping.Media.DetailedMedia.Media;
 
 public class AnimePreview extends Preview implements Comparable<AnimePreview>{
+
+    public AnimePreview() {
+    }
     public AnimePreview(int id, String nombre, String tipo, int posicionRanking, double puntuacion, String link) {
         super(id,nombre,tipo,posicionRanking,link,puntuacion);
     }
