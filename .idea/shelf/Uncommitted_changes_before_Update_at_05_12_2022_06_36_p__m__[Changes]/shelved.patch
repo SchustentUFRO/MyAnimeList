@@ -1,0 +1,412 @@
+Index: src/main/java/GUI/LoginPanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package GUI;\r\n\r\nimport javax.swing.*;\r\n\r\npublic class LoginPanel {\r\n    private JTextField textField9;\r\n    private JTextField textField1;\r\n    private JButton registrarButton;\r\n    private JButton iniciarSesiónButton;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/GUI/LoginPanel.java b/src/main/java/GUI/LoginPanel.java
+--- a/src/main/java/GUI/LoginPanel.java	(revision 7858ae7f44b29f156bf0b08ec2c6a9445c076166)
++++ b/src/main/java/GUI/LoginPanel.java	(date 1670275149748)
+@@ -1,10 +1,20 @@
+ package GUI;
+-
+ import javax.swing.*;
+ 
++
+ public class LoginPanel {
+-    private JTextField textField9;
+-    private JTextField textField1;
++
++    private JTextField Contraseña;
++    private JTextField Correo;
+     private JButton registrarButton;
+     private JButton iniciarSesiónButton;
+-}
++
++    }
++
++
++
++
++
++
++    
++
+Index: src/main/java/GUI/JLabel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package GUI;\r\n\r\npublic class JLabel {\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/GUI/JLabel.java b/src/main/java/GUI/JLabel.java
+--- a/src/main/java/GUI/JLabel.java	(revision 7858ae7f44b29f156bf0b08ec2c6a9445c076166)
++++ b/src/main/java/GUI/JLabel.java	(date 1670275955995)
+@@ -1,5 +1,12 @@
+ package GUI;
+ 
++import javax.swing.*;
++
+ public class JLabel {
+ 
++    public JLabel(ImageIcon image) {
++    }
++
++    public void setSize(int i, int i1) {
++    }
+ }
+Index: src/main/java/GUI/JFrame.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package GUI;\r\n\r\npublic class JFrame {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/GUI/JFrame.java b/src/main/java/GUI/JFrame.java
+--- a/src/main/java/GUI/JFrame.java	(revision 7858ae7f44b29f156bf0b08ec2c6a9445c076166)
++++ b/src/main/java/GUI/JFrame.java	(date 1670275956010)
+@@ -1,4 +1,16 @@
+ package GUI;
+ 
+ public class JFrame {
++
++    public JFrame(String s) {
++    }
++
++    public void add(JLabel mylabel) {
++    }
++
++    public void setSize(int i, int i1) {
++    }
++
++    public void setLayout(Object o) {
++    }
+ }
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40_[Changes]/shelved.patch	(revision 7858ae7f44b29f156bf0b08ec2c6a9445c076166)
++++ /dev/null	(revision 7858ae7f44b29f156bf0b08ec2c6a9445c076166)
+@@ -1,51 +0,0 @@
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"8aad5e49-87fc-48ec-9e57-c6ab5e11cf00\" name=\"Changes\" comment=\"update\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/JLabel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/JLabel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/guiDesing.form\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/guiDesing.form\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/gui/guiDesing.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/gui/guiDesing.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2I667cuHOAHKaIVHSfmr8GljJTp\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Manuel\\Desktop\\Proyectos poo\\MyAnimeList\" />\r\n      <recent name=\"C:\\Users\\Manuel\\Desktop\\Proyectos poo\\MyAnimeList\\.idea\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Principal\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Principal\" />\r\n      <module name=\"MyAnimeList\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Principal\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"8aad5e49-87fc-48ec-9e57-c6ab5e11cf00\" name=\"Changes\" comment=\"\" />\r\n      <created>1669489522036</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1669489522036</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"update\">\r\n      <created>1669491891277</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669491891277</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"cambio al git\">\r\n      <created>1669491635527</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669491635527</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"update\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"update\" />\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 36aee31b3bd463c707d9d2e819a128b0fed0a763)
+-+++ b/.idea/workspace.xml	(date 1669518240687)
+-@@ -4,13 +4,8 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="update">
+-+    <list default="true" id="8aad5e49-87fc-48ec-9e57-c6ab5e11cf00" name="Changes" comment="actulizacion al gui">
+-       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/gui/JLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/JLabel.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/gui/guiDesing.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/guiDesing.form" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/gui/guiDesing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/guiDesing.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java" afterDir="false" />
+-     </list>
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-@@ -79,7 +74,14 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1669491635527</updated>
+-     </task>
+--    <option name="localTasksCounter" value="3" />
+-+    <task id="LOCAL-00003" summary="actulizacion al gui">
+-+      <created>1669501912772</created>
+-+      <option name="number" value="00003" />
+-+      <option name="presentableId" value="LOCAL-00003" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1669501912772</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="4" />
+-     <servers />
+-   </component>
+-   <component name="Vcs.Log.Tabs.Properties">
+-@@ -95,6 +97,7 @@
+-   </component>
+-   <component name="VcsManagerConfiguration">
+-     <MESSAGE value="update" />
+--    <option name="LAST_COMMIT_MESSAGE" value="update" />
+-+    <MESSAGE value="actulizacion al gui" />
+-+    <option name="LAST_COMMIT_MESSAGE" value="actulizacion al gui" />
+-   </component>
+- </project>
+-\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40__Changes_.xml	(revision 7858ae7f44b29f156bf0b08ec2c6a9445c076166)
++++ /dev/null	(revision 7858ae7f44b29f156bf0b08ec2c6a9445c076166)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_27-11-2022_19_40_[Changes]" date="1669588868760" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 27-11-2022 19:40 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: src/main/java/GUI/Imagen.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/GUI/Imagen.java b/src/main/java/GUI/Imagen.java
+new file mode 100644
+--- /dev/null	(date 1670276210443)
++++ b/src/main/java/GUI/Imagen.java	(date 1670276210443)
+@@ -0,0 +1,29 @@
++package GUI;
++import javax.swing.*;
++
++public class Imagen {
++
++    private JFrame frame;
++    private ImageIcon caricon;
++    private JLabel mylabel;
++
++    public Imagen() {
++
++        caricon = new ImageIcon(this.getClass().getResource("/cheems.webp"));
++        mylabel = new JLabel(caricon);
++        mylabel.setSize(650, 450);
++
++        frame = new JFrame("Hola usuario-kun uwu");
++        frame.add(mylabel);
++        frame.setSize(650, 450);
++        frame.setLayout(null);
++   /* frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
++    frame.setLocationRelativeTO(null);
++    frame.setVisible(true);
++    }
++
++*/
++
++
++    }
++}
+\ No newline at end of file
+Index: src/main/java/GUI/LoginPanel.form
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<form xmlns=\"http://www.intellij.com/uidesigner/form/\" version=\"1\" bind-to-class=\"GUI.LoginPanel\">\r\n  <grid id=\"27dc6\" layout-manager=\"GridLayoutManager\" row-count=\"13\" column-count=\"9\" same-size-horizontally=\"false\" same-size-vertically=\"false\" hgap=\"-1\" vgap=\"-1\">\r\n    <margin top=\"0\" left=\"0\" bottom=\"0\" right=\"0\"/>\r\n    <constraints>\r\n      <xy x=\"295\" y=\"101\" width=\"500\" height=\"370\"/>\r\n    </constraints>\r\n    <properties/>\r\n    <border type=\"none\"/>\r\n    <children>\r\n      <hspacer id=\"990d8\">\r\n        <constraints>\r\n          <grid row=\"1\" column=\"8\" row-span=\"1\" col-span=\"1\" vsize-policy=\"1\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </hspacer>\r\n      <vspacer id=\"fd9ab\">\r\n        <constraints>\r\n          <grid row=\"11\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"6\" hsize-policy=\"1\" anchor=\"0\" fill=\"2\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </vspacer>\r\n      <component id=\"12661\" class=\"javax.swing.JTextField\" binding=\"textField9\" default-binding=\"true\">\r\n        <constraints>\r\n          <grid row=\"8\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"6\" anchor=\"8\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\">\r\n            <preferred-size width=\"150\" height=\"-1\"/>\r\n          </grid>\r\n        </constraints>\r\n        <properties>\r\n          <text value=\"\"/>\r\n        </properties>\r\n      </component>\r\n      <hspacer id=\"d1047\">\r\n        <constraints>\r\n          <grid row=\"1\" column=\"7\" row-span=\"1\" col-span=\"1\" vsize-policy=\"1\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </hspacer>\r\n      <hspacer id=\"ab0a2\">\r\n        <constraints>\r\n          <grid row=\"1\" column=\"6\" row-span=\"1\" col-span=\"1\" vsize-policy=\"1\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </hspacer>\r\n      <hspacer id=\"bc8d3\">\r\n        <constraints>\r\n          <grid row=\"1\" column=\"5\" row-span=\"1\" col-span=\"1\" vsize-policy=\"1\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </hspacer>\r\n      <component id=\"faf89\" class=\"javax.swing.JLabel\">\r\n        <constraints>\r\n          <grid row=\"3\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"0\" anchor=\"8\" fill=\"0\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n        <properties>\r\n          <font name=\"JetBrains Mono\" size=\"20\" style=\"1\"/>\r\n          <text value=\"myAnimeList\"/>\r\n        </properties>\r\n      </component>\r\n      <component id=\"49d90\" class=\"javax.swing.JLabel\">\r\n        <constraints>\r\n          <grid row=\"2\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"0\" anchor=\"8\" fill=\"0\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n        <properties>\r\n          <font name=\"JetBrains Mono\" size=\"20\" style=\"1\"/>\r\n          <text value=\"Bienvenido A\"/>\r\n        </properties>\r\n      </component>\r\n      <component id=\"d0aff\" class=\"javax.swing.JLabel\">\r\n        <constraints>\r\n          <grid row=\"5\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"0\" anchor=\"8\" fill=\"0\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n        <properties>\r\n          <font name=\"Monospaced\" size=\"16\" style=\"1\"/>\r\n          <text value=\"Correo\"/>\r\n        </properties>\r\n      </component>\r\n      <component id=\"e5236\" class=\"javax.swing.JLabel\">\r\n        <constraints>\r\n          <grid row=\"7\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"0\" anchor=\"8\" fill=\"0\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n        <properties>\r\n          <font name=\"Monospaced\" size=\"16\" style=\"1\"/>\r\n          <text value=\"Contraseña\"/>\r\n        </properties>\r\n      </component>\r\n      <grid id=\"1a1cd\" layout-manager=\"GridLayoutManager\" row-count=\"1\" column-count=\"1\" same-size-horizontally=\"false\" same-size-vertically=\"false\" hgap=\"-1\" vgap=\"-1\">\r\n        <margin top=\"0\" left=\"0\" bottom=\"0\" right=\"0\"/>\r\n        <constraints>\r\n          <grid row=\"4\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"3\" hsize-policy=\"3\" anchor=\"0\" fill=\"3\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n        <properties/>\r\n        <border type=\"none\"/>\r\n        <children/>\r\n      </grid>\r\n      <grid id=\"4621d\" layout-manager=\"GridLayoutManager\" row-count=\"1\" column-count=\"2\" same-size-horizontally=\"false\" same-size-vertically=\"false\" hgap=\"-1\" vgap=\"-1\">\r\n        <margin top=\"0\" left=\"0\" bottom=\"0\" right=\"0\"/>\r\n        <constraints>\r\n          <grid row=\"6\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"3\" hsize-policy=\"3\" anchor=\"0\" fill=\"3\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n        <properties/>\r\n        <border type=\"none\"/>\r\n        <children>\r\n          <component id=\"8f455\" class=\"javax.swing.JTextField\" binding=\"textField1\" default-binding=\"true\">\r\n            <constraints>\r\n              <grid row=\"0\" column=\"0\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"6\" anchor=\"8\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\">\r\n                <preferred-size width=\"150\" height=\"-1\"/>\r\n              </grid>\r\n            </constraints>\r\n            <properties>\r\n              <text value=\"\"/>\r\n            </properties>\r\n          </component>\r\n          <hspacer id=\"7789\">\r\n            <constraints>\r\n              <grid row=\"0\" column=\"1\" row-span=\"1\" col-span=\"1\" vsize-policy=\"1\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n            </constraints>\r\n          </hspacer>\r\n        </children>\r\n      </grid>\r\n      <component id=\"624f3\" class=\"javax.swing.JButton\" binding=\"registrarButton\" default-binding=\"true\">\r\n        <constraints>\r\n          <grid row=\"9\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"3\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n        <properties>\r\n          <font name=\"Fira Code\" size=\"14\" style=\"1\"/>\r\n          <text value=\"Registrar\"/>\r\n        </properties>\r\n      </component>\r\n      <component id=\"a1ab8\" class=\"javax.swing.JButton\" binding=\"iniciarSesiónButton\" default-binding=\"true\">\r\n        <constraints>\r\n          <grid row=\"10\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"0\" hsize-policy=\"3\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n        <properties>\r\n          <font name=\"Fira Code\" size=\"14\" style=\"1\"/>\r\n          <text value=\"Iniciar Sesión\"/>\r\n        </properties>\r\n      </component>\r\n      <hspacer id=\"eeed8\">\r\n        <constraints>\r\n          <grid row=\"1\" column=\"3\" row-span=\"1\" col-span=\"1\" vsize-policy=\"1\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </hspacer>\r\n      <hspacer id=\"6ed87\">\r\n        <constraints>\r\n          <grid row=\"1\" column=\"2\" row-span=\"1\" col-span=\"1\" vsize-policy=\"1\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </hspacer>\r\n      <hspacer id=\"8a29\">\r\n        <constraints>\r\n          <grid row=\"1\" column=\"1\" row-span=\"1\" col-span=\"1\" vsize-policy=\"1\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </hspacer>\r\n      <hspacer id=\"f6f92\">\r\n        <constraints>\r\n          <grid row=\"1\" column=\"0\" row-span=\"1\" col-span=\"1\" vsize-policy=\"1\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </hspacer>\r\n      <vspacer id=\"34d72\">\r\n        <constraints>\r\n          <grid row=\"0\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"6\" hsize-policy=\"1\" anchor=\"0\" fill=\"2\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </vspacer>\r\n      <vspacer id=\"915ea\">\r\n        <constraints>\r\n          <grid row=\"12\" column=\"4\" row-span=\"1\" col-span=\"1\" vsize-policy=\"6\" hsize-policy=\"1\" anchor=\"0\" fill=\"2\" indent=\"0\" use-parent-layout=\"false\"/>\r\n        </constraints>\r\n      </vspacer>\r\n    </children>\r\n  </grid>\r\n</form>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/GUI/LoginPanel.form b/src/main/java/GUI/LoginPanel.form
+--- a/src/main/java/GUI/LoginPanel.form	(revision 7858ae7f44b29f156bf0b08ec2c6a9445c076166)
++++ b/src/main/java/GUI/LoginPanel.form	(date 1670274603530)
+@@ -1,11 +1,15 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.LoginPanel">
+   <grid id="27dc6" layout-manager="GridLayoutManager" row-count="13" column-count="9" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+-    <margin top="0" left="0" bottom="0" right="0"/>
++    <margin top="40" left="50" bottom="50" right="250"/>
+     <constraints>
+-      <xy x="295" y="101" width="500" height="370"/>
++      <xy x="167" y="8" width="628" height="570"/>
+     </constraints>
+-    <properties/>
++    <properties>
++      <background color="-11688786"/>
++      <enabled value="false"/>
++      <foreground color="-4508778"/>
++    </properties>
+     <border type="none"/>
+     <children>
+       <hspacer id="990d8">
+@@ -18,7 +22,7 @@
+           <grid row="11" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+         </constraints>
+       </vspacer>
+-      <component id="12661" class="javax.swing.JTextField" binding="textField9" default-binding="true">
++      <component id="12661" class="javax.swing.JTextField" binding="Contraseña">
+         <constraints>
+           <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+             <preferred-size width="150" height="-1"/>
+@@ -88,7 +92,7 @@
+         <border type="none"/>
+         <children/>
+       </grid>
+-      <grid id="4621d" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
++      <grid id="4621d" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+         <margin top="0" left="0" bottom="0" right="0"/>
+         <constraints>
+           <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+@@ -96,7 +100,7 @@
+         <properties/>
+         <border type="none"/>
+         <children>
+-          <component id="8f455" class="javax.swing.JTextField" binding="textField1" default-binding="true">
++          <component id="8f455" class="javax.swing.JTextField" binding="Correo">
+             <constraints>
+               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                 <preferred-size width="150" height="-1"/>
+@@ -106,11 +110,6 @@
+               <text value=""/>
+             </properties>
+           </component>
+-          <hspacer id="7789">
+-            <constraints>
+-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+-            </constraints>
+-          </hspacer>
+         </children>
+       </grid>
+       <component id="624f3" class="javax.swing.JButton" binding="registrarButton" default-binding="true">
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_19\" default=\"true\" project-jdk-name=\"openjdk-19\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 7858ae7f44b29f156bf0b08ec2c6a9445c076166)
++++ b/.idea/misc.xml	(date 1670121732327)
+@@ -8,7 +8,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" default="true" project-jdk-name="openjdk-19" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="18" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2bb1cd44-2640-47b6-9bf4-2e813eedbd86\" name=\"Changes\" comment=\"adicion para registrar usuario&#10;y login\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/GUI/LoginPanel.form\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/GUI/LoginPanel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Record\" />\r\n        <option value=\"Enum\" />\r\n        <option value=\"JUnit5 Test Class\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/Extractor.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/Principal.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java\" root0=\"FORCE_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2I667cuHOAHKaIVHSfmr8GljJTp\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH\" value=\"65\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Diego A\\IdeaProjects\\MyAnimeList\\src\\main\\java\\GUI\" />\r\n      <recent name=\"C:\\Users\\Manuel\\Desktop\\Proyectos poo\\MyAnimeList\" />\r\n      <recent name=\"C:\\Users\\Manuel\\Desktop\\Proyectos poo\\MyAnimeList\\.idea\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.Recents.Supers\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"CreateTestDialog.RecentsKey\">\r\n      <recent name=\"\" />\r\n      <recent name=\"scrapping\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"JUnit.AnimeExtractorTest.testTieneEmisoras\">\r\n    <configuration name=\"Principal\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Principal\" />\r\n      <module name=\"MyAnimeList\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AnimeExtractorTest.extraerDatosObrasRelacionadas\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.AnimeExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"extraerDatosObrasRelacionadas(java.lang.String)\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AnimeExtractorTest.testTieneEmisoras\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.AnimeExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"testTieneEmisoras\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MangaExtractorTest.collectFromTop\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.MangaExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"collectFromTop\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MangaExtractorTest.formarPreviewsTop50\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"MyAnimeList\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"scrapping.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"scrapping\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"scrapping.MangaExtractorTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"formarPreviewsTop50\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"JUnit.AnimeExtractorTest.testTieneEmisoras\" />\r\n        <item itemvalue=\"Application.Principal\" />\r\n        <item itemvalue=\"JUnit.MangaExtractorTest.formarPreviewsTop50\" />\r\n        <item itemvalue=\"JUnit.MangaExtractorTest.collectFromTop\" />\r\n        <item itemvalue=\"JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2bb1cd44-2640-47b6-9bf4-2e813eedbd86\" name=\"Changes\" comment=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\" />\r\n      <created>1669489522036</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1669489522036</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"update\">\r\n      <created>1669491891277</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669491891277</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"cambio al git\">\r\n      <created>1669491635527</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669491635527</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase\">\r\n      <created>1669740959962</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669740959962</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\">\r\n      <created>1669741444516</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669741444516</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\">\r\n      <created>1669744759595</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669744759595</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"adicion para registrar usuario\">\r\n      <created>1669995563624</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669995563624</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"adicion para registrar usuario\">\r\n      <created>1669995617415</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669995617415</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"adicion para registrar usuario&#10;y login\">\r\n      <created>1670119295428</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670119295428</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"9\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"update\" />\r\n    <MESSAGE value=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa&#10; * cambios externos al firebase\" />\r\n    <MESSAGE value=\"cambios&#10;- adicion de mas clases para la funcionalidad del programa\" />\r\n    <MESSAGE value=\"adicion para registrar usuario\" />\r\n    <MESSAGE value=\"adicion para registrar usuario&#10;y login\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"adicion para registrar usuario&#10;y login\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 7858ae7f44b29f156bf0b08ec2c6a9445c076166)
++++ b/.idea/workspace.xml	(date 1670275264061)
+@@ -5,9 +5,23 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="adicion para registrar usuario&#10;y login">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.form" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Imagen.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/cheems.webp" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01-12-2022_11_51__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01-12-2022_11_51__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01-12-2022_21_35__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01-12-2022_21_35__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03-12-2022_14_02__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03-12-2022_14_02__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_12_2022_10_59_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_12_2022_10_59_p__m___Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-11-2022_19_40__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29-11-2022_22_12__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29-11-2022_22_12__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/JFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/JFrame.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/JLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/JLabel.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.form" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/LoginPanel.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/guiLogin/JFrame.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/guiLogin/JLabel.class" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -27,16 +41,24 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+     <option name="UPDATE_TYPE" value="REBASE" />
++  </component>
++  <component name="GitSEFilterConfiguration">
++    <file-type-list>
++      <filtered-out-file-type name="LOCAL_BRANCH" />
++      <filtered-out-file-type name="REMOTE_BRANCH" />
++      <filtered-out-file-type name="TAG" />
++      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
++    </file-type-list>
+   </component>
+   <component name="HighlightingSettingsPerFile">
++    <setting file="file://$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Scrapping.java" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/Principal.java" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/main/java/DataAndCollection/Conectar.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/MangaXpaths.java" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Extractor.java" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/MangaExtractorTest.java" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="file://$PROJECT_DIR$/src/main/java/Principal.java" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreviewTop.java" root0="FORCE_HIGHLIGHTING" />
+-    <setting file="file://$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeUsuarios.java" root0="FORCE_HIGHLIGHTING" />
+     <setting file="file://$PROJECT_DIR$/src/main/java/scrapping/AnimeXpaths.java" root0="FORCE_HIGHLIGHTING" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+@@ -49,7 +71,10 @@
+     <option name="showLibraryContents" value="true" />
+   </component>
+   <component name="PropertiesComponent">
+-    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="65" />
++    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="2" />
++    <property name="project.structure.last.edited" value="Project" />
++    <property name="project.structure.proportion" value="0.15" />
++    <property name="project.structure.side.proportion" value="0.0" />
+   </component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+@@ -68,26 +93,23 @@
+       <recent name="scrapping" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="JUnit.AnimeExtractorTest.testTieneEmisoras">
+-    <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="Principal" />
++  <component name="RunManager" selected="Application.LoginPanel">
++    <configuration name="LoginPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="GUI.LoginPanel" />
+       <module name="MyAnimeList" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="GUI.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="AnimeExtractorTest.extraerDatosObrasRelacionadas" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++    <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="Principal" />
+       <module name="MyAnimeList" />
+-      <extension name="coverage">
+-        <pattern>
+-          <option name="PATTERN" value="scrapping.*" />
+-          <option name="ENABLED" value="true" />
+-        </pattern>
+-      </extension>
+-      <option name="PACKAGE_NAME" value="scrapping" />
+-      <option name="MAIN_CLASS_NAME" value="scrapping.AnimeExtractorTest" />
+-      <option name="METHOD_NAME" value="extraerDatosObrasRelacionadas(java.lang.String)" />
+-      <option name="TEST_OBJECT" value="method" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+@@ -142,11 +164,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.LoginPanel" />
+         <item itemvalue="JUnit.AnimeExtractorTest.testTieneEmisoras" />
+         <item itemvalue="Application.Principal" />
+         <item itemvalue="JUnit.MangaExtractorTest.formarPreviewsTop50" />
+         <item itemvalue="JUnit.MangaExtractorTest.collectFromTop" />
+-        <item itemvalue="JUnit.AnimeExtractorTest.extraerDatosObrasRelacionadas" />
+       </list>
+     </recent_temporary>
+   </component>
