@@ -1,8 +1,6 @@
 import DataAndCollection.Conectar;
-import DataAndCollection.ManejoDeDB;
-import DataAndCollection.ManejoDetiempo;
 
-import java.util.Date;
+import javax.swing.*;
 
 
 public class Principal {
@@ -10,8 +8,11 @@ public class Principal {
     public static void main(String[] args) throws Exception {
         try {
             Conectar.conectar();
+            JFrame jFrame = new RegistrarUsuario("ao");
+            jFrame.setVisible(true);
+
             //ManejoDeDB.deteleContent();
-            ManejoDeDB.guardarInformacionPreview();
+            //ManejoDeDB.guardarInformacionPreview();
             //ManejoDetiempo.manejarTiempo();
 
             /*
