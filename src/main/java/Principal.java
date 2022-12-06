@@ -8,9 +8,7 @@ public class Principal {
     public static void main(String[] args) throws Exception {
         try {
             Conectar.conectar();
-            JFrame jFrame = new RegistrarUsuario("ao");
-            jFrame.setVisible(true);
-
+            new LoginPanel();
             //ManejoDeDB.deteleContent();
             //ManejoDeDB.guardarInformacionPreview();
             //ManejoDetiempo.manejarTiempo();

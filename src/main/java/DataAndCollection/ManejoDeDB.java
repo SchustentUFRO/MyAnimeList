@@ -10,6 +10,7 @@ import scrapping.Media.Comparations.PreviewIdComparator;
 import scrapping.Media.Comparations.PreviewRankingComparator;
 import scrapping.Media.Preview.AnimePreview;
 
+import javax.swing.*;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -21,7 +22,8 @@ public class ManejoDeDB {
     public ManejoDeDB() {
 
     }
-
+    /*
+    // estas funciones fueron usadas para probar el registro e ingresos de usuarios
     public static void inputRegistarUsuario() {
         // entradas
         String contraseña;
@@ -38,7 +40,7 @@ public class ManejoDeDB {
         registrarUsuario(nombre, correo, contraseña);
 
     }
-
+    // estas funciones fueron usadas para probar el registro e ingresos de usuarios
     public static void inputIniciarSesion() throws ExecutionException, InterruptedException, Errores {
         String correo;
         String contraseña;
@@ -52,8 +54,13 @@ public class ManejoDeDB {
             System.out.println("error al iniciar sesion: " + e.getMessage());
         }
     }
+     // estas funciones fueron usadas para probar el registro e ingresos de usuarios
+     */
 
-    private static void registrarUsuario(String nombre, String correo, String contraseña) {
+    public static void registrarUsuario(String nombre, String correo, String contraseña) {
+        System.out.println(nombre);
+        System.out.println(correo);
+        System.out.println(contraseña);
         // Creamos una nueva colección en Firestore llamada "usuarios"
         // donde guardaremos los datos del usuario
         CollectionReference usuarios = ManejoDeDB.db.collection("usuarios");
@@ -71,14 +78,15 @@ public class ManejoDeDB {
         try {
             // Guardamos los datos del usuario en el documento creado previamente
             ApiFuture<WriteResult> result = nuevoUsuario.set(usuario);
-            System.out.println("Usuario registrado correctamente: " + result.get().getUpdateTime());
+            JOptionPane.showMessageDialog(null,"Usuario Registrado");
+            System.out.println(result.get().getUpdateTime());
         } catch (Exception e) {
             // Si ocurre algún error, mostramos un mensaje de error al usuario
             System.out.println("Error al registrar el usuario: " + e.getMessage());
         }
     }
 
-    private static void iniciarSesion(String correo, String contraseña) throws ExecutionException, InterruptedException, Errores {
+    public static void iniciarSesion(String correo, String contraseña) throws ExecutionException, InterruptedException, Errores {
         // Buscamos en la colección "usuarios" de Firestore un usuario con el correo electrónico especificado
         ApiFuture<QuerySnapshot> future = ManejoDeDB.db.collection("usuarios").whereEqualTo("correo", correo).get();
 
