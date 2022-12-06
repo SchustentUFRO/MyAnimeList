@@ -27,8 +27,8 @@ class ManejoDeDBTest {
         ManejoDeDB.updateTop50();
     }
 
-    @Test
-    void testDeteleContent() throws ExecutionException, InterruptedException {
+
+    void testLeerInfoAnimes() throws ExecutionException, InterruptedException {
         ManejoDeDB.leerInfoAnimes();
     }
 }

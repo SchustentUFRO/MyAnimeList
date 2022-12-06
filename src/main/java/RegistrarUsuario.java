@@ -1,4 +1,5 @@
 import DataAndCollection.ManejoDeDB;
+import errores.Errores;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +27,14 @@ public class RegistrarUsuario extends JFrame{
         registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ManejoDeDB.registrarUsuario(nombreField.getText(),correoField.getText(), String.valueOf(passwordField1.getPassword()));
+                try {
+                    if(ManejoDeDB.registrarUsuario(nombreField.getText(),correoField.getText(), String.valueOf(passwordField1.getPassword()))){
+                        registerFrame.dispose();
+                        new LoginPanel();
+                    }
+                } catch (Errores ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         atrasButton.addActionListener(new ActionListener() {

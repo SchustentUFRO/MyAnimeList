@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import errores.Errores;
 import scrapping.AnimeExtractor;
-import scrapping.Media.Comparations.PreviewIdComparator;
 import scrapping.Media.Comparations.PreviewRankingComparator;
 import scrapping.Media.Preview.AnimePreview;
 
@@ -14,6 +13,8 @@ import javax.swing.*;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ManejoDeDB {
     private static Firestore db = Conectar.getDb();
@@ -57,7 +58,7 @@ public class ManejoDeDB {
      // estas funciones fueron usadas para probar el registro e ingresos de usuarios
      */
 
-    public static void registrarUsuario(String nombre, String correo, String contraseña) {
+    public static boolean registrarUsuario(String nombre, String correo, String contraseña) throws Errores {
         System.out.println(nombre);
         System.out.println(correo);
         System.out.println(contraseña);
@@ -76,17 +77,20 @@ public class ManejoDeDB {
         usuario.put("contraseña", contraseña);
 
         try {
+            validarCorreo(correo);
             // Guardamos los datos del usuario en el documento creado previamente
             ApiFuture<WriteResult> result = nuevoUsuario.set(usuario);
             JOptionPane.showMessageDialog(null,"Usuario Registrado");
             System.out.println(result.get().getUpdateTime());
+            return true;
         } catch (Exception e) {
             // Si ocurre algún error, mostramos un mensaje de error al usuario
             System.out.println("Error al registrar el usuario: " + e.getMessage());
         }
+        return false;
     }
 
-    public static void iniciarSesion(String correo, String contraseña) throws ExecutionException, InterruptedException, Errores {
+    public static boolean iniciarSesion(String correo, String contraseña) throws ExecutionException, InterruptedException, Errores {
         // Buscamos en la colección "usuarios" de Firestore un usuario con el correo electrónico especificado
         ApiFuture<QuerySnapshot> future = ManejoDeDB.db.collection("usuarios").whereEqualTo("correo", correo).get();
 
@@ -98,14 +102,16 @@ public class ManejoDeDB {
             // Verificamos que la contraseña es correcta
             if (documento.getString("contraseña").equals(contraseña)) {
                 // Si la contraseña es correcta, mostramos un mensaje de éxito y continuamos con la sesión
-                System.out.println("Bienvenido, " + documento.getString("nombre"));
+                JOptionPane.showMessageDialog(null,"Bienvenido, " + documento.getString("nombre"));
+                return true;
             } else {
                 throw new Errores("la contraseña es incorrecta");
             }
         } else {
             // Si no se encuentra ningún usuario con el correo electrónico especificado, mostramos un mensaje de error
-            System.out.println("No se encontró ningún usuario con el correo electrónico especificado");
+            JOptionPane.showMessageDialog(null,"No se encontró ningún usuario con el correo electrónico especificado");
         }
+        return false;
     }
 
     //funcion solo usada para crear y guardar el top 50 de la lista de animes en la db
@@ -149,7 +155,7 @@ public class ManejoDeDB {
     // metodo usado por ahora solo con fines de testeo
     public static void deteleContent() throws ExecutionException, InterruptedException {
 
-        CollectionReference collection = db.collection("animes");
+        CollectionReference collection = db.collection("usuarios");
 
         List<QueryDocumentSnapshot> documents = collection.get().get().getDocuments();
 
@@ -159,7 +165,7 @@ public class ManejoDeDB {
         }
     }
 
-    public static void leerInfoAnimes() throws ExecutionException, InterruptedException {
+    public static List<AnimePreview> leerInfoAnimes() throws ExecutionException, InterruptedException {
         ApiFuture<QuerySnapshot> query = db.collection("animes").get();
         //instancia para comparar los datos
         PreviewRankingComparator p = new PreviewRankingComparator();
@@ -171,13 +177,31 @@ public class ManejoDeDB {
                 listaEnJSon.add(querysnap.toObject(AnimePreview.class)));
         Collections.sort(listaEnJSon, p);
         for (AnimePreview document : listaEnJSon) {
+            System.out.println("{");
+            System.out.println(" position ranking: " + document.getPosicionRanking());
+            System.out.println(" link: " + document.getLink());
+            System.out.println(" nombre: " + document.getNombre());
+            System.out.println(" punctuacion: " + document.getPuntuacion());
+            System.out.println(" tipo: " + document.getTipo());
+            System.out.println("}");
+            System.out.println();
 
-            System.out.println("id " + document.getId());
-            System.out.println("link: " + document.getLink());
-            System.out.println("nombre: " + document.getNombre());
-            System.out.println("position ranking: " + document.getPosicionRanking());
-            System.out.println("punctuacion: " + document.getPuntuacion());
-            System.out.println("tipo: " + document.getTipo());
+        }
+        return listaEnJSon;
+    }
+    private static boolean validarCorreo(String email) throws Errores {
+
+        // Patrón para validar el email
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+        Matcher mather = pattern.matcher(email);
+
+        if (mather.find() == true) {
+            return true;
+        } else {
+            throw new Errores("mail no valido");
         }
     }
 }
