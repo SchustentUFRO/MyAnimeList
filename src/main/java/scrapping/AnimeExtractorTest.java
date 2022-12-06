@@ -21,9 +21,12 @@ class AnimeExtractorTest {
 
     AnimeExtractor animuExtractor;
 
+    Map<String,String> noneMap;
     @BeforeEach
     void setUp() {
         animuExtractor = new AnimeExtractor();
+        noneMap=new HashMap<>();
+        noneMap.put("none","none");
     }
 
     @AfterEach
@@ -37,8 +40,6 @@ class AnimeExtractorTest {
     @ParameterizedTest
     @ValueSource(strings = {"https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime","https://myanimelist.net/anime/33010/FLCL_Progressive?q=flcl%20prog&cat=anime","https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood"} )
     void extraerDatosObrasRelacionadas(String link) {
-        Map<String,String> noneMap=new HashMap<>();
-        noneMap.put("none","none");
         animuExtractor.testsExtractDataFromArticle(link);
         //System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
         System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
@@ -49,8 +50,8 @@ class AnimeExtractorTest {
     void extraerDatosSinObrasRelacionadas(){
         String link="https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers&cat=anime";
         animuExtractor.testsExtractDataFromArticle(link);
-        //System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
-        assertEquals(null, animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
+        System.out.println(animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
+        assertEquals(noneMap, animuExtractor.extraerDatosObrasRelacionadas(animuExtractor.articleTags));
     }
 
     @ParameterizedTest
@@ -62,10 +63,7 @@ class AnimeExtractorTest {
         assertFalse(animuExtractor.openingRows.isEmpty());
     }
 
-    @Test
-    void testNullHtmlPageAsArgument() {
-        animuExtractor.iniciarExtraerMusica(null);
-    }
+
 
     @ParameterizedTest
     @ValueSource(strings = {"https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood","https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers","https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime","https://myanimelist.net/anime/33010/FLCL_Progressive?q=flcl%20prog&cat=anime"})
@@ -82,7 +80,7 @@ class AnimeExtractorTest {
         animuExtractor.testsExtractDataFromArticle(url);
         animuExtractor.obtenerInformacionImportanteAnime();
         System.out.println(animuExtractor.ponerInfoImportanteEnMaps());
-        assertTrue(!animuExtractor.ponerInfoImportanteEnMaps().isEmpty());
+        assertFalse(animuExtractor.ponerInfoImportanteEnMaps().isEmpty());
     }
 
     @ParameterizedTest
@@ -130,6 +128,18 @@ class AnimeExtractorTest {
     }
 
     @Test
+    void formarPreviewsPag650(){
+        for (int i = 1; i < 14; i++) {
+            animuExtractor.avanzarPaginaTop();
+            System.out.println(animuExtractor.pageTopURL);
+        }
+        animuExtractor.paginaTopAdelante();
+        System.out.println(animuExtractor.topRowsOfMedia);
+        System.out.println(animuExtractor.animeTopPreview);
+        assertFalse(animuExtractor.topRowsOfMedia.isEmpty());
+    }
+
+    @Test
     void testTieneEmisoras(){
         animuExtractor.testsExtractDataFromArticle("https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze?q=jojo&cat=anime");
         System.out.println(animuExtractor.obtenerEmisorasDelAnime());
@@ -138,7 +148,7 @@ class AnimeExtractorTest {
     }
 
     @Test
-    void testTieneEmisorasFF(){
+    void testTieneEmisorasUnaSola(){
         animuExtractor.testsExtractDataFromArticle("https://myanimelist.net/anime/32979/Flip_Flappers?q=flip%20flappers&cat=anime");
         System.out.println(animuExtractor.obtenerEmisorasDelAnime());
         assertNotEquals(0,animuExtractor.obtenerEmisorasDelAnime().size());
@@ -150,6 +160,7 @@ class AnimeExtractorTest {
         int numPagina=Integer.parseInt(numPaginaString);
         assertEquals(resultado,animuExtractor.convertirPaginaTopAUrl(numPagina));
     }
+
 
     @Test
     void extraerInfoStaff(){
@@ -164,12 +175,6 @@ class AnimeExtractorTest {
                 ()->assertNotEquals(noneMap,animuExtractor.animeMediaList.get(0).getInfoStaff()));
     }
 
-    @Test
-    void efectosSinConexion(){
-        animuExtractor.iniciarScrapper();
-        animuExtractor.seleccionarPreviewTopParaMostrarDetalles(animuExtractor.testsSeleccionarPreviewMedianteInt(1));
-        assertTrue(animuExtractor.animeMediaList.isEmpty());
-    }
 
 
     @Test
@@ -184,14 +189,11 @@ class AnimeExtractorTest {
         animuExtractor.collectFromSearchAndFormPreviews("shoujo shuumatsu");
         animuExtractor.seleccionarPreviewSearchParaMostrarDetalles(animuExtractor.animeSearchPreview.get(0));
         System.out.println(animuExtractor.animeMediaList);
+        assertNotNull(animuExtractor.animeMediaList.get(0));
     }
 
 
 
-    @Test
-    void probarExtraerPreviewsDeTop(){
-        animuExtractor.iniciarScrapper();
-        System.out.println(animuExtractor.animeTopPreview);
-    }
+
 
 }

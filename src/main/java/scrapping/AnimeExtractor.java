@@ -189,7 +189,8 @@ public class AnimeExtractor extends Extractor{
     }
     public List<AnimePreview> agregarPreviewsATempList() {
             List<AnimePreview> tempPreviewsList = new ArrayList<>();
-            topRowsOfMedia.stream().forEach(animeRow -> tempPreviewsList.add(formarRecordPreview(animeRow)));
+            topRowsOfMedia.stream()
+                    .forEach(animeRow -> tempPreviewsList.add(formarRecordPreview(animeRow)));
             return tempPreviewsList;
     }
 
@@ -267,12 +268,12 @@ public class AnimeExtractor extends Extractor{
 
     public Map<String,String> ponerInfoImportanteEnMaps(){
         Map<String,String> importantInfoPairs=new HashMap<>();
-        usableInformationElements.stream().forEach(importantInfoRow->
-        {
-            String[] separatedImportantInfo =importantInfoRow.asNormalizedText().split(":",2);
-            importantInfoPairs.put(separatedImportantInfo[0], separatedImportantInfo[1]);
-
-        });
+        usableInformationElements.stream()
+                .forEach(importantInfoRow->
+                {
+                    String[] separatedImportantInfo =importantInfoRow.asNormalizedText().split(":",2);
+                    importantInfoPairs.put(separatedImportantInfo[0], separatedImportantInfo[1]);
+                });
         return importantInfoPairs;
     }
 
@@ -335,7 +336,8 @@ public class AnimeExtractor extends Extractor{
         List<HtmlElement> emisoras=extraerTagsEmisora();
         List<String> stringEmisoras=new ArrayList<>();
         if (tieneEmisoras(emisoras)){
-            emisoras.stream().forEach(emisoraElement-> stringEmisoras.add(emisoraElement.asNormalizedText()));
+            emisoras.stream()
+                    .forEach(emisoraElement-> stringEmisoras.add(emisoraElement.asNormalizedText()));
             return stringEmisoras;
         }
         else {
@@ -414,7 +416,8 @@ public class AnimeExtractor extends Extractor{
 
     public void extraerFilasOpenings(HtmlElement tablaOpenings){
         ArrayList<HtmlElement> tempOpeningRows =new ArrayList<>(tablaOpenings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));
-        tempOpeningRows.stream().forEach(opRow-> openingRows.add(opRow.getVisibleText()));
+        tempOpeningRows.stream()
+                .forEach(opRow-> openingRows.add(opRow.getVisibleText()));
     }
 
 
@@ -427,25 +430,22 @@ public class AnimeExtractor extends Extractor{
     public void extraerFilasEndings(HtmlElement tablaEndings){
         //openingRows.addAll(tablaEndings.getByXPath(AnimeXpaths.relAnimeDetailsOpeningsRows.xpath));
         ArrayList<HtmlElement> tempEndingRows =new ArrayList<>(tablaEndings.getByXPath(AnimeXpaths.relAnimeDetailsEndingsRows.xpath));
-        tempEndingRows.stream().forEach(edRow -> endingRows.add(edRow.getVisibleText()));
+        tempEndingRows.stream()
+                .forEach(edRow -> endingRows.add(edRow.getVisibleText()));
     }
 
 
 
 
     public void obtenerDetallesDeEmision(AnimeMedia objetivo){
-        usableInformationElements.stream().forEach(infoRow->{
-            HtmlElement tempElem=infoRow;
-            try{
-                List<HtmlElement>tempDeleteList=infoRow.getByXPath("span[@style=\"display: none\"]");
-                tempDeleteList.stream().forEach(deleteElement->
-                {
-                    tempElem.removeChild(deleteElement);
-                });
-            }
-            catch (Exception e){
-                System.out.println("no contiene nodo invisible");
-            }
+        usableInformationElements.stream()
+                .forEach(infoRow->{
+                    HtmlElement tempElem=infoRow;
+                    List<HtmlElement>tempDeleteList=infoRow.getByXPath("span[@style=\"display: none\"]");
+                    tempDeleteList.stream().forEach(deleteElement->
+                    {
+                        tempElem.removeChild(deleteElement);
+                    });
             String[] infoPair=infoRow.asNormalizedText().split(":",0);
             agregarAHashMapAnime(objetivo,infoPair);
 
@@ -486,7 +486,8 @@ public class AnimeExtractor extends Extractor{
 
     private List<String> pasarHtmlElementStaffAString(List<HtmlElement> tablasSeparadasStaff){
         List<String> tempStringStaff=new ArrayList<>();
-        tablasSeparadasStaff.stream().forEach(tabla->tempStringStaff.add(tabla.asNormalizedText()));
+        tablasSeparadasStaff.stream()
+                .forEach(tabla->tempStringStaff.add(tabla.asNormalizedText()));
         return tempStringStaff;
     }
 
@@ -504,7 +505,8 @@ public class AnimeExtractor extends Extractor{
 
     public List<AnimePreview> pasarTodasFilasBusquedaApreview(){
             List<AnimePreview> searchPreviewList = new ArrayList<>();
-            searchRowsOfMedia.stream().forEach(searchRow -> searchPreviewList.add(pasarFilaSearchAPreview(searchRow)));
+            searchRowsOfMedia.stream()
+                    .forEach(searchRow -> searchPreviewList.add(pasarFilaSearchAPreview(searchRow)));
             System.out.println(searchPreviewList);
             return searchPreviewList;
 

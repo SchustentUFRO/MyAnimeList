@@ -59,7 +59,7 @@ public abstract class Extractor {
                 throw new ExcepcionDeConexion();
             }
     }
-    public void setupTopPage(String targetURL) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
+    void setupTopPage(String targetURL) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
         HtmlPage tempPage=setupPage(targetURL);
         if (tempPage==null){
             System.out.println("No se pudo crear pagina");
@@ -85,7 +85,7 @@ public abstract class Extractor {
     }
 
 
-    public void testsExtractDataFromArticle(String articleURL){
+    void testsExtractDataFromArticle(String articleURL){
         try{
             extractDataFromArticle(articleURL);
         }
@@ -108,58 +108,55 @@ public abstract class Extractor {
         }
     }
 
-    public void extractTopTags() throws NullPointerException {
+    void extractTopTags() throws NullPointerException {
         //igual para top manga y anime
         topRowsOfMedia =new ArrayList<>(topPage.getByXPath(AnimeXpaths.mediaRowInTop.xpath));
     }
 
-    public void getTags(){
+    private void getTags(){
 
         System.out.println(topRowsOfMedia);
     }
 
-    public void getAnchors(){
-        /*for (HtmlElement tag:
-                topRowsOfMedia) {
-            HtmlAnchor anchor= extractAnchorFromTitleInTop(tag);
-            addToArticlesArray(anchor.getHrefAttribute());
-        }*/
-        topRowsOfMedia.stream().forEach(rowInTop->
-        {
-            HtmlAnchor anchor=extractAnchorFromTitleInTop(rowInTop);
-            addToArticlesArray(anchor.getHrefAttribute());
-        });
+    void getAnchors(){
+        topRowsOfMedia.stream()
+                .forEach(rowInTop->
+                {
+                    HtmlAnchor anchor=extractAnchorFromTitleInTop(rowInTop);
+                    addToArticlesArray(anchor.getHrefAttribute());
+                });
     }
 
 
-    public HtmlAnchor extractAnchorFromTitleInTop(HtmlElement element){
+    HtmlAnchor extractAnchorFromTitleInTop(HtmlElement element){
         HtmlAnchor anchor=((HtmlAnchor) element.getFirstByXPath(anchorXpathRef));
         return anchor;
     }
 
-    public String getHrefFromAnchor(HtmlElement anchor){
+    String getHrefFromAnchor(HtmlElement anchor){
         return extractAnchorFromTitleInTop(anchor).getHrefAttribute();
     }
 
 
 
-    public void addToArticlesArray(String targetURL){
+    void addToArticlesArray(String targetURL){
         articlesURLs.add(targetURL);
     }
 
-    public int obtenerID(String url){
+    int obtenerID(String url){
         String[] descartarURLbase=url.split(typeOfMediaUrl,2);
         String[] idYnombre=descartarURLbase[1].split("/",2);
         return Integer.parseInt(idYnombre[0]);
     }
 
-    public String definirCategoria(String datosEmision){ //saca el top
+    String definirCategoria(String datosEmision){ //saca el top
         String preliminaryResult=categoriasList.stream()
-                .filter(categoriaIndiv->datosEmision.contains(categoriaIndiv)).reduce("", String::concat);
+                    .filter(categoriaIndiv->datosEmision.contains(categoriaIndiv))
+                        .reduce("", String::concat);
         return preliminaryResult.equals("")?"Other":preliminaryResult;
     }
 
-    public void regresarPaginaTop(){
+    void regresarPaginaTop(){
         if (numeroPaginaEnTop>1) {
             numeroPaginaEnTop--;
             pageTopURL = topURL + convertirPaginaTopAUrl(numeroPaginaEnTop);
@@ -169,46 +166,38 @@ public abstract class Extractor {
         }
     }
 
-    public void avanzarPaginaTop(){
+    void avanzarPaginaTop(){
         numeroPaginaEnTop++;
         pageTopURL=topURL+convertirPaginaTopAUrl(numeroPaginaEnTop);
 
     }
 
-    public String convertirPaginaTopAUrl(int paginas){
+    String convertirPaginaTopAUrl(int paginas){
         //String numeroPag=paginas==1?"":"?limit="+((paginas-1)*50);
         return paginas==1?"":"?limit="+((paginas-1)*50);
     }
 
     //busquedas
-    public void createSearchURL(String searchTerm){
+    void createSearchURL(String searchTerm){
         searchURL=baseSearchUrl+searchType+searchTerm+searchCat;
         System.out.println(searchURL);
     }
 
-    public void realizarBusqueda() throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
+    void realizarBusqueda() throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
         prepararPaginaBusqueda();
         obtenerFilasBusqueda();
     }
 
 
-    private void prepararPaginaBusqueda() throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
+    void prepararPaginaBusqueda() throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
             searchPage = setupPage(searchURL);
     }
-    private void prepararPaginaBusqueda(String urlBusqueda) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
-        //try{
+    void prepararPaginaBusqueda(String urlBusqueda) throws ExcepcionDeConexion, ExcepcionMalFormatoURL {
             searchPage=setupPage(urlBusqueda);
-        //}
-        /*catch (ExcepcionDeConexion conx){
-            System.out.println(conx);
-        }
-        catch (MalformedURLException badURL){
-            System.out.println(badURL);
-        }*/
 
     }
 
-    public void obtenerFilasBusqueda(){
+    void obtenerFilasBusqueda(){
         try {
             List<HtmlElement> tempSearchRowsOfMedia = new ArrayList<>(searchPage.getByXPath(searchRowXpath));
             searchRowsOfMedia = tempSearchRowsOfMedia.subList(1, tempSearchRowsOfMedia.size());
