@@ -43,6 +43,8 @@ public class LoginPanel extends JFrame {
                 } catch (Errores | ExecutionException | InterruptedException ex) {
                     loginFrame.dispose();
                     new LoginPanel();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         });

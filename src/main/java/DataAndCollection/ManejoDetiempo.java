@@ -15,13 +15,15 @@ public class ManejoDetiempo {
     // este metodo decide si hacer scrapping a la página MyAnimeList.com u obtener los datos desde firestone
     // segun el tiempo pasado, podra hacer una cosa u otra
     public static void manejarTiempo() throws Exception {
-        Date date = new Date();
-        long consultaOriginal = getTime();
-        if (date.getTime() > consultaOriginal + 240000) {
-            updateTime(date.getTime());
+        Date date = new Date(); //crea una nueva variable date
+        long consultaOriginal = getTime();  //almacena el tiempo en la db
+        if (date.getTime() > consultaOriginal + 480000) { //si el tiempo en la db es mayor a x milisegundos (x minutos)
+            updateTime(date.getTime());                   //actualiza el tiempo y actualiza el scrapping
+            ManejoDeDB.updateTop50();
+            ManejoDeDB.leerInfoAnimes();
         }else{
-            //si pasa el tiempo correspondido se formará un json del top 50 y luego este se enviará
-            ManejoDeDB.guardarInformacionPreview();
+            //si no pasa el tiempo necesario solo se consultará la db
+            ManejoDeDB.leerInfoAnimes();
         }
     }
 

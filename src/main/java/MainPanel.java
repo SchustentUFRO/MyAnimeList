@@ -1,4 +1,5 @@
 import DataAndCollection.ManejoDeDB;
+import DataAndCollection.ManejoDetiempo;
 import scrapping.Media.Preview.AnimePreview;
 import scrapping.Media.Preview.Preview;
 
@@ -18,7 +19,7 @@ public class MainPanel {
     private List<AnimePreview> lista = ManejoDeDB.leerInfoAnimes();
     private DefaultListModel modelo = new DefaultListModel();
 
-    public MainPanel() throws ExecutionException, InterruptedException {
+    public MainPanel() throws Exception {
         mainFrame=new JFrame();
         mainFrame.setTitle("Panel Principal");
         mainFrame.setContentPane(mainPanel);
@@ -26,6 +27,7 @@ public class MainPanel {
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setVisible(true);
+        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLista();
         list1.addComponentListener(new ComponentAdapter() {
             @Override
@@ -35,11 +37,13 @@ public class MainPanel {
         });
     }
 
-    private void setLista() {
+    private void setLista() throws Exception {
+        ManejoDetiempo.manejarTiempo();
         list1.setModel(modelo);
         modelo.removeAllElements();
         for (int i = 0; i < lista.size(); i++) {
             modelo.addElement(lista.get(i));
         }
+
     }
 }

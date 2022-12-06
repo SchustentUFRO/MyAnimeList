@@ -78,6 +78,7 @@ public class ManejoDeDB {
 
         try {
             validarCorreo(correo);
+            contraseñaSegura(contraseña);
             // Guardamos los datos del usuario en el documento creado previamente
             ApiFuture<WriteResult> result = nuevoUsuario.set(usuario);
             JOptionPane.showMessageDialog(null,"Usuario Registrado");
@@ -202,6 +203,13 @@ public class ManejoDeDB {
             return true;
         } else {
             throw new Errores("mail no valido");
+        }
+    }
+    public static boolean contraseñaSegura(String contraseña) throws Errores {
+        if(!(contraseña.length()<8)) {
+            return true;
+        }else {
+            throw new Errores("la contraseña debe contener al menos 8 caracteres");
         }
     }
 }
