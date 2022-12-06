@@ -8,10 +8,12 @@ public class AnimePreview extends Preview implements Comparable<AnimePreview>{
     }
     public AnimePreview(int id, String nombre, String tipo, int posicionRanking, double puntuacion, String link) {
         super(id,nombre,tipo,posicionRanking,link,puntuacion);
+        tipoMedia="Anime";
     }
 
     public AnimePreview(int id, String nombre, String tipo, double puntuacion, String link) {
         super(id,nombre,tipo,link,puntuacion);
+        tipoMedia="Anime";
     }
 
     @Override

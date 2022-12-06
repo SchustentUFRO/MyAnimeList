@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="ultimos comit">
+    <list default="true" id="2bb1cd44-2640-47b6-9bf4-2e813eedbd86" name="Changes" comment="implementado la funcion delete">
+      <change afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Mostrable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_12_2022_06_36_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_12_2022_06_36_p__m___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06-12-2022_8_31__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06-12-2022_8_31__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDeDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDetiempo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataAndCollection/ManejoDetiempo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/LoginPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MainPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataAndCollection/ManejoDeDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/LoginPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LoginPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MainPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/AnimePreview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/AnimePreview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/MangaPreview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/Preview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scrapping/Media/Preview/Preview.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +26,7 @@
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>

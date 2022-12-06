@@ -1,9 +1,12 @@
 package scrapping.Media.Preview;
 
-public abstract class Preview {
+import scrapping.Media.Mostrable;
+
+public abstract class Preview implements Mostrable {
     int id,posicionRanking;
     String nombre,tipo,link;
     double puntuacion;
+    String tipoMedia;
 
     public Preview() {
     }
@@ -46,5 +49,19 @@ public abstract class Preview {
     }
     public int getPosicionRanking(){
         return posicionRanking;
+    }
+
+
+
+
+    @Override
+    public String mostrar() {
+        return tipoMedia+" con detalles: "+ "id:" + id +
+                ", posicionRanking: " + posicionRanking +
+                ", nombre: '" + nombre + '\'' +
+                ", tipo: '" + tipo + '\'' +
+                ", link: '" + link + '\'' +
+                ", puntuacion: " + puntuacion +
+                '}';
     }
 }

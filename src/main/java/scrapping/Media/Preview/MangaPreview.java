@@ -5,10 +5,12 @@ public class MangaPreview extends Preview implements Comparable<MangaPreview>{
 
     public MangaPreview(int id, String nombre, String tipo, int posicionRanking, double puntuacion, String link) {
         super(id,nombre,tipo,posicionRanking,link,puntuacion);
+        tipoMedia="Manga";
     }
 
     public MangaPreview(int id, String nombre, String tipo, double puntuacion, String link) {
         super(id,nombre,tipo,link,puntuacion);
+        tipoMedia="Manga";
     }
 
     @Override
